@@ -1,0 +1,257 @@
+{
+  "profile": {
+    "name": "Lin Zhou",
+    "position": "Associate Professor",
+    "department": "School of Automation and Intelligent Manufacturing",
+    "affiliation": "Southern University of Science and Technology",
+    "affiliationShort": "SUSTech",
+    "location": "Shenzhen, China",
+    "tagline": "Information theory, statistical inference, and learning",
+    "bio": "I am an Associate Professor in the School of Automation and Intelligent Manufacturing at Southern University of Science and Technology (SUSTech), Shenzhen, China. I received my B.E. degree in information engineering from Shanghai Jiao Tong University in 2014 and my Ph.D. degree in electrical and computer engineering from the National University of Singapore in 2018. Previously, I was an Associate Professor in the School of Cyber Science and Technology at Beihang University and a Research Fellow in the Department of Electrical Engineering and Computer Science at the University of Michigan.\n\nMy research interests include information theory, statistical inference, physical-layer security, and wireless communications. I have coauthored two research monographs in Foundations and Trends in Communications and Information Theory, published by Now Publishers, and a book in the Springer Textbooks in Telecommunication Engineering series.\n\nI am a Senior Member of IEEE and was recognized as a Young Scholar of the Chinese Information Theory Society in 2022. I have served on the technical program committees of IEEE ISIT, SSP, and ICCC, and currently serve as an Editor for IEEE Transactions on Communications.",
+    "email": "zhoul9@sustech.edu.cn",
+    "links": [
+      {
+        "label": "SUSTech",
+        "url": "https://www.sustech.edu.cn/en/faculties/linzhou.html"
+      },
+      {
+        "label": "Google Scholar",
+        "url": "https://scholar.google.com/citations?user=_ibA4RwAAAAJ"
+      },
+      {
+        "label": "DBLP",
+        "url": "https://dblp.org/pid/69/6147-2.html"
+      }
+    ],
+    "institution": "Southern University of Science and Technology",
+    "preprintUploadUrl": ""
+  },
+  "researchAreas": [
+    {
+      "id": "source-coding",
+      "title": "Information theory",
+      "description": "Finite blocklength analysis, refined asymptotics, multiterminal source coding, and communication limits."
+    },
+    {
+      "id": "testing",
+      "title": "Statistical inference",
+      "description": "Robust hypothesis testing, outlier detection, statistical classification, and sequence matching."
+    },
+    {
+      "id": "search",
+      "title": "Learning and search",
+      "description": "Statistical and active learning, noisy twenty questions estimation, and search for moving or multiple targets."
+    },
+    {
+      "id": "communications",
+      "title": "Wireless systems",
+      "description": "Learning for communications, physical layer security, low-altitude wireless networks, and networked control."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Ph.D. in Electrical and Computer Engineering",
+      "institution": "National University of Singapore",
+      "period": "August 2014 – August 2018",
+      "thesis": "On Multiterminal Source Coding: Refined Asymptotics, Mismatch and Streaming",
+      "advisors": "Vincent Y. F. Tan and Mehul Motani"
+    },
+    {
+      "degree": "Bachelor’s degree in Information Engineering",
+      "institution": "Shanghai Jiao Tong University",
+      "department": "Department of Electrical Engineering",
+      "period": "September 2010 – July 2014",
+      "projectSupervisor": "Meixia Tao"
+    }
+  ],
+  "career": [
+    {
+      "position": "Associate Professor",
+      "institution": "Southern University of Science and Technology",
+      "department": "School of Automation and Intelligent Manufacturing",
+      "period": "November 2025 – present"
+    },
+    {
+      "position": "“Zhuobai” Project Associate Professor",
+      "institution": "Beihang University",
+      "department": "School of Cyber Science and Technology",
+      "period": "August 2020 – November 2025"
+    },
+    {
+      "position": "Research Fellow",
+      "institution": "University of Michigan",
+      "department": "Department of Electrical Engineering and Computer Science",
+      "period": "January 2019 – August 2020",
+      "collaborator": "Alfred Hero"
+    },
+    {
+      "position": "Research Fellow",
+      "institution": "National University of Singapore",
+      "department": "Department of Electrical and Computer Engineering",
+      "period": "March 2018 – December 2018",
+      "collaborator": "Vincent Y. F. Tan and Mehul Motani"
+    }
+  ],
+  "teaching": [
+    {
+      "course": "Signals and Linear Systems",
+      "institution": "SUSTech",
+      "period": "Fall 2026",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Intelligent Sensors and Signal Processing",
+      "level": "Undergraduate",
+      "institution": "SUSTech",
+      "period": "Spring 2026",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Information Theoretical Security and Its Applications",
+      "level": "Graduate",
+      "institution": "Beihang University",
+      "period": "Spring 2024",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Technical English",
+      "level": "Undergraduate",
+      "institution": "Beihang University",
+      "period": "Winter 2020–2024",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Principles of Communications",
+      "level": "Undergraduate",
+      "institution": "Beihang University",
+      "period": "Spring 2021–2023; Winter 2023",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Introduction to Mobile Communications",
+      "level": "Undergraduate",
+      "institution": "Beihang University",
+      "period": "Spring 2021–2023",
+      "role": "Lecturer"
+    },
+    {
+      "course": "Signals and Communications Design Lab",
+      "institution": "National University of Singapore",
+      "period": "Winter 2015–2016",
+      "role": "Graduate Teaching Assistant"
+    },
+    {
+      "course": "Computer and Communications Network Lab",
+      "institution": "National University of Singapore",
+      "period": "Summer 2015–2016",
+      "role": "Graduate Teaching Assistant"
+    },
+    {
+      "course": "Communications Systems",
+      "institution": "National University of Singapore",
+      "period": "Winter 2016",
+      "role": "Graduate Teaching Assistant"
+    }
+  ],
+  "service": [
+    {
+      "role": "Editor",
+      "organization": "IEEE Transactions on Communications"
+    },
+    {
+      "role": "Symposium Track Chair",
+      "organization": "IEEE ICCC 2026, Communication and Information Theory",
+      "period": "2026"
+    },
+    {
+      "role": "Guest Editor",
+      "organization": "Entropy, “Physical Layer Security for Next-Generation Wireless Networks: Theory, Technologies, and Applications”",
+      "period": "2025"
+    },
+    {
+      "role": "Guest Editor",
+      "organization": "Entropy, “Information Theory and MIMO Systems”",
+      "period": "2022"
+    },
+    {
+      "role": "Session Chair",
+      "organization": "IEEE ITW, Hypothesis Testing I",
+      "period": "2024"
+    },
+    {
+      "role": "Session Chair",
+      "organization": "IEEE ITW, Source Coding",
+      "period": "2018"
+    },
+    {
+      "role": "Technical Program Committee",
+      "organization": "IEEE ISIT",
+      "period": "2025–2026"
+    },
+    {
+      "role": "Technical Program Committee",
+      "organization": "IEEE SSP",
+      "period": "2025"
+    },
+    {
+      "role": "Technical Program Committee",
+      "organization": "IEEE ICCC",
+      "period": "2024–2025"
+    },
+    {
+      "role": "Technical Program Committee",
+      "organization": "IEEE WCSP",
+      "period": "2024"
+    },
+    {
+      "role": "Technical Program Committee",
+      "organization": "IEEE VTC Fall",
+      "period": "2021"
+    },
+    {
+      "role": "Journal Reviewer",
+      "organization": "IEEE TIT, TIFS, JSAIT, JSAC, JSTSP, TWC, TCOM, and TSP"
+    },
+    {
+      "role": "Conference Reviewer",
+      "organization": "ISIT, ITW, IZS, EUSIPCO, IWCIT, ISITA, ICITS, and ICC"
+    }
+  ],
+  "honors": [
+    {
+      "title": "Young Scholar",
+      "organization": "Chinese Information Theory Society",
+      "year": "2022"
+    },
+    {
+      "title": "First Prize of Scientific and Technological Progress",
+      "organization": "Chinese Institute of Command and Control",
+      "year": "2022",
+      "details": "Rank: 3/15"
+    },
+    {
+      "title": "National Overseas High Level Young Talent Project",
+      "year": "2021"
+    },
+    {
+      "title": "Excellent Young Talent Project",
+      "organization": "Beihang University",
+      "year": "2021"
+    },
+    {
+      "title": "“Zhuobai” Talent Project",
+      "organization": "Beihang University",
+      "year": "2020"
+    },
+    {
+      "title": "NUS Research Scholarship",
+      "organization": "National University of Singapore",
+      "year": "2014–2018"
+    },
+    {
+      "title": "ISIT Student Travel Grant",
+      "year": "2016–2018"
+    }
+  ],
+  "preprints": []
+}
