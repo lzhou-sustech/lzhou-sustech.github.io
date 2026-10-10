@@ -1,0 +1,29 @@
+{
+  "id": "journal-two-lossy-problems-2019",
+  "title": "Non-Asymptotic Converse Bounds and Refined Asymptotics for Two Source Coding Problems",
+  "authors": "Lin Zhou and Mehul Motani",
+  "year": 2019,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 65, no. 10, pp. 6414–6440",
+  "doi": "10.1109/TIT.2019.2920893",
+  "url": "https://ieeexplore.ieee.org/document/8731866/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2019.2920893",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tit.2019.2920893"
+    }
+  ],
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": null,
+    "sourceUrl": "https://arxiv.org/pdf/1708.05496",
+    "sourceType": "Author manuscript / arXiv PDF",
+    "page": 1,
+    "note": "Inspected first-page author block and affiliation/email footnotes. No explicit corresponding-author or correspondence designation found. First authorship and email order are insufficient evidence; do not mark false. Bounded follow-up checked NUS/ScholarBank and Michigan-related search results, coauthor publication pages, and exact-title/document-number IEEE search-index queries; no explicit publisher correspondence statement retrieved."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "journal-multiple-targets-2022",
+  "title": "Resolution Limits of Non-Adaptive 20 Questions Search for Multiple Targets",
+  "authors": "Lin Zhou, Lin Bai, and Alfred Hero",
+  "year": 2022,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "Vol. 68, no. 8, pp. 4964–4982",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "First Author: Lin Zhou",
+    "sourceUrl": "https://shi.buaa.edu.cn/zhoulin/en/lwcg/162296/content/23679.htm",
+    "note": "Official record identifies first author only. Read author arXiv PDF https://arxiv.org/pdf/2101.06843 and searched text for Corresponding author; no designation found. No explicit corresponding-author statement located in bounded publisher search."
+  },
+  "url": "https://ieeexplore.ieee.org/document/9751771/",
+  "doi": "10.1109/tit.2022.3166074",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2022.3166074"
+    }
+  ]
+}

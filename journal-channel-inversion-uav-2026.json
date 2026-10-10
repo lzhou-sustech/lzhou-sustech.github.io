@@ -1,0 +1,28 @@
+{
+  "id": "journal-channel-inversion-uav-2026",
+  "title": "Channel Inversion Power Control-Aided Multi-User Secret and Covert UAV Communications",
+  "authors": "Yingqi He, Jinpeng Xu, Lin Zhou, Jingjing Wang, and Chunxiao Jiang",
+  "year": 2026,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 25, pp. 11002–11018",
+  "doi": "10.1109/TWC.2026.3652312",
+  "url": "https://ieeexplore.ieee.org/document/11355736/",
+  "doiUrl": "https://doi.org/10.1109/TWC.2026.3652312",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/twc.2026.3652312"
+    }
+  ],
+  "correspondingAuthor": false,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Jinpeng Xu*; *Corresponding author for this work",
+    "sourceUrl": "https://research.buaa.edu.cn/en/publications/channel-inversion-power-control-aided-multi-user-secret-and-cover/",
+    "sourceType": "official university publication record",
+    "evidenceLocation": "Author list and correspondence legend, lines 15-21"
+  }
+}

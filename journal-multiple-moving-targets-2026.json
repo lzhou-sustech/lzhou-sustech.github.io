@@ -1,0 +1,27 @@
+{
+  "id": "journal-multiple-moving-targets-2026",
+  "title": "Resolution Limits of Non-Adaptive 20 Questions Estimation for Tracking Multiple Moving Targets",
+  "authors": "Chunsong Sun, Lin Zhou, Jingjing Wang, Weijie Yuan, Chunxiao Jiang, and Alfred Hero",
+  "year": 2026,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "search",
+  "selected": true,
+  "details": "Vol. 72, no. 5, pp. 2641–2666",
+  "doi": "10.1109/TIT.2026.3669170",
+  "url": "https://ieeexplore.ieee.org/document/11417963/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2026.3669170",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tit.2026.3669170"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  }
+}

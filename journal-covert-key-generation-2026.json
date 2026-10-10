@@ -1,0 +1,27 @@
+{
+  "id": "journal-covert-key-generation-2026",
+  "title": "Capacity Region for Covert Secret Key Generation Over Multiple Access Channels",
+  "authors": "Yingxin Zhang, Lin Zhou, and Qiaosheng Zhang",
+  "year": 2026,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 72, no. 1, pp. 85–99",
+  "doi": "10.1109/TIT.2025.3633742",
+  "url": "https://ieeexplore.ieee.org/document/11250997/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2025.3633742",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tit.2025.3633742"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  }
+}

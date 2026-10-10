@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11654088",
+  "title": "Rate-Distortion-Perception Tradeoff for the Gray-Wyner Problem",
+  "authors": "Yu Yang, Yingxin Zhang, Weijie Yuan, and Lin Zhou",
+  "year": 2026,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11654088/",
+  "doi": "10.1109/isit62367.2026.11654088",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit62367.2026.11654088"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11654088/"
+    }
+  ],
+  "cvNumber": 42
+}

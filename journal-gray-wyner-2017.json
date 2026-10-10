@@ -1,0 +1,28 @@
+{
+  "id": "journal-gray-wyner-2017",
+  "title": "Discrete Lossy Gray-Wyner Revisited: Second-order Asymptotics, Large and Moderate Deviations",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2017,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": true,
+  "details": "Vol. 63, no. 3, pp. 1766–1791",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": null,
+    "sourceUrl": "https://arxiv.org/pdf/1512.01090",
+    "sourceType": "Author manuscript / arXiv PDF",
+    "page": 1,
+    "note": "Inspected first-page author block and affiliation/email footnotes. No explicit corresponding-author or correspondence designation found. First authorship and email order are insufficient evidence; do not mark false. Bounded follow-up checked NUS/ScholarBank and Michigan-related search results, coauthor publication pages, and exact-title/document-number IEEE search-index queries; no explicit publisher correspondence statement retrieved."
+  },
+  "url": "https://ieeexplore.ieee.org/document/7797178/",
+  "doi": "10.1109/tit.2016.2644670",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2016.2644670"
+    }
+  ]
+}

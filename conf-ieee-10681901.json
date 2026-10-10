@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10681901",
+  "title": "Second-order Asymptotics for Asymmetric Broadcast Channel with non-Gaussian Noise",
+  "authors": "Zhuangfei Wu, Lin Zhou, Jinpeng Xu, and Lin Bai",
+  "year": 2024,
+  "venue": "IEEE/CIC International Conference on Communications in China (ICCC)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 551–556",
+  "url": "https://ieeexplore.ieee.org/document/10681901/",
+  "doi": "10.1109/iccc62479.2024.10681901",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/iccc62479.2024.10681901"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10681901/"
+    }
+  ],
+  "cvNumber": 31
+}

@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-7541732",
+  "title": "Second-order coding region for the discrete successive refinement source coding problem",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2016,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "pp. 2414–2418",
+  "url": "https://ieeexplore.ieee.org/document/7541732/",
+  "doi": "10.1109/isit.2016.7541732",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit.2016.7541732"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/7541732/"
+    }
+  ],
+  "cvNumber": 2
+}

@@ -1,0 +1,27 @@
+{
+  "id": "journal-moving-target-2023",
+  "title": "Resolution Limits of Non-Adaptive 20 Questions Search for a Moving Target",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2023,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "Vol. 69, no. 9, pp. 5463–5484",
+  "doi": "10.1109/TIT.2023.3282632",
+  "url": "https://ieeexplore.ieee.org/document/10144100/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2023.3282632",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tit.2023.3282632"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "excerpt": "(Corresponding author: Lin Zhou.)",
+    "sourceUrl": "https://ieeexplore.ieee.org/iel7/18/10225323/10144100.pdf",
+    "note": "Explicit statement in indexed publisher final-issue PDF search excerpt; attempted full PDF retrieval returned HTTP 418. Author arXiv version lacks designation."
+  }
+}

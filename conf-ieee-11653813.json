@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11653813",
+  "title": "Exponentially Consistent Low-Complexity Outlier Hypothesis Testing for Continuous Sequences",
+  "authors": "Lina Zhu and Lin Zhou",
+  "year": 2026,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11653813/",
+  "doi": "10.1109/isit62367.2026.11653813",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit62367.2026.11653813"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11653813/"
+    }
+  ],
+  "cvNumber": 40
+}

@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11653958",
+  "title": "Second-Order Asymptotics for Covert Communication over MIMO AWGN Channels",
+  "authors": "Changhong Liu, Jingjing Wang, and Lin Zhou",
+  "year": 2026,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11653958/",
+  "doi": "10.1109/isit62367.2026.11653958",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit62367.2026.11653958"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11653958/"
+    }
+  ],
+  "cvNumber": 44
+}

@@ -1,0 +1,36 @@
+{
+  "id": "journal-edp-routing-2026",
+  "type": "journal",
+  "topic": "communications",
+  "selected": false,
+  "title": "EDP Protocol: Advancing Mobility-Aware Drone Network Connectivity With Adaptive Routing",
+  "authors": "Jingjing Wang, Houze Feng, Jianrui Chen, Lin Zhou, Mengyuan Zhang, and Chunxiao Jiang",
+  "year": 2026,
+  "venue": "IEEE Transactions on Networking",
+  "status": "published",
+  "details": "Vol. 34, pp. 2242–2255",
+  "doi": "10.1109/TON.2025.3639474",
+  "url": "https://ieeexplore.ieee.org/document/11301929/",
+  "doiUrl": "https://doi.org/10.1109/TON.2025.3639474",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/ton.2025.3639474"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://research.buaa.edu.cn/en/publications/edp-protocol-advancing-mobility-aware-drone-network-connectivity-/"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://ieeexplore.ieee.org/document/11301929/"
+    }
+  ],
+  "correspondingAuthor": false,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Mengyuan Zhang*; *Corresponding author for this work",
+    "sourceUrl": "https://research.buaa.edu.cn/en/publications/edp-protocol-advancing-mobility-aware-drone-network-connectivity-/",
+    "sourceType": "official university publication record",
+    "evidenceLocation": "Author list and correspondence legend, lines 10-17"
+  }
+}

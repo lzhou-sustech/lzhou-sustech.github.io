@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-8437616",
+  "title": "Second-Order Asymptotics of Universal JSCC for Arbitrary Sources and Additive Channels",
+  "authors": "Lin Zhou, Vincent Y.F. Tan, and Mehul Motani",
+  "year": 2018,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 1500–1504",
+  "url": "https://ieeexplore.ieee.org/document/8437616/",
+  "doi": "10.1109/isit.2018.8437616",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit.2018.8437616"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/8437616/"
+    }
+  ],
+  "cvNumber": 8
+}

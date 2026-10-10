@@ -1,0 +1,26 @@
+{
+  "id": "journal-distributed-detection-2020",
+  "title": "Distributed Detection with Empirically Observed Statistics",
+  "authors": "Haiyun He, Lin Zhou, and Vincent Y. F. Tan",
+  "year": 2020,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 66, no. 7, pp. 4349–4367",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Co-author: Lin Zhou,Vincent Y. F. Tan; First Author: Haiyun He",
+    "sourceUrl": "https://shi.buaa.edu.cn/zhoulin/en/lwcg/162296/content/20006.htm",
+    "note": "Official journal record has no corresponding-author designation. Publisher final PDF https://ieeexplore.ieee.org/iel7/18/9120400/08993856.pdf and arXiv PDF 1903.05819 were inaccessible. No inference from author order or arXiv submitter."
+  },
+  "url": "https://ieeexplore.ieee.org/document/8993856/",
+  "doi": "10.1109/tit.2020.2973093",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2020.2973093"
+    }
+  ]
+}

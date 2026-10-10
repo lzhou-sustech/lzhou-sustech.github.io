@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-8989062",
+  "title": "Distributed Detection with Empirically Observed Statistics",
+  "authors": "Haiyun He, Lin Zhou, and Vincent Y. F. Tan",
+  "year": 2019,
+  "venue": "IEEE Information Theory Workshop (ITW)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 1–5",
+  "url": "https://ieeexplore.ieee.org/document/8989062/",
+  "doi": "10.1109/itw44776.2019.8989062",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/itw44776.2019.8989062"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/8989062/"
+    }
+  ],
+  "cvNumber": 13
+}

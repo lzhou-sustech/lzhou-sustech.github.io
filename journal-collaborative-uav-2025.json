@@ -1,0 +1,26 @@
+{
+  "id": "journal-collaborative-uav-2025",
+  "title": "Collaborative Secret and Covert Communications for Multi-User Multi-Antenna Uplink UAV Systems: Design and Optimization",
+  "authors": "Jinpeng Xu, Lin Bai, Xin Xie, and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 24, no. 7, pp. 6020–6035",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10938035/",
+  "doi": "10.1109/twc.2025.3550911",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/twc.2025.3550911"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "journal-continuous-outlier-2025",
+  "title": "Exponentially Consistent Outlier Hypothesis Testing for Continuous Sequences",
+  "authors": "Lina Zhu and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 71, no. 5, pp. 3287–3304",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10915605/",
+  "doi": "10.1109/tit.2025.3548918",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2025.3548918"
+    }
+  ]
+}

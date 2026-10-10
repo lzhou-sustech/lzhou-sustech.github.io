@@ -1,0 +1,28 @@
+{
+  "id": "journal-gaussian-codebooks-2019",
+  "title": "Refined Asymptotics for Rate-Distortion using Gaussian Codebooks for Arbitrary Sources",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2019,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 65, no. 5, pp. 3145–3159",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": null,
+    "sourceUrl": "https://arxiv.org/pdf/1708.04778",
+    "sourceType": "Author manuscript / arXiv PDF",
+    "page": 1,
+    "note": "Inspected first-page author block and affiliation/email footnotes. No explicit corresponding-author or correspondence designation found. First authorship and email order are insufficient evidence; do not mark false. Bounded follow-up checked NUS/ScholarBank and Michigan-related search results, coauthor publication pages, and exact-title/document-number IEEE search-index queries; no explicit publisher correspondence statement retrieved."
+  },
+  "url": "https://ieeexplore.ieee.org/document/8576660/",
+  "doi": "10.1109/tit.2018.2886959",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2018.2886959"
+    }
+  ]
+}

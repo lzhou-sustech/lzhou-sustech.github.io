@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10095947",
+  "title": "Achievable Error Exponents for Almost Fixed-Length M-Ary Hypothesis Testing",
+  "authors": "Jun Diao, Lin Zhou, and Lin Bai",
+  "year": 2023,
+  "venue": "IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 1–5",
+  "url": "https://ieeexplore.ieee.org/document/10095947/",
+  "doi": "10.1109/icassp49357.2023.10095947",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/icassp49357.2023.10095947"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10095947/"
+    }
+  ],
+  "cvNumber": 24
+}

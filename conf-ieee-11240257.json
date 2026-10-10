@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11240257",
+  "title": "Capacity Region for Covert Secret Key Generation over Multiple Access Channels",
+  "authors": "Yingxin Zhang, Lin Zhou, and Qiaosheng Zhang",
+  "year": 2025,
+  "venue": "IEEE Information Theory Workshop (ITW)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11240257/",
+  "doi": "10.1109/itw62417.2025.11240257",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/itw62417.2025.11240257"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11240257/"
+    }
+  ],
+  "cvNumber": 39
+}

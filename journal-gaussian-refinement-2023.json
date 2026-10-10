@@ -1,0 +1,26 @@
+{
+  "id": "journal-gaussian-refinement-2023",
+  "title": "Achievable Refined Asymptotics for Successive Refinement Using Gaussian Codebooks",
+  "authors": "Lin Bai, Zhuangfei Wu, and Lin Zhou",
+  "year": 2023,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 69, no. 6, pp. 3525–3543",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 5,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10042457/",
+  "doi": "10.1109/tit.2023.3244232",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2023.3244232"
+    }
+  ]
+}

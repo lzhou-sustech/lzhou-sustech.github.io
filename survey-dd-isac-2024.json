@@ -1,0 +1,25 @@
+{
+  "id": "survey-dd-isac-2024",
+  "title": "From OTFS to DD-ISAC: Integrating Sensing and Communications in the Delay Doppler Domain",
+  "authors": "Weijie Yuan, Lin Zhou, Saeid K. Dehkordi, Shuangyang Li, Pingzhi Fan, Giuseppe Caire, and Vincent Poor",
+  "year": 2024,
+  "venue": "IEEE Wireless Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 31, no. 6, pp. 152–160",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "L. Zhou is with the School of Cyber Science and Technology",
+    "sourceUrl": "https://arxiv.org/pdf/2311.15215",
+    "note": "Author preprint first page lists all authors with affiliations and emails, with no explicit correspondence label. Princeton official publication record https://collaborate.princeton.edu/en/publications/from-otfs-to-dd-isac-integrating-sensing-and-communications-in-th/ also has no corresponding-author designation. Coauthorship and email do not establish correspondence. Bounded final pass using system1 exact title plus corresponding author and publisher-targeted variants retrieved no explicit designation."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10638525/",
+  "sources": [
+    {
+      "label": "IEEE Xplore publication record, exact title and journal issue verified",
+      "url": "https://ieeexplore.ieee.org/document/10638525/"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "journal-sasin-qos-2026",
+  "type": "journal",
+  "topic": "communications",
+  "selected": false,
+  "title": "6G Space–Air–Sea Integrated Networks: QoS-Aware Design and Optimization",
+  "authors": "Yingqi He, Jinpeng Xu, Lin Zhou, Jingjing Wang, Jun Du, and Chunxiao Jiang",
+  "year": 2026,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "status": "published",
+  "details": "Vol. 25, pp. 21717–21734",
+  "doi": "10.1109/TWC.2026.3718289",
+  "url": "https://ieeexplore.ieee.org/document/11643503/",
+  "doiUrl": "https://doi.org/10.1109/TWC.2026.3718289",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/twc.2026.3718289"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://ieeexplore.ieee.org/iel8/7693/11298242/11643503.pdf"
+    }
+  ],
+  "correspondingAuthor": false,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Jinpeng Xu*; *Corresponding author for this work",
+    "sourceUrl": "https://research.buaa.edu.cn/en/publications/6g-space-air-sea-integrated-networks-qos-aware-design-and-optimiz/",
+    "sourceType": "official university publication record",
+    "evidenceLocation": "Author list and correspondence legend, lines 10-17"
+  }
+}

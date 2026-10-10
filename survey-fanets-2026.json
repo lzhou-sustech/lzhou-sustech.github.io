@@ -1,0 +1,27 @@
+{
+  "id": "survey-fanets-2026",
+  "title": "Intelligent Foundation Model-Enabled Low-Altitude FANETs: Integrating Communication, Control, Sensing, and Security",
+  "authors": "Jinpeng Xu, Lin Zhou, Shuowen Zhang, Xin Xie, Weijie Yuan, and Jingjing Wang",
+  "year": 2026,
+  "venue": "IEEE Internet of Things Magazine",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 9, no. 2, pp. 84–92",
+  "doi": "10.1109/MIOT.2025.3648205",
+  "url": "https://ieeexplore.ieee.org/document/11357972/",
+  "doiUrl": "https://doi.org/10.1109/MIOT.2025.3648205",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/miot.2025.3648205"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 3,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  }
+}

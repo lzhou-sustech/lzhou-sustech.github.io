@@ -1,0 +1,28 @@
+{
+  "id": "journal-causal-side-information-2019",
+  "title": "Exponential Strong Converse for Successive Refinement with Causal Decoder Side Information",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2019,
+  "venue": "Entropy",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 21, no. 4, article 410",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "excerpt": "* Correspondence: linzhou@umich.edu (L.Z.); hero@eecs.umich.edu (A.H.)",
+    "sourceUrl": "https://mdpi-res.com/d_attachment/entropy/entropy-21-00410/article_deploy/entropy-21-00410-v2.pdf?version=1556173774",
+    "sourceType": "Publisher final PDF",
+    "page": 1,
+    "note": "Published version visibly marks both Lin Zhou and Alfred Hero with stars; page1 defines the stars as correspondence. Confirmed with screenshot and extracted text."
+  },
+  "url": "https://www.mdpi.com/1099-4300/21/4/410",
+  "doi": "10.3390/e21040410",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.3390/e21040410"
+    }
+  ]
+}

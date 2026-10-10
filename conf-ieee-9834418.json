@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9834418",
+  "title": "Achievable Error Exponents for Almost Fixed-Length Binary Classification",
+  "authors": "Lin Bai, Jun Diao, and Lin Zhou",
+  "year": 2022,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 1336–1341",
+  "url": "https://ieeexplore.ieee.org/document/9834418/",
+  "doi": "10.1109/isit50566.2022.9834418",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit50566.2022.9834418"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9834418/"
+    }
+  ],
+  "cvNumber": 22
+}

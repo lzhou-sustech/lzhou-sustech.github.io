@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10806954",
+  "title": "Sequential Outlier Hypothesis Testing under Universality Constraints",
+  "authors": "Jun Diao and Lin Zhou",
+  "year": 2024,
+  "venue": "IEEE Information Theory Workshop (ITW)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 378–383",
+  "url": "https://ieeexplore.ieee.org/document/10806954/",
+  "doi": "10.1109/itw61385.2024.10806954",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/itw61385.2024.10806954"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10806954/"
+    }
+  ],
+  "cvNumber": 35
+}

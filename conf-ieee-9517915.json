@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9517915",
+  "title": "Resolution Limits of Non-Adaptive 20 Questions Estimation for Multiple Targets",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2021,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "pp. 790–795",
+  "url": "https://ieeexplore.ieee.org/document/9517915/",
+  "doi": "10.1109/isit45174.2021.9517915",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit45174.2021.9517915"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9517915/"
+    }
+  ],
+  "cvNumber": 16
+}

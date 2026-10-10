@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-8254168",
+  "title": "Kaspi Problem Revisited: Non-Asymptotic Converse Bound and Second-Order Asymptotics",
+  "authors": "Lin Zhou and Mehul Motani",
+  "year": 2017,
+  "venue": "IEEE Global Communications Conference (GLOBECOM)",
+  "type": "conference",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/8254168/",
+  "doi": "10.1109/glocom.2017.8254168",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/glocom.2017.8254168"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/8254168/"
+    }
+  ],
+  "cvNumber": 5
+}

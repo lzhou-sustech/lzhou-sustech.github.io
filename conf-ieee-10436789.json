@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10436789",
+  "title": "Achievable Second-Order Asymptotics for Additive Non-Gaussian MAC and RAC",
+  "authors": "Yiming Wang, Lin Zhou, and Lin Bai",
+  "year": 2023,
+  "venue": "IEEE Global Communications Conference (GLOBECOM)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 3627–3632",
+  "url": "https://ieeexplore.ieee.org/document/10436789/",
+  "doi": "10.1109/globecom54140.2023.10436789",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/globecom54140.2023.10436789"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10436789/"
+    }
+  ],
+  "cvNumber": 28
+}

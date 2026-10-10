@@ -1,0 +1,27 @@
+{
+  "id": "journal-noisy-twenty-questions-2021",
+  "title": "Resolution Limits for the Noisy Non-Adaptive 20 Questions Problem",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2021,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "Vol. 67, no. 4, pp. 2055–2073",
+  "doi": "10.1109/TIT.2021.3049796",
+  "url": "https://ieeexplore.ieee.org/document/9316946/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2021.3049796",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tit.2021.3049796"
+    }
+  ],
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Lin Zhou and Alfred Hero",
+    "sourceUrl": "https://arxiv.org/pdf/2004.07231",
+    "note": "Read author arXiv v3 PDF and searched text for Corresponding author: no designation found. Affiliations and email addresses alone do not establish correspondence. Bounded publisher search did not produce explicit designation."
+  }
+}

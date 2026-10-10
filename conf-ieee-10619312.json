@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10619312",
+  "title": "Large Deviations for Statistical Sequence Matching",
+  "authors": "Lin Zhou, Qianyun Wang, Jingjing Wang, Lin Bai, and Alfred Hero",
+  "year": 2024,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 1275–1280",
+  "url": "https://ieeexplore.ieee.org/document/10619312/",
+  "doi": "10.1109/isit57864.2024.10619312",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit57864.2024.10619312"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10619312/"
+    }
+  ],
+  "cvNumber": 29
+}

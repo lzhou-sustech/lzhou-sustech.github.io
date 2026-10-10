@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9174277",
+  "title": "Resolution Limits of Non-Adaptive Querying for Noisy 20 Questions Estimation",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2020,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "pp. 2167–2172",
+  "url": "https://ieeexplore.ieee.org/document/9174277/",
+  "doi": "10.1109/isit44484.2020.9174277",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit44484.2020.9174277"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9174277/"
+    }
+  ],
+  "cvNumber": 14
+}

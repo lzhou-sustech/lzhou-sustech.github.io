@@ -1,0 +1,26 @@
+{
+  "id": "journal-shannon-cipher-2025",
+  "title": "Successive Refinement of Shannon Cipher System Under Maximal Leakage",
+  "authors": "Zhuangfei Wu, Lin Bai, and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 71, no. 3, pp. 1487–1503",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Zhuangfei Wu, Lin Bai and Lin Zhou",
+    "sourceUrl": "https://arxiv.org/pdf/2308.07203",
+    "note": "Author preprint title page and full-text search for Corresponding author show no explicit designation. Public searches did not retrieve a publisher PDF or institutional record that explicitly identifies correspondence. Bounded final pass using system1 exact title plus corresponding author and publisher-targeted variants retrieved no explicit designation."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10817153/",
+  "doi": "10.1109/tit.2024.3523130",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2024.3523130"
+    }
+  ]
+}

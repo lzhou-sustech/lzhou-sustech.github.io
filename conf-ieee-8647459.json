@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-8647459",
+  "title": "On the Finite Blocklength Performance of Lossy Multi-Connectivity",
+  "authors": "Lin Zhou, Albrecht Wolf, and Mehul Motani",
+  "year": 2018,
+  "venue": "IEEE Global Communications Conference (GLOBECOM)",
+  "type": "conference",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/8647459/",
+  "doi": "10.1109/glocom.2018.8647459",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/glocom.2018.8647459"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/8647459/"
+    }
+  ],
+  "cvNumber": 9
+}

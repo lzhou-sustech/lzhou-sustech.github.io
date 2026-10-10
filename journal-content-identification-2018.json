@@ -1,0 +1,28 @@
+{
+  "id": "journal-content-identification-2018",
+  "title": "Exponential Strong Converse for Content Identification with Lossy Recovery",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, Lei Yu, and Mehul Motani",
+  "year": 2018,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "Vol. 64, no. 8, pp. 5879–5897",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": null,
+    "sourceUrl": "https://arxiv.org/pdf/1702.06649",
+    "sourceType": "Author manuscript / arXiv PDF",
+    "page": 1,
+    "note": "Inspected first-page author block and affiliation/email footnotes. No explicit corresponding-author or correspondence designation found. First authorship and email order are insufficient evidence; do not mark false. Bounded follow-up checked NUS/ScholarBank and Michigan-related search results, coauthor publication pages, and exact-title/document-number IEEE search-index queries; no explicit publisher correspondence statement retrieved."
+  },
+  "url": "https://ieeexplore.ieee.org/document/8370709/",
+  "doi": "10.1109/tit.2018.2842775",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2018.2842775"
+    }
+  ]
+}

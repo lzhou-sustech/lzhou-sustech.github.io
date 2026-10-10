@@ -1,0 +1,26 @@
+{
+  "id": "journal-mac-rac-2025",
+  "title": "Achievable Second-Order Asymptotics for MAC and RAC with Additive Non-Gaussian Noise",
+  "authors": "Yiming Wang, Lin Bai, Zhuangfei Wu, and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 71, no. 7, pp. 4953–4975",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/11006123/",
+  "doi": "10.1109/tit.2025.3570647",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2025.3570647"
+    }
+  ]
+}

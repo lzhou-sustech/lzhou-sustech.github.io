@@ -1,0 +1,26 @@
+{
+  "id": "journal-private-key-helper-2020",
+  "title": "Multiple Private Key Generation for Continuous Memoryless Sources with A Helper",
+  "authors": "Lin Zhou",
+  "year": 2020,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 15, pp. 2629–2640",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "First Author: Lin Zhou",
+    "sourceUrl": "https://shi.buaa.edu.cn/zhoulin/en/lwcg/162296/content/20008.htm",
+    "note": "Official Beihang record identifies first author only. Author preprint https://arxiv.org/pdf/2009.02852 has no explicit corresponding-author label. IEEE document 8998209 was inaccessible. Sole authorship is not treated as evidence of corresponding-author designation. Bounded final pass using system1 exact title plus corresponding author and publisher-targeted variants retrieved no explicit designation."
+  },
+  "url": "https://ieeexplore.ieee.org/document/8998209/",
+  "doi": "10.1109/tifs.2020.2973865",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tifs.2020.2973865"
+    }
+  ]
+}

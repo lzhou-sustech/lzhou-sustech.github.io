@@ -1,0 +1,26 @@
+{
+  "id": "journal-second-order-outlier-2022",
+  "title": "Second-Order Asymptotically Optimal Outlier Hypothesis Testing",
+  "authors": "Lin Zhou, Yun Wei, and Alfred Hero",
+  "year": 2022,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 68, no. 6, pp. 3585–3607",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "excerpt": "(Corresponding author: Lin Zhou.)",
+    "sourceUrl": "https://ieeexplore.ieee.org/iel7/18/9778940/09714361.pdf",
+    "note": "Explicit statement in indexed publisher final-issue PDF search excerpt; attempted full PDF retrieval failed. Author arXiv version lacks designation."
+  },
+  "url": "https://ieeexplore.ieee.org/document/9714361/",
+  "doi": "10.1109/tit.2022.3151719",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2022.3151719"
+    }
+  ]
+}

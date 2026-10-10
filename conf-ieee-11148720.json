@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11148720",
+  "title": "Sparse Regression Codes for Covert Communication over Multiple Access Channels",
+  "authors": "Haolin Jiang, Yiming Wang, Zhuangfei Wu, and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE/CIC International Conference on Communications in China (ICCC)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11148720/",
+  "doi": "10.1109/iccc65529.2025.11148720",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/iccc65529.2025.11148720"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11148720/"
+    }
+  ],
+  "cvNumber": 37
+}

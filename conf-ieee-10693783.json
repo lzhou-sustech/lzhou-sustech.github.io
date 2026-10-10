@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10693783",
+  "title": "Secret and Covert Communications for Multi-Antenna Uplink UAV Systems",
+  "authors": "Jinpeng Xu, Lin Zhou, Xin Xie, and Lin Bai",
+  "year": 2024,
+  "venue": "IEEE/CIC International Conference on Communications in China (ICCC Workshops)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 593–598",
+  "url": "https://ieeexplore.ieee.org/document/10693783/",
+  "doi": "10.1109/icccworkshops62562.2024.10693783",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/icccworkshops62562.2024.10693783"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10693783/"
+    }
+  ],
+  "cvNumber": 30
+}

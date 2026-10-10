@@ -1,0 +1,33 @@
+{
+  "id": "journal-lawn-survey-2026",
+  "title": "Low-Altitude Wireless Networks: A Comprehensive Survey",
+  "authors": "Jun Wu, Yaoqi Yang, Weijie Yuan, Wenchao Liu, Jiacheng Wang, Tianqi Mao, Lin Zhou, Yuanhao Cui, Fan Liu, Geng Sun, Yiyan Ma, Nan Wu, Dezhi Zheng, Jindan Xu, Nan Ma, Zhiyong Feng, Wei Xu, Dusit Niyato, Chau Yuen, Xiaojun Jing, Zhiguo Shi, Bo Ai, Shi Jin, Dong In Kim, Jiangzhou Wang, Ping Zhang, Hao Yin, and Jun Zhang",
+  "year": 2026,
+  "venue": "China Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 23, no. 3, pp. 99–141",
+  "doi": "10.23919/JCC.fa.2025-0429.202603",
+  "url": "https://ieeexplore.ieee.org/document/11503149/",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.23919/JCC.fa.2025-0429.202603"
+    },
+    {
+      "label": "Official journal publication record",
+      "url": "https://www.cic-chinacommunications.cn/EN/10.23919/JCC.fa.2025-0429.202603"
+    },
+    {
+      "label": "Sungkyunkwan University publication record",
+      "url": "https://pure.skku.edu/en/publications/low-altitude-wireless-networks-a-comprehensive-survey/"
+    },
+    {
+      "label": "Primary arXiv author manuscript",
+      "url": "https://arxiv.org/abs/2509.11607"
+    }
+  ],
+  "correspondingAuthor": null
+}

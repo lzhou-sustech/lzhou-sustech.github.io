@@ -1,0 +1,26 @@
+{
+  "id": "journal-statistical-classification-2020",
+  "title": "Second-Order Asymptotically Optimal Statistical Classification",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2020,
+  "venue": "Information and Inference: A Journal of IMA",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 9, no. 1, pp. 81–111",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Lin Zhou ... Corresponding author. Email: linzhou@umich.edu",
+    "sourceUrl": "https://academic.oup.com/imaiai/article/9/1/81/5292489",
+    "note": "Read publisher page; corresponding-author sentence appears within Lin Zhou author block. Publisher page confirms Volume 9, Issue 1, March 2020, pp. 81-111."
+  },
+  "url": "https://academic.oup.com/imaiai/article/9/1/81/5292489",
+  "doi": "10.1093/imaiai/iay023",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1093/imaiai/iay023"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-10807011",
+  "title": "Large Deviations for Outlier Hypothesis Testing with Distribution Uncertainty",
+  "authors": "Xiaotian Zhang, Jun Diao, and Lin Zhou",
+  "year": 2024,
+  "venue": "IEEE Information Theory Workshop (ITW)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 61–66",
+  "url": "https://ieeexplore.ieee.org/document/10807011/",
+  "doi": "10.1109/itw61385.2024.10807011",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/itw61385.2024.10807011"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/10807011/"
+    }
+  ],
+  "cvNumber": 34
+}

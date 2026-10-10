@@ -1,0 +1,27 @@
+{
+  "id": "journal-mimo-mac-2026",
+  "title": "Achievable Second-Order Asymptotics for MIMO MAC with Additive Noise under Nearest Neighbor Decoding",
+  "authors": "Yiming Wang, Lin Bai, and Lin Zhou",
+  "year": 2026,
+  "venue": "IEEE Transactions on Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 74, pp. 6599–6611",
+  "doi": "10.1109/TCOMM.2026.3677156",
+  "url": "https://ieeexplore.ieee.org/document/11455495/",
+  "doiUrl": "https://doi.org/10.1109/TCOMM.2026.3677156",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tcomm.2026.3677156"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  }
+}

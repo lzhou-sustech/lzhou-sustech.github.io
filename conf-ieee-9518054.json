@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9518054",
+  "title": "Achievable Second-Order Asymptotics for Successive Refinement Using Gaussian Codebooks",
+  "authors": "Lin Bai, Zhuangfei Wu, and Lin Zhou",
+  "year": 2021,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "source-coding",
+  "selected": false,
+  "details": "pp. 2888–2893",
+  "url": "https://ieeexplore.ieee.org/document/9518054/",
+  "doi": "10.1109/isit45174.2021.9518054",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit45174.2021.9518054"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9518054/"
+    }
+  ],
+  "cvNumber": 18
+}

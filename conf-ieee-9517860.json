@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9517860",
+  "title": "Achievable Resolution Limits for the Noisy Adaptive 20 Questions Problem",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2021,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "search",
+  "selected": false,
+  "details": "pp. 784–789",
+  "url": "https://ieeexplore.ieee.org/document/9517860/",
+  "doi": "10.1109/isit45174.2021.9517860",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit45174.2021.9517860"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9517860/"
+    }
+  ],
+  "cvNumber": 17
+}

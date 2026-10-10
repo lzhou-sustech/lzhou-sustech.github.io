@@ -1,0 +1,37 @@
+{
+  "id": "journal-irs-diagnosis-2026",
+  "type": "journal",
+  "topic": "search",
+  "selected": false,
+  "title": "Over-the-Air Diagnosis of Defective Elements in Intelligent Reflecting Surface",
+  "authors": "Ziyi Zhao, Zhaorui Wang, Lin Zhou, Chunsong Sun, Shuowen Zhang, Naofal Al-Dhahir, and Liang Liu",
+  "year": 2026,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "status": "published",
+  "details": "Vol. 25, pp. 16947–16963",
+  "doi": "10.1109/TWC.2026.3690038",
+  "url": "https://ieeexplore.ieee.org/document/11515019/",
+  "doiUrl": "https://doi.org/10.1109/TWC.2026.3690038",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/twc.2026.3690038"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://research.polyu.edu.hk/en/publications/over-the-air-diagnosis-of-defective-elements-in-intelligent-refle/"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://ieeexplore.ieee.org/document/11515019/"
+    }
+  ],
+  "correspondingAuthor": false,
+  "correspondingAuthorEvidence": {
+    "excerpt": "(Corresponding author: Liang Liu.)",
+    "sourceUrl": "https://ieeexplore.ieee.org/iel8/7693/11298242/11515019.pdf",
+    "sourceType": "indexed publisher PDF",
+    "evidenceLocation": "IEEE PDF search result directly quotes first-page correspondence statement",
+    "note": "Verified from the indexed IEEE PDF text; direct IEEE access is subject to the known robot gate. The accessible arXiv v2 and PolyU record alone did not identify correspondence."
+  }
+}

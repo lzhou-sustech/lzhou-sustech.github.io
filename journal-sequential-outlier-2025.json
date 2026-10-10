@@ -1,0 +1,26 @@
+{
+  "id": "journal-sequential-outlier-2025",
+  "title": "Sequential Outlier Hypothesis Testing under Universality Constraints",
+  "authors": "Jun Diao and Lin Zhou",
+  "year": 2025,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": true,
+  "details": "Vol. 71, no. 9, pp. 6602–6625",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/11051023/",
+  "doi": "10.1109/tit.2025.3583065",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2025.3583065"
+    }
+  ]
+}

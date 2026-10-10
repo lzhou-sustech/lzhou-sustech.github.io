@@ -1,0 +1,27 @@
+{
+  "id": "journal-broadcast-dispersion-2025",
+  "title": "The Dispersion of Broadcast Channels With Degraded Message Sets Using Spherical Codebooks",
+  "authors": "Zhuangfei Wu, Lin Bai, Jinpeng Xu, Lin Zhou, and Mehul Motani",
+  "year": 2026,
+  "venue": "IEEE Transactions on Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 74, pp. 1319–1335",
+  "doi": "10.1109/TCOMM.2025.3626028",
+  "url": "https://ieeexplore.ieee.org/document/11218870/",
+  "doiUrl": "https://doi.org/10.1109/TCOMM.2025.3626028",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/tcomm.2025.3626028"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 4,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-9834868",
+  "title": "Asymptotics for Outlier Hypothesis Testing",
+  "authors": "Lin Zhou, Yun Wei, and Alfred Hero",
+  "year": 2022,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "pp. 3303–3308",
+  "url": "https://ieeexplore.ieee.org/document/9834868/",
+  "doi": "10.1109/isit50566.2022.9834868",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit50566.2022.9834868"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/9834868/"
+    }
+  ],
+  "cvNumber": 20
+}

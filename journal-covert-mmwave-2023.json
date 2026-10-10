@@ -1,0 +1,26 @@
+{
+  "id": "journal-covert-mmwave-2023",
+  "title": "Covert Communication for Spatially Sparse mmWave Massive MIMO Channels",
+  "authors": "Lin Bai, Jinpeng Xu, and Lin Zhou",
+  "year": 2023,
+  "venue": "IEEE Transactions on Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 71, no. 3, pp. 1615–1630",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 5,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10021654/",
+  "doi": "10.1109/tcomm.2023.3237998",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tcomm.2023.3237998"
+    }
+  ]
+}

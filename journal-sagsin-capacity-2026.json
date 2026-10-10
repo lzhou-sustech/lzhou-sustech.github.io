@@ -1,0 +1,33 @@
+{
+  "id": "journal-sagsin-capacity-2026",
+  "type": "journal",
+  "topic": "communications",
+  "selected": false,
+  "title": "6G Space-Air-Ground-Sea Integrated Networks: Outage and Ergodic Capacity Analysis",
+  "authors": "Jinpeng Xu, Yingqi He, Lin Zhou, Jingjing Wang, Jun Du, and Chunxiao Jiang",
+  "year": 2026,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "status": "published",
+  "details": "Vol. 25, pp. 19692–19708",
+  "doi": "10.1109/TWC.2026.3709383",
+  "url": "https://ieeexplore.ieee.org/document/11603906/",
+  "doiUrl": "https://doi.org/10.1109/TWC.2026.3709383",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/twc.2026.3709383"
+    },
+    {
+      "label": "Corroborating publication record",
+      "url": "https://dblp.uni-trier.de/rec/journals/twc/XuHZWDJ26.html"
+    }
+  ],
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "excerpt": "(Corresponding author: Lin Zhou.)",
+    "sourceUrl": "https://www.researchgate.net/publication/408442709_6G_Space-Air-Ground-Sea_Integrated_Networks_Outage_and_Ergodic_Capacity_Analysis",
+    "sourceType": "public full text uploaded by coauthor Jingjing Wang",
+    "evidenceLocation": "First-page footnote; parsed line 158",
+    "note": "The accessible full text is an author-uploaded manuscript, uploaded July 4, 2026; not claimed to be a directly opened final publisher PDF."
+  }
+}

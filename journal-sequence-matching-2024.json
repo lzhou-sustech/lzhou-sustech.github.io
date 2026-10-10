@@ -1,0 +1,26 @@
+{
+  "id": "journal-sequence-matching-2024",
+  "title": "Large and Small Deviations for Statistical Sequence Matching",
+  "authors": "Lin Zhou, Qianyun Wang, Jingjing Wang, Lin Bai, and Alfred Hero",
+  "year": 2024,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": true,
+  "details": "Vol. 70, no. 11, pp. 7532–7562",
+  "correspondingAuthor": false,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Lin Bai*; *此作品的通讯作者",
+    "sourceUrl": "https://research.buaa.edu.cn/zh/publications/large-and-small-deviations-for-statistical-sequence-matching/",
+    "note": "Official Beihang University publication record explicitly marks Lin Bai, not Lin Zhou, as corresponding author (star legend: corresponding author of this work). Full record opened successfully, lines 15–21. DOI 10.1109/TIT.2024.3464586. Earlier author arXiv omitted correspondence; use the final institutional record."
+  },
+  "url": "https://ieeexplore.ieee.org/document/10694735/",
+  "doi": "10.1109/tit.2024.3464586",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tit.2024.3464586"
+    }
+  ]
+}

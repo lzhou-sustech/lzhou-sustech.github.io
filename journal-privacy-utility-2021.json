@@ -1,0 +1,26 @@
+{
+  "id": "journal-privacy-utility-2021",
+  "title": "Privacy-Utility Tradeoff for Hypothesis Testing Over A Noisy Channel",
+  "authors": "Lin Zhou and Daming Cao",
+  "year": 2021,
+  "venue": "IEEE Transactions on Information Forensics and Security",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 16, pp. 4078–4091",
+  "correspondingAuthor": null,
+  "correspondingAuthorEvidence": {
+    "excerpt": "Lin Zhou and Daming Cao",
+    "sourceUrl": "https://arxiv.org/pdf/2006.02869",
+    "note": "Author preprint v5 first page gives affiliations and email addresses but no explicit corresponding-author designation; full-text search for corresponding found no occurrence. Official SUSTech list does not label this entry. No inference from first authorship. Bounded final pass using system1 exact title plus corresponding author and publisher-targeted variants retrieved no explicit designation."
+  },
+  "url": "https://ieeexplore.ieee.org/document/9448074/",
+  "doi": "10.1109/tifs.2021.3087357",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/tifs.2021.3087357"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "conf-ieee-11654021",
+  "title": "Secret Key Capacity under Maximal Leakage",
+  "authors": "Yingxin Zhang and Lin Zhou",
+  "year": 2026,
+  "venue": "IEEE International Symposium on Information Theory (ISIT)",
+  "type": "conference",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "pp. 1–6",
+  "url": "https://ieeexplore.ieee.org/document/11654021/",
+  "doi": "10.1109/isit62367.2026.11654021",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/isit62367.2026.11654021"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11654021/"
+    }
+  ],
+  "cvNumber": 45
+}

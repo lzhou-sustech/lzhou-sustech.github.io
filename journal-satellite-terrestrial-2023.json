@@ -1,0 +1,26 @@
+{
+  "id": "journal-satellite-terrestrial-2023",
+  "title": "Efficient User Scheduling for Uplink Hybrid Satellite-Terrestrial Communication",
+  "authors": "Lina Zhu, Lin Bai, Lin Zhou, and Jinho Choi",
+  "year": 2023,
+  "venue": "IEEE Transactions on Wireless Communications",
+  "type": "journal",
+  "status": "published",
+  "topic": "communications",
+  "selected": false,
+  "details": "Vol. 22, no. 3, pp. 1885–1899",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 5,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://ieeexplore.ieee.org/document/9903373/",
+  "doi": "10.1109/twc.2022.3207474",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.1109/twc.2022.3207474"
+    }
+  ]
+}

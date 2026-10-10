@@ -1,0 +1,26 @@
+{
+  "id": "journal-two-hop-converse-2019",
+  "title": "A Strong Converse Theorem for Hypothesis Testing Against Independence over a Two-Hop Network",
+  "authors": "Daming Cao, Lin Zhou, and Vincent Y. F. Tan",
+  "year": 2019,
+  "venue": "Entropy",
+  "type": "journal",
+  "status": "published",
+  "topic": "testing",
+  "selected": false,
+  "details": "Vol. 21, no. 12, article 1171",
+  "correspondingAuthor": true,
+  "correspondingAuthorEvidence": {
+    "source": "Author-supplied CV",
+    "page": 6,
+    "note": "An asterisk explicitly follows Lin Zhou; the CV defines this as corresponding authorship."
+  },
+  "url": "https://www.mdpi.com/1099-4300/21/12/1171",
+  "doi": "10.3390/e21121171",
+  "sources": [
+    {
+      "label": "Publisher-deposited Crossref metadata, exact title and author match",
+      "url": "https://api.crossref.org/works/10.3390/e21121171"
+    }
+  ]
+}
