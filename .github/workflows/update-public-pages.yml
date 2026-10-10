@@ -1,0 +1,55 @@
+name: Update public paper pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'ai-aided-papers.html'
+      - 'preprints/**'
+      - 'ai-papers/**'
+      - 'maintain_public_site.py'
+      - '.github/workflows/update-public-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-public-paper-pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - name: Check out the latest main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Remove public editing controls and refresh PDF links
+        run: python3 maintain_public_site.py
+      - name: Commit only the updated public pages
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.html ai-aided-papers.html; then
+            echo 'updated=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html ai-aided-papers.html
+          git commit -m 'Refresh public PDF links and remove editing controls'
+          git push origin HEAD:main
+          echo 'updated=true' >> "$GITHUB_OUTPUT"
+      - name: Request publication of the updated pages
+        if: steps.commit.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
