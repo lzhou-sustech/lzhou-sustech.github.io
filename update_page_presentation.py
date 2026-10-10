@@ -3,7 +3,9 @@
 
 Run after maintain_public_site.py. Citation HTML and links are preserved verbatim.
 Journal, conference, and book identifiers remain unchanged when visitors filter.
-Only the three presentation HTML files are written. No PDF or metadata is changed.
+Preprints form one continuous visible list. Top-level total-count summaries are
+omitted. Only the three presentation HTML files are written. No PDF or metadata
+is changed.
 """
 from __future__ import annotations
 
@@ -25,7 +27,6 @@ NUMBER_STYLE = '''  <style id="paper-list-presentation">
     ol.publication-list, ol.arxiv-list {padding-left:0;list-style:none;}
     li.publication, li.arxiv-paper {position:relative;list-style:none;padding-left:3.8em;}
     .paper-number {position:absolute;left:0;top:0;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
-    .paper-total {margin:-8px 0 14px;}
     .publication-group > h2 {margin-top:25px;}
     .publication-group[hidden], li.publication[hidden] {display:none!important;}
     @media(max-width:430px) {li.publication, li.arxiv-paper {padding-left:3.5em;}}
@@ -75,17 +76,10 @@ def labelled_item(attributes: str, body: str, number: int, prefix: str, label: s
             f'[{identifier}]</span>{body}</li>')
 
 
-def summary(source: str, section: str, text: str) -> str:
-    element = f'<p class="secondary paper-total" id="{section}-total"><strong>{escape(text)}</strong></p>'
-    pattern = rf'<p\b[^>]*\bid="{section}-total"[^>]*>.*?</p>'
-    if re.search(pattern, source, re.S):
-        result, count = re.subn(pattern, lambda _: element, source, flags=re.S)
-    else:
-        heading = rf'(<h1\b[^>]*\bid="{section}-title"[^>]*>.*?</h1>)'
-        result, count = re.subn(heading, lambda m: m[1] + '\n        ' + element, source, flags=re.S)
-    if count != 1:
-        raise ValueError(f'{section}: expected one count location')
-    return result
+def remove_total_summary(source: str, section: str) -> str:
+    """Remove the old page-level count sentence without touching paper labels."""
+    pattern = rf'\s*<p\b[^>]*\bid="{section}-total"[^>]*>.*?</p>'
+    return re.sub(pattern, '', source, flags=re.S)
 
 
 def presentation(source: str, *, publication: bool) -> str:
@@ -143,29 +137,57 @@ def publications(source: str) -> str:
         attributes = remove_attrs(match['attrs'], 'aria-pressed')
         return f'<button{attributes} aria-pressed="{str(name == "all").lower()}">{labels[name]} <span>({counts[name]})</span></button>'
     source = button.sub(update_button, source)
-    text = (f'Total: {len(papers)} publications — {counts["journal"]} journal articles, '
-            f'{counts["conference"]} conference papers, and {counts["book"]} books and monographs.')
-    return presentation(summary(source, 'publications', text), publication=True)
+    return presentation(remove_total_summary(source, 'publications'), publication=True)
 
 
 def preprints(source: str) -> str:
-    block_pattern = re.compile(r'<(?P<tag>ol|ul)\b(?P<attrs>[^>]*\bclass="arxiv-list"[^>]*)>(?P<body>.*?)</(?P=tag)>', re.S)
-    total = len(items(source, 'arxiv-paper'))
-    remaining = total
-    def number_block(match: re.Match[str]) -> str:
-        nonlocal remaining
-        papers = items(match['body'], 'arxiv-paper')
-        start = remaining
-        entries = []
-        for attributes, body, _ in papers:
-            entries.append(labelled_item(attributes, body, remaining, '', 'Preprint'))
-            remaining -= 1
-        attributes = remove_attrs(match['attrs'], 'start|reversed|role')
-        return f'<ol{attributes} reversed start="{start or 1}" role="list">' + '\n'.join(entries) + '</ol>'
-    source, count = block_pattern.subn(number_block, source)
-    if count < 1 or remaining != 0:
+    # Older papers belong in the same visible list, never a disclosure control.
+    disclosure = re.compile(
+        r'<details\b(?P<attrs>[^>]*)>(?P<body>.*?)</details>', re.S)
+
+    def unwrap_older(match: re.Match[str]) -> str:
+        values = attrs('<details' + match['attrs'] + '>')
+        if 'older-arxiv' not in (values.get('class') or '').split():
+            return match[0]
+        if re.search(r'<details\b', match['body']):
+            raise ValueError('Nested preprint disclosure requires review')
+        body, count = re.subn(r'^\s*<summary\b[^>]*>.*?</summary>\s*', '',
+                              match['body'], count=1, flags=re.S)
+        if count != 1:
+            raise ValueError('Expected one older-preprints disclosure label')
+        return body
+
+    source = disclosure.sub(unwrap_older, source)
+    block_pattern = re.compile(
+        r'<(?P<tag>ol|ul)\b(?P<attrs>[^>]*\bclass="arxiv-list"[^>]*)>'
+        r'(?P<body>.*?)</(?P=tag)>', re.S)
+    blocks = list(block_pattern.finditer(source))
+    if not blocks:
+        raise ValueError('Preprint list is missing; refusing to remove it')
+    # Merge only adjacent lists. Unexpected content between lists is not deleted.
+    for left, right in zip(blocks, blocks[1:]):
+        if source[left.end():right.start()].strip():
+            raise ValueError('Unexpected content between preprint lists requires review')
+    papers = []
+    for block in blocks:
+        block_papers = items(block['body'], 'arxiv-paper')
+        if (re.search(r'<(?:ol|ul)\b', block['body']) or
+                len(re.findall(r'<li\b', block['body'])) != len(block_papers)):
+            raise ValueError('Unexpected preprint-list structure requires review')
+        papers.extend(block_papers)
+    if len(papers) != len(items(source, 'arxiv-paper')):
         raise ValueError('Could not account for every arXiv paper')
-    return presentation(summary(source, 'preprints', f'Total: {total} arXiv preprints.'), publication=False)
+    identifiers = [values.get('id') for _, _, values in papers]
+    if not all(identifiers) or len(set(identifiers)) != len(identifiers):
+        raise ValueError('Every preprint must have one unique existing ID')
+    total = len(papers)
+    entries = [labelled_item(a, b, total-i, '', 'Preprint')
+               for i, (a, b, _) in enumerate(papers)]
+    attributes = remove_attrs(blocks[0]['attrs'], 'start|reversed|role')
+    replacement = (f'<ol{attributes} reversed start="{total or 1}" role="list">'
+                   + '\n'.join(entries) + '</ol>')
+    source = source[:blocks[0].start()] + replacement + source[blocks[-1].end():]
+    return presentation(remove_total_summary(source, 'preprints'), publication=False)
 
 
 def expand_homepage(source: str) -> str:
