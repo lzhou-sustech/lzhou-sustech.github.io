@@ -1,28 +1,163 @@
 #!/usr/bin/env python3
-"""Remove public editing controls and list PDFs committed by the site owner.
+"""Maintain separate, read-only pages and the owner's public AI-paper listing.
 
-Only index.html and ai-aided-papers.html are changed. No source publications,
-PDFs, or other assets are deleted. Repository write access is enforced by GitHub,
-not by this script. Every file committed to the public repository is public.
+The original single-page layout is migrated once, without rewriting its paper
+citations. Later runs preserve each page's content and refresh only navigation,
+the arXiv-only preprint layout, and AI-paper links. Source metadata, PDFs, images,
+and all other assets are left unchanged. GitHub enforces repository write access.
 """
 from __future__ import annotations
 
 import html
 import json
 import re
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
+PAGES = (
+    ('home', 'index.html', 'Home / About'),
+    ('research', 'research.html', 'Research'),
+    ('publications', 'publications.html', 'Publications'),
+    ('preprints', 'preprints.html', 'Preprints'),
+    ('ai-papers', 'ai-aided-papers.html', 'AI-Aided Papers'),
+    ('teaching', 'teaching.html', 'Teaching & service'),
+    ('contact', 'contact.html', 'Contact'),
+)
+BEGIN = '<!-- PUBLIC-PDFS:START -->'
+END = '<!-- PUBLIC-PDFS:END -->'
+NOTICE = ('<p class="draft-notice">AI-assisted working drafts. These results '
+          'have not been fully checked and may contain errors.</p>')
+LEGACY = '''  <script id="legacy-section-links">
+    (() => {
+      const pages = {research: 'research.html', publications: 'publications.html',
+        preprints: 'preprints.html', 'ai-papers': 'ai-aided-papers.html',
+        teaching: 'teaching.html', contact: 'contact.html'};
+      const openLegacyLink = () => {
+        const destination = pages[window.location.hash.slice(1)];
+        if (destination) window.location.replace(destination);
+      };
+      openLegacyLink();
+      window.addEventListener('hashchange', openLegacyLink);
+    })();
+  </script>
+'''
 
 
-def pdf_listing(folder: Path, *, ai: bool) -> str:
+class Audit(HTMLParser):
+    """Read the structural facts required to validate every generated page."""
+    def __init__(self, source: str) -> None:
+        super().__init__(convert_charrefs=True)
+        self.ids: list[str] = []
+        self.sections: list[str] = []
+        self.nav: list[tuple[str, str | None]] = []
+        self.classes: list[str] = []
+        self.h1 = 0
+        self.in_nav = False
+        self.feed(source)
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        if values.get('id'):
+            self.ids.append(values['id'])
+        self.classes.extend((values.get('class') or '').split())
+        if tag == 'section':
+            self.sections.append(values.get('id', ''))
+        if tag == 'h1':
+            self.h1 += 1
+        if tag == 'nav' and values.get('aria-label') == 'Main navigation':
+            self.in_nav = True
+        if tag == 'a' and self.in_nav:
+            self.nav.append((values.get('href', ''), values.get('aria-current')))
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == 'nav':
+            self.in_nav = False
+
+
+def strip_controls(source: str) -> str:
+    source = re.sub(r'<div class="preprint-upload">.*?</div>', '', source, flags=re.S)
+    return re.sub(r'<details class="paper-manager">.*?</details>', '', source, flags=re.S)
+
+
+def navigation(filename: str) -> str:
+    links = []
+    for _, target, label in PAGES:
+        active = ' aria-current="page"' if target == filename else ''
+        links.append(f'        <a href="{target}"{active}>{html.escape(label)}</a>')
+    return '<nav aria-label="Main navigation">\n' + '\n'.join(links) + '\n      </nav>'
+
+
+def normalize_navigation(source: str, filename: str) -> str:
+    source = strip_controls(source)
+    source, count = re.subn(r'<nav aria-label="Main navigation">.*?</nav>',
+                            lambda _: navigation(filename), source, flags=re.S)
+    if count != 1:
+        raise ValueError(f'{filename}: expected one navigation menu')
+    for section, target, _ in PAGES:
+        for old in (f'#{section}', f'index.html#{section}'):
+            source = source.replace(f'href="{old}"', f'href="{target}"')
+    return source
+
+
+def extract_section(source: str, section: str) -> str:
+    pattern = rf'<section\b[^>]*\bid="{re.escape(section)}"[^>]*>.*?</section>'
+    matches = re.findall(pattern, source, flags=re.S)
+    if len(matches) != 1:
+        raise ValueError(f'Expected exactly one original {section} section')
+    # The original site's sections are not nested; fail rather than truncate one.
+    if len(Audit(matches[0]).sections) != 1:
+        raise ValueError(f'Nested sections require manual migration: {section}')
+    return matches[0]
+
+
+def arxiv_only(source: str) -> str:
+    source = strip_controls(source)
+    source = re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END), '', source, flags=re.S)
+    source = re.sub(r'<h3>Uploaded PDFs</h3>', '', source)
+    source = re.sub(r'<div class="preprint-empty">.*?</div>', '', source, flags=re.S)
+    source = re.sub(r'<ul class="preprint-list">.*?</ul>', '', source, flags=re.S)
+    source = re.sub(r'<p class="secondary">AI-assisted working drafts are listed.*?</p>',
+                    '', source, flags=re.S)
+    return source
+
+
+def render_page(template: str, section: str, filename: str, label: str) -> str:
+    if filename != 'index.html':
+        section = re.sub(r'<h2(\s+id="[^\"]+-title")>(.*?)</h2>',
+                         r'<h1\1>\2</h1>', section, count=1, flags=re.S)
+    title = 'Lin Zhou — Academic Homepage' if filename == 'index.html' else f'{label} — Lin Zhou'
+    source = re.sub(r'<title>.*?</title>', lambda _: f'<title>{html.escape(title)}</title>',
+                    template, count=1, flags=re.S)
+    descriptions = {
+        'research.html': 'Research interests of Lin Zhou at SUSTech.',
+        'publications.html': 'Publications by Lin Zhou: books, monographs, journal articles, and conference papers.',
+        'preprints.html': 'arXiv preprints by Lin Zhou.',
+        'teaching.html': 'Teaching and professional service of Lin Zhou.',
+        'contact.html': 'Contact information for Lin Zhou at SUSTech.',
+    }
+    if filename in descriptions:
+        source = re.sub(r'<meta name="description" content="[^"]*">',
+                        lambda _: '<meta name="description" content="' +
+                        html.escape(descriptions[filename], quote=True) + '">', source, count=1)
+    footer = ('<footer><span>© Lin Zhou</span>'
+              '<a href="#main">Back to top</a></footer>')
+    replacement = f'<main id="main">\n      {section}\n      {footer}\n    </main>'
+    source, count = re.subn(r'<main id="main">.*?</main>', lambda _: replacement,
+                            source, count=1, flags=re.S)
+    if count != 1:
+        raise ValueError('Could not identify the original page content')
+    if filename == 'index.html' and 'id="legacy-section-links"' not in source:
+        source = source.replace('</head>', LEGACY + '</head>', 1)
+    return normalize_navigation(source, filename)
+
+
+def pdf_listing(folder: Path) -> str:
     cards: list[str] = []
-    if folder.is_dir():
-        pdfs = sorted(
-            (p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
-            key=lambda p: p.name.casefold(),
-        )
+    if folder.is_dir() and not folder.is_symlink():
+        pdfs = sorted((p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
+                      key=lambda p: p.relative_to(folder).as_posix().casefold())
         for pdf in pdfs:
             if pdf.is_symlink() or not pdf.resolve().is_relative_to(folder.resolve()):
                 continue
@@ -40,7 +175,6 @@ def pdf_listing(folder: Path, *, ai: bool) -> str:
             if not isinstance(title, str):
                 raise ValueError(f'PDF title must be text: {metadata_path}')
             url = html.escape(quote(pdf.relative_to(ROOT).as_posix(), safe='/'), quote=True)
-            title_html = html.escape(title)
             authors = metadata.get('authors', '')
             if isinstance(authors, list):
                 authors = ', '.join(str(author) for author in authors)
@@ -50,56 +184,79 @@ def pdf_listing(folder: Path, *, ai: bool) -> str:
             size = pdf.stat().st_size
             size_label = f'{size / 1_048_576:.1f} MB' if size >= 1_048_576 else f'{max(1, round(size / 1024))} KB'
             cards.append(
-                f'<li class="preprint-card"><h3><a href="{url}">{title_html}</a></h3>'
+                f'<li class="preprint-card"><h3><a href="{url}">{html.escape(title)}</a></h3>'
                 f'{authors_html}{description_html}<p class="preprint-links">'
                 f'<a href="{url}">Read PDF</a> <a href="{url}" download>Download PDF</a>'
                 f' <span class="preprint-size">{size_label}</span></p></li>'
             )
-    if cards:
-        return '<ul class="preprint-list">\n' + '\n'.join(cards) + '\n</ul>'
-    text = 'No AI-assisted PDFs are currently listed.' if ai else 'No PDFs are currently listed.'
-    return f'<div class="preprint-empty"><p>{text}</p></div>'
+    if not cards:
+        return '<p class="secondary">To be updated.</p>'
+    return NOTICE + '\n<ul class="preprint-list">\n' + '\n'.join(cards) + '\n</ul>'
 
 
-def refresh_page(source: str, listing: str) -> str:
-    # These exact containers contain editing links only, never public papers.
-    source = re.sub(r'<div class="preprint-upload">.*?</div>', '', source, flags=re.S)
-    source = re.sub(r'<details class="paper-manager">.*?</details>', '', source, flags=re.S)
-    begin = '<!-- PUBLIC-PDFS:START -->'
-    end = '<!-- PUBLIC-PDFS:END -->'
-    replacement = f'{begin}\n{listing}\n{end}'
-    if begin in source or end in source:
-        if source.count(begin) != 1 or source.count(end) != 1:
-            raise ValueError('Expected exactly one complete PUBLIC-PDFS section')
-        source, count = re.subn(re.escape(begin) + r'.*?' + re.escape(end), lambda _: replacement, source, flags=re.S)
-    else:
-        # Migrate the original empty placeholder or original generated PDF list.
-        pattern = r'<div class="preprint-empty">.*?</div>|<ul class="preprint-list">.*?</ul>'
-        matches = list(re.finditer(pattern, source, flags=re.S))
-        if len(matches) != 1:
-            raise ValueError('Could not identify one uploaded-PDF section; no files have been saved')
-        source, count = re.subn(pattern, lambda _: replacement, source, count=1, flags=re.S)
-    if count != 1:
-        raise ValueError('Could not update the uploaded-PDF section')
-    if 'class="preprint-upload"' in source or 'class="paper-manager"' in source:
-        raise ValueError('Public editing controls remain')
-    return source
+def refresh_ai(source: str) -> str:
+    # Include the disclaimer only when actual papers are available to read.
+    source = re.sub(r'<p class="draft-notice">.*?</p>', '', source, flags=re.S)
+    if source.count(BEGIN) != 1 or source.count(END) != 1:
+        raise ValueError('AI page must have exactly one complete PUBLIC-PDFS section')
+    replacement = f'{BEGIN}\n{pdf_listing(ROOT / "ai-papers")}\n{END}'
+    return re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END), lambda _: replacement,
+                  source, count=1, flags=re.S)
+
+
+def validate(pages: dict[str, str]) -> None:
+    expected_nav = [filename for _, filename, _ in PAGES]
+    for section, filename, _ in PAGES:
+        source = pages[filename]
+        audit = Audit(source)
+        if audit.sections != [section] or audit.h1 != 1:
+            raise ValueError(f'{filename}: expected one dedicated section and one main heading')
+        if len(audit.ids) != len(set(audit.ids)):
+            raise ValueError(f'{filename}: duplicate element IDs')
+        if [href for href, _ in audit.nav] != expected_nav:
+            raise ValueError(f'{filename}: incorrect page navigation')
+        if [href for href, current in audit.nav if current == 'page'] != [filename]:
+            raise ValueError(f'{filename}: incorrect active navigation item')
+        if any(c in audit.classes for c in ('preprint-upload', 'paper-manager', 'remove-paper')):
+            raise ValueError(f'{filename}: public editing controls remain')
+    preprints = pages['preprints.html']
+    if any(text in preprints for text in ('Uploaded PDFs', BEGIN, 'preprint-list', 'preprint-empty')):
+        raise ValueError('Preprints must contain arXiv papers only')
 
 
 def main() -> None:
-    pending: list[tuple[Path, str]] = []
-    for filename, folder, ai in [('index.html', 'preprints', False), ('ai-aided-papers.html', 'ai-papers', True)]:
-        path = ROOT / filename
-        original = path.read_text(encoding='utf-8')
-        updated = refresh_page(original, pdf_listing(ROOT / folder, ai=ai))
-        if updated != original:
-            pending.append((path, updated))
-    # Validate both pages before writing either one.
-    for path, updated in pending:
-        path.write_text(updated, encoding='utf-8')
-        print(f'Updated {path.name}')
+    originals = {filename: (ROOT / filename).read_text(encoding='utf-8')
+                 for _, filename, _ in PAGES if (ROOT / filename).is_file()}
+    if 'index.html' not in originals or 'ai-aided-papers.html' not in originals:
+        raise ValueError('The homepage and AI-paper page must both exist')
+    pages = dict(originals)
+    if 'publications' in Audit(originals['index.html']).sections:
+        # One-time migration: copy the existing HTML, preserving every citation.
+        for section, filename, label in PAGES:
+            if section == 'ai-papers':
+                continue
+            if filename != 'index.html' and filename in originals:
+                raise ValueError(f'Refusing to overwrite existing page during migration: {filename}')
+            content = extract_section(originals['index.html'], section)
+            if section == 'preprints':
+                content = arxiv_only(content)
+            pages[filename] = render_page(originals['index.html'], content, filename, label)
+    missing = [filename for _, filename, _ in PAGES if filename not in pages]
+    if missing:
+        raise ValueError('Missing dedicated pages: ' + ', '.join(missing))
+    for _, filename, _ in PAGES:
+        pages[filename] = normalize_navigation(pages[filename], filename)
+    pages['preprints.html'] = arxiv_only(pages['preprints.html'])
+    pages['ai-aided-papers.html'] = refresh_ai(pages['ai-aided-papers.html'])
+    validate(pages)
+    # Validate all seven outputs before changing any file. Never delete assets.
+    pending = [(filename, source) for filename, source in pages.items()
+               if source != originals.get(filename)]
+    for filename, source in pending:
+        (ROOT / filename).write_text(source, encoding='utf-8')
+        print(f'Updated {filename}')
     if not pending:
-        print('Public pages are already current')
+        print('All seven public pages are already current')
 
 
 if __name__ == '__main__':
