@@ -1,0 +1,34 @@
+{
+  "id": "arxiv-2601-11257",
+  "arxivId": "2601.11257",
+  "title": "Rate-Distortion-Perception Tradeoff for the Gray-Wyner Problem",
+  "authors": "Yu Yang, Yingxin Zhang, Weijie Yuan, Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2601.11257",
+  "pdfUrl": "https://arxiv.org/pdf/2601.11257",
+  "submitted": "2026-01-16",
+  "submittedTimestamp": "2026-01-16T13:03:05Z",
+  "updated": "2026-01-16",
+  "updatedTimestamp": "2026-01-16T13:03:05Z",
+  "sources": [
+    "https://arxiv.org/abs/2601.11257",
+    "https://arxiv.org/pdf/2601.11257",
+    "https://arxiv.org/html/2601.11257v1",
+    "https://export.arxiv.org/api/query?id_list=2601.11257"
+  ],
+  "identityEvidence": "Primary HTML identifies all authors at SUSTech and gives zhoul9@sustech.edu.cn; known collaborators Yu Yang, Yingxin Zhang and Weijie Yuan.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "conf-ieee-11654088"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2601.11257",
+      "https://api.crossref.org/works/10.1109/isit62367.2026.11654088",
+      "https://ieeexplore.ieee.org/document/11654088/"
+    ]
+  }
+}

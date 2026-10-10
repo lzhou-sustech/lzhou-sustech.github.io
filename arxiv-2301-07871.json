@@ -1,0 +1,34 @@
+{
+  "id": "arxiv-2301-07871",
+  "arxivId": "2301.07871",
+  "title": "On Finite Blocklength Lossy Source Coding",
+  "authors": "Lin Zhou, Mehul Motani",
+  "year": 2023,
+  "url": "https://arxiv.org/abs/2301.07871",
+  "pdfUrl": "https://arxiv.org/pdf/2301.07871",
+  "journalRef": "Foundations and Trends in Communications and Information Theory: Vol. 20: No. 3, pp 157-389 (2023)",
+  "submitted": "2023-01-19",
+  "submittedTimestamp": "2023-01-19T03:59:40Z",
+  "sources": [
+    "https://arxiv.org/abs/2301.07871",
+    "https://export.arxiv.org/api/query?id_list=2301.07871"
+  ],
+  "identityEvidence": "Primary arXiv authors Lin Zhou and Mehul Motani match the public monograph; arXiv explicitly gives its 2023 journal reference and DOI 10.1561/0100000134, establishing the title variant On Finite Blocklength Lossy Source Coding.",
+  "publicationIds": [
+    "book-lossy-source-coding-2023"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "book-lossy-source-coding-2023"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "The arXiv record explicitly supplies the publisher DOI and exact volume, issue, pages and year. The two title variants describe the same full published work.",
+    "sources": [
+      "https://arxiv.org/abs/2301.07871",
+      "https://www.emerald.com/ftcit/article-abstract/20/3/157/1332644/Finite-Blocklength-Lossy-Source-Coding-for?redirectedFrom=fulltext"
+    ],
+    "confidence": "high"
+  }
+}

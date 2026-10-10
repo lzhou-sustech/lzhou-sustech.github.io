@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2609-14404",
+  "arxivId": "2609.14404",
+  "title": "Successive Refinement Under Strong-Sense Perfect Perception",
+  "authors": "Yu Yang, Changhong Liu, Weijie Yuan, Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2609.14404",
+  "pdfUrl": "https://arxiv.org/pdf/2609.14404",
+  "submitted": "2026-09-13",
+  "submittedTimestamp": "2026-09-13T10:04:55Z",
+  "updated": "2026-09-13",
+  "updatedTimestamp": "2026-09-13T10:04:55Z",
+  "sources": [
+    "https://arxiv.org/abs/2609.14404",
+    "https://arxiv.org/pdf/2609.14404",
+    "https://arxiv.org/html/2609.14404v1",
+    "https://export.arxiv.org/api/query?id_list=2609.14404"
+  ],
+  "identityEvidence": "Primary HTML states all four authors are at Southern University of Science and Technology; established coauthors Yu Yang, Changhong Liu and Weijie Yuan.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. Primary arXiv comment explicitly describes an extended version of an ICASSP 2027 submission, not a confirmed published paper.",
+    "sources": [
+      "https://arxiv.org/abs/2609.14404",
+      "https://arxiv.org/html/2609.14404v1",
+      "https://api.crossref.org/works?query.title=Successive+Refinement+Under+Strong-Sense+Perfect+Perception&query.author=Zhou&rows=5"
+    ]
+  }
+}

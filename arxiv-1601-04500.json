@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-1601-04500",
+  "arxivId": "1601.04500",
+  "title": "Second-Order and Moderate Deviation Asymptotics for Successive Refinement",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2016,
+  "url": "https://arxiv.org/abs/1601.04500",
+  "pdfUrl": "https://arxiv.org/pdf/1601.04500",
+  "comments": "Part of this paper has beed presented at ISIT 2016. Submitted to IEEE Transactions on Information Theory in Jan, 2016. Revised in Aug. 2016",
+  "submitted": "2016-01-18",
+  "submittedTimestamp": "2016-01-18T13:10:26Z",
+  "updated": "2016-08-26",
+  "updatedTimestamp": "2016-08-26T04:59:14Z",
+  "sources": [
+    "https://arxiv.org/abs/1601.04500",
+    "https://export.arxiv.org/api/query?id_list=1601.04500",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-successive-refinement-2017",
+    "conf-ieee-7541732"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-successive-refinement-2017"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1601.04500"
+    ]
+  }
+}

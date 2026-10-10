@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2609-10436",
+  "arxivId": "2609.10436",
+  "title": "Mobility Information Capacity in the Sky: A Gaussian Channel Perspective",
+  "authors": "Weijie Yuan, Fan Liu, Shuangyang Li, Lin Zhou, Pingzhi Fan",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2609.10436",
+  "pdfUrl": "https://arxiv.org/pdf/2609.10436",
+  "submitted": "2026-09-09",
+  "submittedTimestamp": "2026-09-09T16:48:28Z",
+  "updated": "2026-09-09",
+  "updatedTimestamp": "2026-09-09T16:48:28Z",
+  "sources": [
+    "https://arxiv.org/abs/2609.10436",
+    "https://arxiv.org/pdf/2609.10436",
+    "https://arxiv.org/html/2609.10436v1",
+    "https://export.arxiv.org/api/query?id_list=2609.10436"
+  ],
+  "identityEvidence": "Primary HTML jointly identifies W. Yuan and L. Zhou at SUSTech and gives zhoul9@sustech.edu.cn.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found in current publication files, publisher-deposited Crossref title/author search, or targeted current web lookup.",
+    "sources": [
+      "https://arxiv.org/abs/2609.10436",
+      "https://arxiv.org/html/2609.10436v1",
+      "https://api.crossref.org/works?query.title=Mobility+Information+Capacity+in+the+Sky%3A+A+Gaussian+Channel+Perspective&query.author=Zhou&rows=5"
+    ]
+  }
+}

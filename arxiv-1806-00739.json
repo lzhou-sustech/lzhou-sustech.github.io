@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-1806-00739",
+  "arxivId": "1806.00739",
+  "title": "Second-Order Asymptotically Optimal Statistical Classification",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2018,
+  "url": "https://arxiv.org/abs/1806.00739",
+  "pdfUrl": "https://arxiv.org/pdf/1806.00739",
+  "comments": "To appear in Information and Inference: A Journal of the IMA (https://academic.oup.com/imaiai)",
+  "submitted": "2018-06-03",
+  "submittedTimestamp": "2018-06-03T05:33:52Z",
+  "updated": "2018-12-06",
+  "updatedTimestamp": "2018-12-06T09:07:18Z",
+  "sources": [
+    "https://arxiv.org/abs/1806.00739",
+    "https://export.arxiv.org/api/query?id_list=1806.00739",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-statistical-classification-2020",
+    "conf-ieee-8849721"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-statistical-classification-2020"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1806.00739"
+    ]
+  }
+}

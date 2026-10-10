@@ -1,0 +1,35 @@
+{
+  "id": "arxiv-1711-11206",
+  "arxivId": "1711.11206",
+  "title": "The Dispersion of Mismatched Joint Source-Channel Coding for Arbitrary Sources and Additive Channels",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2017,
+  "url": "https://arxiv.org/abs/1711.11206",
+  "pdfUrl": "https://arxiv.org/pdf/1711.11206",
+  "submitted": "2017-11-30",
+  "submittedTimestamp": "2017-11-30T03:38:14Z",
+  "updated": "2018-08-31",
+  "updatedTimestamp": "2018-08-31T06:01:38Z",
+  "sources": [
+    "https://arxiv.org/abs/1711.11206",
+    "https://export.arxiv.org/api/query?id_list=1711.11206",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-mismatched-jscc-2019",
+    "conf-ieee-8437616"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-mismatched-jscc-2019"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1711.11206"
+    ]
+  }
+}

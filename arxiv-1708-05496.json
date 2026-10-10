@@ -1,0 +1,44 @@
+{
+  "id": "arxiv-1708-05496",
+  "arxivId": "1708.05496",
+  "title": "Non-Asymptotic Converse Bounds and Refined Asymptotics for Two Lossy Source Coding Problems",
+  "authors": "Lin Zhou and Mehul Motani",
+  "year": 2017,
+  "url": "https://arxiv.org/abs/1708.05496",
+  "pdfUrl": "https://arxiv.org/pdf/1708.05496",
+  "comments": "34 pages, to be submitted to IEEE Transactions on Information Theory, extended version of two papers accepted by Globecom 2017",
+  "submitted": "2017-08-18",
+  "submittedTimestamp": "2017-08-18T03:20:34Z",
+  "updated": "2017-08-18",
+  "updatedTimestamp": "2017-08-18T03:20:34Z",
+  "sources": [
+    "https://arxiv.org/abs/1708.05496",
+    "https://export.arxiv.org/api/query?id_list=1708.05496",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-two-lossy-problems-2019",
+    "conf-ieee-8254245",
+    "conf-ieee-8254168"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-two-lossy-problems-2019"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "The author directly pairs this arXiv ID with IEEE document 8731866 in one journal entry. The author's institutional page retains the arXiv title with Lossy and the same journal citation. The institutional research record uses the published title without Lossy and supplies the DOI. This is a verified full journal counterpart with a title variant, rather than an inference based only on the two conference papers.",
+    "sources": [
+      "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc",
+      "https://shi.buaa.edu.cn/zhoulin/en/lwcg/162296/content/20009.htm",
+      "https://research.buaa.edu.cn/en/publications/non-asymptotic-converse-bounds-and-refined-asymptotics-for-two-so/",
+      "https://arxiv.org/abs/1708.05496",
+      "https://arxiv.org/html/1708.05496v1",
+      "https://api.crossref.org/works/10.1109/tit.2019.2920893",
+      "https://ieeexplore.ieee.org/document/8731866/"
+    ],
+    "confidence": "high"
+  }
+}

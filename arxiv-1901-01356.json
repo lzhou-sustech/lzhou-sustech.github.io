@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-1901-01356",
+  "arxivId": "1901.01356",
+  "title": "Exponential Strong Converse for Successive Refinement with Causal Decoder Side Information",
+  "authors": "Lin Zhou and Alfred Hero",
+  "year": 2019,
+  "url": "https://arxiv.org/abs/1901.01356",
+  "pdfUrl": "https://arxiv.org/pdf/1901.01356",
+  "doi": "10.3390/e21040410",
+  "submitted": "2019-01-05",
+  "submittedTimestamp": "2019-01-05T02:49:37Z",
+  "updated": "2019-02-23",
+  "updatedTimestamp": "2019-02-23T21:30:24Z",
+  "sources": [
+    "https://arxiv.org/abs/1901.01356",
+    "https://export.arxiv.org/api/query?id_list=1901.01356",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and full coauthor list match the supplied CV publication; related DOI in primary arXiv metadata confirms published article identity.",
+  "publicationIds": [
+    "journal-causal-side-information-2019",
+    "conf-ieee-8849560"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-causal-side-information-2019"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1901.01356"
+    ]
+  }
+}

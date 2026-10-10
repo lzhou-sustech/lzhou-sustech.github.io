@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2601-16799",
+  "arxivId": "2601.16799",
+  "title": "Adaptive Beam Alignment using Noisy Twenty Questions Estimation with Trained Questioner",
+  "authors": "Chunsong Sun, Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2601.16799",
+  "pdfUrl": "https://arxiv.org/pdf/2601.16799",
+  "submitted": "2026-01-23",
+  "submittedTimestamp": "2026-01-23T14:51:59Z",
+  "updated": "2026-01-26",
+  "updatedTimestamp": "2026-01-26T05:21:30Z",
+  "sources": [
+    "https://arxiv.org/abs/2601.16799",
+    "https://arxiv.org/pdf/2601.16799",
+    "https://arxiv.org/html/2601.16799v2",
+    "https://export.arxiv.org/api/query?id_list=2601.16799"
+  ],
+  "identityEvidence": "Primary HTML author block names Chunsong Sun and Lin Zhou, Beihang University, {sunchunsong, lzhou}@buaa.edu.cn.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. The existing privacy-resolution and earlier noisy-20-questions publications are different works, despite overlapping authors and framework.",
+    "sources": [
+      "https://arxiv.org/abs/2601.16799",
+      "https://arxiv.org/html/2601.16799v2",
+      "https://api.crossref.org/works?query.title=Adaptive+Beam+Alignment+using+Noisy+Twenty+Questions+Estimation+with+Trained+Questioner&query.author=Zhou&rows=5"
+    ]
+  }
+}

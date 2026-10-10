@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-2509-11607",
+  "arxivId": "2509.11607",
+  "title": "Low-Altitude Wireless Networks: A Comprehensive Survey",
+  "authors": "Jun Wu, Yaoqi Yang, Weijie Yuan, Wenchao Liu, Jiacheng Wang, Tianqi Mao, Lin Zhou, Yuanhao Cui, Fan Liu, Geng Sun, Yiyan Ma, Nan Wu, Dezhi Zheng, Jindan Xu, Nan Ma, Zhiyong Feng, Wei Xu, Dusit Niyato, Chau Yuen, Xiaojun Jing, Zhiguo Shi, Bo Ai, Shi Jin, Dong In Kim, Jiangzhou Wang, Ping Zhang, Hao Yin, Jun Zhang",
+  "year": 2025,
+  "url": "https://arxiv.org/abs/2509.11607",
+  "pdfUrl": "https://arxiv.org/pdf/2509.11607",
+  "submitted": "2025-09-15",
+  "submittedTimestamp": "2025-09-15T05:57:34Z",
+  "updated": "2026-04-15",
+  "updatedTimestamp": "2026-04-15T05:47:25Z",
+  "sources": [
+    "https://arxiv.org/abs/2509.11607",
+    "https://arxiv.org/pdf/2509.11607",
+    "https://export.arxiv.org/api/query?id_list=2509.11607"
+  ],
+  "identityEvidence": "Primary arXiv PDF first page explicitly assigns Lin Zhou superscript 1 to Southern University of Science and Technology. Coauthor Weijie Yuan matches known collaboration.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-lawn-survey-2026"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact published counterpart confirmed. New to current local publication records. The institutional record inverts many Chinese given/family names, but ordered full author list matches primary arXiv; preserve normal author-name order from arXiv.",
+    "sources": [
+      "https://api.crossref.org/works/10.23919/JCC.fa.2025-0429.202603",
+      "https://www.cic-chinacommunications.cn/EN/10.23919/JCC.fa.2025-0429.202603",
+      "https://pure.skku.edu/en/publications/low-altitude-wireless-networks-a-comprehensive-survey/",
+      "https://ieeexplore.ieee.org/document/11503149/",
+      "https://arxiv.org/abs/2509.11607",
+      "https://arxiv.org/pdf/2509.11607"
+    ]
+  }
+}

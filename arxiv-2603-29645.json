@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2603-29645",
+  "arxivId": "2603.29645",
+  "title": "Second-Order Asymptotics for Covert Communication over Quasi-Static Multiple-Antenna Fading Channels",
+  "authors": "Changhong Liu, Jingjing Wang, Qiaosheng Zhang, Jinpeng Xu, Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2603.29645",
+  "pdfUrl": "https://arxiv.org/pdf/2603.29645",
+  "submitted": "2026-03-31",
+  "submittedTimestamp": "2026-03-31T12:06:59Z",
+  "updated": "2026-08-11",
+  "updatedTimestamp": "2026-08-11T14:29:38Z",
+  "sources": [
+    "https://arxiv.org/abs/2603.29645",
+    "https://arxiv.org/pdf/2603.29645",
+    "https://arxiv.org/html/2603.29645v2",
+    "https://export.arxiv.org/api/query?id_list=2603.29645"
+  ],
+  "identityEvidence": "Primary HTML identifies L. Zhou at Southern University of Science and Technology, zhoul9@sustech.edu.cn; known coauthors.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. Do not map to conf-ieee-11653958 (Second-Order Asymptotics for Covert Communication over MIMO AWGN Channels): this arXiv paper treats quasi-static fading and explicitly compares its results with the separate MIMO AWGN work.",
+    "sources": [
+      "https://arxiv.org/abs/2603.29645",
+      "https://arxiv.org/html/2603.29645v2",
+      "https://api.crossref.org/works?query.title=Second-Order+Asymptotics+for+Covert+Communication+over+Quasi-Static+Multiple-Antenna+Fading+Channels&query.author=Zhou&rows=5"
+    ]
+  }
+}

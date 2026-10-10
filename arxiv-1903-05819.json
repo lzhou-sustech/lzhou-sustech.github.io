@@ -1,0 +1,38 @@
+{
+  "id": "arxiv-1903-05819",
+  "arxivId": "1903.05819",
+  "title": "Distributed Detection with Empirically Observed Statistics",
+  "authors": "Haiyun He, Lin Zhou, and Vincent Y. F. Tan",
+  "year": 2019,
+  "url": "https://arxiv.org/abs/1903.05819",
+  "pdfUrl": "https://arxiv.org/pdf/1903.05819",
+  "journalRef": "IEEE Transactions on Information Theory, 2020",
+  "comments": "19 pages",
+  "doi": "10.1109/TIT.2020.2973093",
+  "submitted": "2019-03-14",
+  "submittedTimestamp": "2019-03-14T05:20:39Z",
+  "updated": "2020-02-10",
+  "updatedTimestamp": "2020-02-10T23:40:19Z",
+  "sources": [
+    "https://arxiv.org/abs/1903.05819",
+    "https://export.arxiv.org/api/query?id_list=1903.05819",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-distributed-detection-2020",
+    "conf-ieee-8989062"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-distributed-detection-2020"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1903.05819"
+    ]
+  }
+}

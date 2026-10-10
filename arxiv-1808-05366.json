@@ -1,0 +1,39 @@
+{
+  "id": "arxiv-1808-05366",
+  "arxivId": "1808.05366",
+  "title": "Strong Converse for Hypothesis Testing Against Independence over a Two-Hop Network",
+  "authors": "Daming Cao, Lin Zhou, and Vincent Y. F. Tan",
+  "year": 2018,
+  "url": "https://arxiv.org/abs/1808.05366",
+  "pdfUrl": "https://arxiv.org/pdf/1808.05366",
+  "doi": "10.3390/e21121171",
+  "submitted": "2018-08-16",
+  "submittedTimestamp": "2018-08-16T07:37:52Z",
+  "updated": "2018-08-16",
+  "updatedTimestamp": "2018-08-16T07:37:52Z",
+  "sources": [
+    "https://arxiv.org/abs/1808.05366",
+    "https://export.arxiv.org/api/query?id_list=1808.05366",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and full coauthor list match the supplied CV publication; related DOI in primary arXiv metadata confirms published article identity.",
+  "publicationIds": [
+    "journal-two-hop-converse-2019",
+    "conf-ieee-8849768"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-two-hop-converse-2019"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "The arXiv metadata itself explicitly links DOI10.3390/e21121171. The publisher and author publication list identify the full Entropy paper under its expanded title, with the same authors and subject. The separate ISIT paper is a partial presentation, not the sole evidence that the arXiv work has a journal counterpart.",
+    "sources": [
+      "https://arxiv.org/abs/1808.05366",
+      "https://www.mdpi.com/1099-4300/21/12/1171",
+      "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+    ],
+    "confidence": "high"
+  }
+}

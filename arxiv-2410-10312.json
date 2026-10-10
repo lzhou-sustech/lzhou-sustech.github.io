@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2410-10312",
+  "arxivId": "2410.10312",
+  "title": "Achievable Second-Order Asymptotics for MAC and RAC with Additive Non-Gaussian Noise",
+  "authors": "Yiming Wang, Lin Bai, Zhuangfei Wu, Lin Zhou",
+  "year": 2024,
+  "url": "https://arxiv.org/abs/2410.10312",
+  "pdfUrl": "https://arxiv.org/pdf/2410.10312",
+  "submitted": "2024-10-14",
+  "submittedTimestamp": "2024-10-14T09:13:26Z",
+  "updated": "2025-04-30",
+  "updatedTimestamp": "2025-04-30T15:24:50Z",
+  "sources": [
+    "https://arxiv.org/abs/2410.10312; https://arxiv.org/html/2410.10312v2",
+    "https://arxiv.org/abs/2410.10312",
+    "https://export.arxiv.org/api/query?id_list=2410.10312",
+    "https://arxiv.org/pdf/2410.10312"
+  ],
+  "identityEvidence": "Exact title and ordered coauthors match an existing verified publication in github-personal-webpage/publications, with established Lin Zhou collaborators; arXiv abs confirms author list.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-mac-rac-2025"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2410.10312"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2504-05828",
+  "arxivId": "2504.05828",
+  "title": "Capacity Region for Covert Secret Key Generation over Multiple Access Channels",
+  "authors": "Yingxin Zhang, Lin Zhou, Qiaosheng Zhang",
+  "year": 2025,
+  "url": "https://arxiv.org/abs/2504.05828",
+  "pdfUrl": "https://arxiv.org/pdf/2504.05828",
+  "submitted": "2025-04-08",
+  "submittedTimestamp": "2025-04-08T09:08:45Z",
+  "updated": "2025-04-08",
+  "updatedTimestamp": "2025-04-08T09:08:45Z",
+  "sources": [
+    "https://arxiv.org/abs/2504.05828",
+    "https://arxiv.org/pdf/2504.05828",
+    "https://export.arxiv.org/api/query?id_list=2504.05828"
+  ],
+  "identityEvidence": "Exact title and ordered coauthors match an existing verified publication in github-personal-webpage/publications, with established Lin Zhou collaborators; arXiv abs confirms author list.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-covert-key-generation-2026"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2504.05828",
+      "https://api.crossref.org/works/10.1109/tit.2025.3633742",
+      "https://ieeexplore.ieee.org/document/11250997/"
+    ]
+  }
+}

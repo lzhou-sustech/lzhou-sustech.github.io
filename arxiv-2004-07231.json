@@ -1,0 +1,46 @@
+{
+  "id": "arxiv-2004-07231",
+  "arxivId": "2004.07231",
+  "title": "Resolution Limits for the Noisy Non-Adaptive 20 Questions Problem",
+  "authors": "Lin Zhou, Alfred Hero",
+  "year": 2020,
+  "url": "https://arxiv.org/abs/2004.07231",
+  "pdfUrl": "https://arxiv.org/pdf/2004.07231",
+  "comments": "To appear in IEEE Transactions on Information Theory, 2021. The conference version is v1, which appeared in ISIT 2020. In fact, this version is the latest version of arXiv:1909.12954, which includes all the revisions made during to the review progress and thus v2/v3 here should be named v4 of arXiv:1909.12954. This is the reason why there is a substantial text overlap",
+  "doi": "10.1109/TIT.2021.3049796",
+  "submitted": "2020-04-15",
+  "submittedTimestamp": "2020-04-15T17:45:38Z",
+  "updated": "2021-01-11",
+  "updatedTimestamp": "2021-01-11T06:59:13Z",
+  "sources": [
+    "https://arxiv.org/abs/2004.07231",
+    "https://export.arxiv.org/api/query?id_list=2004.07231",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) journal-noisy-twenty-questions-2021. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "journal-noisy-twenty-questions-2021",
+    "conf-ieee-9174277"
+  ],
+  "checkedDate": "2026-10-10",
+  "earlierArxivVersions": [
+    {
+      "arxivId": "1909.12954",
+      "url": "https://arxiv.org/abs/1909.12954",
+      "note": "Earlier versions of the same work; arXiv comments direct readers to 2004.07231 for the final accepted version."
+    }
+  ],
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-noisy-twenty-questions-2021"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2004.07231",
+      "https://api.crossref.org/works/10.1109/tit.2021.3049796",
+      "https://ieeexplore.ieee.org/document/9316946/"
+    ]
+  }
+}

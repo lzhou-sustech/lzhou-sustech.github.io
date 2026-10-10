@@ -1,0 +1,30 @@
+{
+  "id": "arxiv-2505-00558",
+  "arxivId": "2505.00558",
+  "title": "Exponentially Consistent Low Complexity Tests for Outlier Hypothesis Testing",
+  "authors": "Jun Diao, Jingjing Wang, Lin Zhou",
+  "year": 2025,
+  "url": "https://arxiv.org/abs/2505.00558",
+  "pdfUrl": "https://arxiv.org/pdf/2505.00558",
+  "submitted": "2025-05-01",
+  "submittedTimestamp": "2025-05-01T14:33:56Z",
+  "updated": "2026-01-08",
+  "updatedTimestamp": "2026-01-08T06:11:01Z",
+  "sources": [
+    "https://arxiv.org/abs/2505.00558",
+    "https://arxiv.org/pdf/2505.00558",
+    "https://export.arxiv.org/api/query?id_list=2505.00558"
+  ],
+  "identityEvidence": "Primary arXiv HTML identifies L. Zhou at School of Automation and Intelligent Manufacturing, Southern University of Science and Technology, zhoul9@sustech.edu.cn; known coauthors Jun Diao and Jingjing Wang.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Current primary arXiv record states Submitted to IEEE TIT; author-supplied CV also lists submitted to TIT, December 2025. No exact published journal counterpart found. The existing conference paper is sequential-only and must not be treated as an equivalent complete publication without explicit version evidence.",
+    "sources": [
+      "https://arxiv.org/abs/2505.00558",
+      "https://arxiv.org/html/2505.00558v2"
+    ]
+  }
+}

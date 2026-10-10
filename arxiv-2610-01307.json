@@ -1,0 +1,32 @@
+{
+  "id": "arxiv-2610-01307",
+  "arxivId": "2610.01307",
+  "title": "Exploiting UAV Attitude for Covert Communications: Dynamics-Consistent Trajectory-Attitude Co-Design",
+  "authors": "Jinpeng Xu, Lin Zhou, Xin Xie, Mengyuan Zhang, Jingjing Wang",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2610.01307",
+  "pdfUrl": "https://arxiv.org/pdf/2610.01307",
+  "submitted": "2026-10-01",
+  "submittedTimestamp": "2026-10-01T08:39:20Z",
+  "updated": "2026-10-01",
+  "updatedTimestamp": "2026-10-01T08:39:20Z",
+  "sources": [
+    "https://arxiv.org/abs/2610.01307",
+    "https://arxiv.org/pdf/2610.01307",
+    "https://arxiv.org/html/2610.01307v1",
+    "https://export.arxiv.org/api/query?id_list=2610.01307"
+  ],
+  "identityEvidence": "Lin Zhou is identified at Southern University of Science and Technology, zhoul9@sustech.edu.cn.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. Primary arXiv comment states Submitted to an IEEE journal. Existing UAV covert-communications papers have different titles, author sets and models.",
+    "sources": [
+      "https://arxiv.org/abs/2610.01307",
+      "https://arxiv.org/html/2610.01307v1",
+      "https://api.crossref.org/works?query.title=Exploiting+UAV+Attitude+for+Covert+Communications%3A+Dynamics-Consistent+Trajectory-Attitude+Co-Design&query.author=Zhou&rows=5"
+    ]
+  }
+}

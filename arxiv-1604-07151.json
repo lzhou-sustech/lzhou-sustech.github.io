@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-1604-07151",
+  "arxivId": "1604.07151",
+  "title": "Achievable Moderate Deviations Asymptotics for Streaming Compression of Correlated Sources",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2016,
+  "url": "https://arxiv.org/abs/1604.07151",
+  "pdfUrl": "https://arxiv.org/pdf/1604.07151",
+  "comments": "31 pages, 6 figures, under revision with IEEE Transactions on Information Theory; short version presented ISIT 2017",
+  "submitted": "2016-04-25",
+  "submittedTimestamp": "2016-04-25T07:40:43Z",
+  "updated": "2017-09-20",
+  "updatedTimestamp": "2017-09-20T15:57:08Z",
+  "sources": [
+    "https://arxiv.org/abs/1604.07151",
+    "https://export.arxiv.org/api/query?id_list=1604.07151",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-streaming-compression-2018",
+    "conf-ieee-8006731"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-streaming-compression-2018"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1604.07151"
+    ]
+  }
+}

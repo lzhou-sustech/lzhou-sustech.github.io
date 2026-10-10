@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2006-02869",
+  "arxivId": "2006.02869",
+  "title": "Privacy-Utility Tradeoff for Hypothesis Testing Over A Noisy Channel",
+  "authors": "Lin Zhou, Daming Cao",
+  "year": 2020,
+  "url": "https://arxiv.org/abs/2006.02869",
+  "pdfUrl": "https://arxiv.org/pdf/2006.02869",
+  "submitted": "2020-06-04",
+  "submittedTimestamp": "2020-06-04T14:06:55Z",
+  "updated": "2021-05-27",
+  "updatedTimestamp": "2021-05-27T05:59:24Z",
+  "sources": [
+    "https://arxiv.org/abs/2006.02869",
+    "https://export.arxiv.org/api/query?id_list=2006.02869"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) journal-privacy-utility-2021. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "journal-privacy-utility-2021"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-privacy-utility-2021"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2006.02869"
+    ]
+  }
+}

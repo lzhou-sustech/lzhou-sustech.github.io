@@ -1,0 +1,28 @@
+{
+  "id": "arxiv-2210-12920",
+  "arxivId": "2210.12920",
+  "title": "Efficient User Scheduling for Uplink Hybrid Satellite-Terrestrial Communication",
+  "authors": "Lina Zhu, Lin Bai, Lin Zhou, Jinho Choi",
+  "year": 2022,
+  "url": "https://arxiv.org/abs/2210.12920",
+  "pdfUrl": "https://arxiv.org/pdf/2210.12920",
+  "submitted": "2022-10-24",
+  "submittedTimestamp": "2022-10-24T02:15:41Z",
+  "sources": [
+    "https://arxiv.org/abs/2210.12920",
+    "https://export.arxiv.org/api/query?id_list=2210.12920"
+  ],
+  "identityEvidence": "Exact title and all four authors match the assigned public publication; the arXiv submission is by Lin Zhou. Only v1 is listed. arXiv Comments says 'To appear in IEEE Transactions on Wireless Communications'; no formal Journal reference field is displayed.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-satellite-terrestrial-2023"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2210.12920"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-2009-02852",
+  "arxivId": "2009.02852",
+  "title": "Multiple Private Key Generation for Continuous Memoryless Sources with A Helper",
+  "authors": "Lin Zhou",
+  "year": 2020,
+  "url": "https://arxiv.org/abs/2009.02852",
+  "pdfUrl": "https://arxiv.org/pdf/2009.02852",
+  "comments": "IEEE Transactions on Information Forensics and Security, Feb. 2020",
+  "doi": "10.1109/TIFS.2020.2973865",
+  "submitted": "2020-09-07",
+  "submittedTimestamp": "2020-09-07T01:45:08Z",
+  "updated": "2020-09-07",
+  "updatedTimestamp": "2020-09-07T01:45:08Z",
+  "sources": [
+    "https://arxiv.org/abs/2009.02852",
+    "https://export.arxiv.org/api/query?id_list=2009.02852",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-private-key-helper-2020"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-private-key-helper-2020"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2009.02852"
+    ]
+  }
+}

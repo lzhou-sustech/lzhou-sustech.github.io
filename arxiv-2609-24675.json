@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2609-24675",
+  "arxivId": "2609.24675",
+  "title": "Exact Second-Order Asymptotics for Covert Communication over DMCs with Variational Distance Constraints",
+  "authors": "Qiaosheng Zhang, Lin Zhou, Xuelong Li",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2609.24675",
+  "pdfUrl": "https://arxiv.org/pdf/2609.24675",
+  "submitted": "2026-09-21",
+  "submittedTimestamp": "2026-09-21T14:36:17Z",
+  "updated": "2026-09-30",
+  "updatedTimestamp": "2026-09-30T03:34:32Z",
+  "sources": [
+    "https://arxiv.org/abs/2609.24675",
+    "https://arxiv.org/pdf/2609.24675",
+    "https://arxiv.org/html/2609.24675v2",
+    "https://export.arxiv.org/api/query?id_list=2609.24675"
+  ],
+  "identityEvidence": "Primary HTML identifies Lin Zhou at Southern University of Science and Technology; established collaborator Qiaosheng Zhang.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. Coauthor Qiaosheng Zhang currently lists this work as an arXiv preprint. Discrete memoryless channels with variational-distance constraints differ from the existing MIMO AWGN conference work.",
+    "sources": [
+      "https://arxiv.org/abs/2609.24675",
+      "https://arxiv.org/html/2609.24675v2",
+      "https://api.crossref.org/works?query.title=Exact+Second-Order+Asymptotics+for+Covert+Communication+over+DMCs+with+Variational+Distance+Constraints&query.author=Zhou&rows=5",
+      "https://qiaoshengzhang.github.io/"
+    ]
+  }
+}

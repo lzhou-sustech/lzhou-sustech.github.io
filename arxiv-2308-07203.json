@@ -1,0 +1,34 @@
+{
+  "id": "arxiv-2308-07203",
+  "arxivId": "2308.07203",
+  "title": "Successive Refinement of Shannon Cipher System Under Maximal Leakage",
+  "authors": "Zhuangfei Wu, Lin Bai, Lin Zhou",
+  "year": 2023,
+  "url": "https://arxiv.org/abs/2308.07203",
+  "pdfUrl": "https://arxiv.org/pdf/2308.07203",
+  "submitted": "2023-08-14",
+  "submittedTimestamp": "2023-08-14T15:16:32Z",
+  "updated": "2024-04-18",
+  "updatedTimestamp": "2024-04-18T15:15:25Z",
+  "sources": [
+    "https://arxiv.org/abs/2308.07203",
+    "https://export.arxiv.org/api/query?id_list=2308.07203"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) conf-ieee-10206515, journal-shannon-cipher-2025. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "conf-ieee-10206515",
+    "journal-shannon-cipher-2025"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-shannon-cipher-2025"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2308.07203"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-1702-06649",
+  "arxivId": "1702.06649",
+  "title": "Exponential Strong Converse for Content Identification with Lossy Recovery",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, Lei Yu, and Mehul Motani",
+  "year": 2017,
+  "url": "https://arxiv.org/abs/1702.06649",
+  "pdfUrl": "https://arxiv.org/pdf/1702.06649",
+  "comments": "Changed parts compared to v1 are in blue. Under revision with TIT",
+  "submitted": "2017-02-22",
+  "submittedTimestamp": "2017-02-22T02:18:33Z",
+  "updated": "2017-12-25",
+  "updatedTimestamp": "2017-12-25T07:00:27Z",
+  "sources": [
+    "https://arxiv.org/abs/1702.06649",
+    "https://export.arxiv.org/api/query?id_list=1702.06649",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-content-identification-2018",
+    "conf-ieee-8006664"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-content-identification-2018"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1702.06649"
+    ]
+  }
+}

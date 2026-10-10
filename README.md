@@ -1,9 +1,11 @@
-# Publication records
+# arXiv manuscripts
 
-Each `.json` file is one public publication record. The filename must match its `id`, for example `journal-gray-wyner-2017.json`.
+Each JSON file stores one verified public arXiv record. Unpublished manuscripts appear under Preprints, newest first. For a verified published counterpart, the generator instead appends an arXiv link to its Publications citation.
 
-The homepage reads only this directory for publications. Delete a paper’s JSON file to remove its citation, then commit; the deployment automatically updates the site. It is not restored from `content.json`. Keep this README even if every paper is removed.
+Required fields: `id` (matching the filename), `arxivId`, `title`, `authors`, `year`, `url`, and `pdfUrl`. Optional fields include ISO `submitted` and `updated` dates, `journalRef`, and retained verification evidence. Use the canonical arXiv abstract and PDF URLs. A record such as `2609.24675` has filename `arxiv-2609-24675.json` and ID `arxiv-2609-24675`.
 
-To add a paper, create a new JSON file containing `id`, `title`, `authors`, `year`, `venue`, `type` (`book`, `journal`, or `conference`), `status` (`published` or `accepted`), `topic`, and `selected` (boolean). Optional fields include `details` and an HTTPS `url`. Preserve author order and distinguish accepted work from published work.
+Use `publicationStatus: published` and `publishedPublicationIds: ["the-publication-id"]` for a confirmed published counterpart, or `publicationStatus: preprint` while no counterpart is confirmed. Record supporting source URLs in `publicationStatusEvidence`. The existing `publicationIds` field is historical relationship metadata and is not used to decide publication status; a partial conference version may be related without establishing that an expanded manuscript is published.
 
-Use the site’s **Manage papers** section to open the corresponding GitHub deletion page. GitHub authentication, repository permission, and confirmation are required. Removing a citation does not remove the publisher’s paper; removing a preprint PDF removes that file from the website. Previous versions remain in Git history.
+Delete the JSON file through the homepage's Manage papers link to remove a listing. Keep this README even if all records are removed. The build does not query arXiv or restore deleted records.
+
+For a PDF upload, use `preprints/`. AI-assisted drafts that have not been fully checked belong in `ai-papers/`, which has a separate website page and upload button.

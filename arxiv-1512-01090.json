@@ -1,0 +1,37 @@
+{
+  "id": "arxiv-1512-01090",
+  "arxivId": "1512.01090",
+  "title": "Discrete Lossy Gray-Wyner Revisited: Second-Order Asymptotics, Large and Moderate Deviations",
+  "authors": "Lin Zhou, Vincent Y. F. Tan, and Mehul Motani",
+  "year": 2015,
+  "url": "https://arxiv.org/abs/1512.01090",
+  "pdfUrl": "https://arxiv.org/pdf/1512.01090",
+  "comments": "33 pages, accepted to IEEE Transactions on Information Theory; Short version v_1 presented at IEEE ISIT 2016, Barcelona, Spain",
+  "doi": "10.1109/TIT.2016.2644670",
+  "submitted": "2015-12-03",
+  "submittedTimestamp": "2015-12-03T14:28:01Z",
+  "updated": "2017-01-04",
+  "updatedTimestamp": "2017-01-04T06:37:38Z",
+  "sources": [
+    "https://arxiv.org/abs/1512.01090",
+    "https://export.arxiv.org/api/query?id_list=1512.01090",
+    "https://github.com/Bear21-zhou/linzhou/blob/main/publication.jemdoc"
+  ],
+  "identityEvidence": "Exact title and Lin Zhou coauthor list agree with the supplied CV and/or the author publication list linked to ORCID0000-0002-5173-320X; arXiv primary metadata verified.",
+  "publicationIds": [
+    "journal-gray-wyner-2017",
+    "conf-ieee-7541731"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-gray-wyner-2017"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/1512.01090"
+    ]
+  }
+}

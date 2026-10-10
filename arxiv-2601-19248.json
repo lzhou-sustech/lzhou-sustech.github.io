@@ -1,0 +1,34 @@
+{
+  "id": "arxiv-2601-19248",
+  "arxivId": "2601.19248",
+  "title": "Exponentially Consistent Low-Complexity Outlier Hypothesis Testing for Continuous Sequences",
+  "authors": "Lina Zhu, Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2601.19248",
+  "pdfUrl": "https://arxiv.org/pdf/2601.19248",
+  "submitted": "2026-01-27",
+  "submittedTimestamp": "2026-01-27T06:31:14Z",
+  "updated": "2026-01-27",
+  "updatedTimestamp": "2026-01-27T06:31:14Z",
+  "sources": [
+    "https://arxiv.org/abs/2601.19248",
+    "https://arxiv.org/pdf/2601.19248",
+    "https://arxiv.org/html/2601.19248v1",
+    "https://export.arxiv.org/api/query?id_list=2601.19248"
+  ],
+  "identityEvidence": "Primary HTML author block gives Lin Zhou, SUSTech and zhoul9@sustech.edu.cn; known collaborator Lina Zhu.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "conf-ieee-11653813"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2601.19248",
+      "https://api.crossref.org/works/10.1109/isit62367.2026.11653813",
+      "https://ieeexplore.ieee.org/document/11653813/"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv-2210-12736",
+  "arxivId": "2210.12736",
+  "title": "Achievable Error Exponents for Two-Phase Multiple Classification",
+  "authors": "Lin Zhou, Jun Diao, Lin Bai",
+  "year": 2022,
+  "url": "https://arxiv.org/abs/2210.12736",
+  "pdfUrl": "https://arxiv.org/pdf/2210.12736",
+  "submitted": "2022-10-23",
+  "submittedTimestamp": "2022-10-23T14:22:10Z",
+  "updated": "2023-05-26",
+  "updatedTimestamp": "2023-05-26T05:49:01Z",
+  "sources": [
+    "https://arxiv.org/abs/2210.12736; https://arxiv.org/html/2210.12736v2; https://arxiv.org/abs/2210.12736v1",
+    "https://arxiv.org/abs/2210.12736",
+    "https://export.arxiv.org/api/query?id_list=2210.12736"
+  ],
+  "identityEvidence": "Latest arXiv title differs from v1 ('Achievable Error Exponents for Almost Fixed-Length Hypothesis Testing and Classification'). The v2 paper explicitly identifies itself as partially presented at IEEE ISIT 2022, IEEE ICASSP 2023 and IEEE ISIT 2023; references [1]-[3] give the assigned binary classification, M-ary hypothesis testing and M-ary classification titles with the assigned coauthors. Affiliations explicitly identify Beihang School of Cyber Science and Technology. Do not create duplicate arXiv records for these conference papers. Comments says submitted to IEEE Trans. Inf. Theory; no formal Journal reference field is displayed.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Keep the expanded work in Preprints. Its own footnote calls the three conferences partial presentations. No full journal counterpart was verified in the current publication collection or bounded current primary-source searches. These conference papers alone do not justify hiding the expanded preprint.",
+    "sources": [
+      "https://arxiv.org/html/2210.12736v2",
+      "https://arxiv.org/abs/2210.12736"
+    ],
+    "confidence": "bounded-negative-search"
+  }
+}

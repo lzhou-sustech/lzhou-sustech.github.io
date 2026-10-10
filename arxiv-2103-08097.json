@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2103-08097",
+  "arxivId": "2103.08097",
+  "title": "Resolution Limits of 20 Questions Search Strategies for Moving Targets",
+  "authors": "Lin Zhou, Alfred Hero",
+  "year": 2021,
+  "url": "https://arxiv.org/abs/2103.08097",
+  "pdfUrl": "https://arxiv.org/pdf/2103.08097",
+  "submitted": "2021-03-15",
+  "submittedTimestamp": "2021-03-15T02:07:48Z",
+  "sources": [
+    "https://arxiv.org/abs/2103.08097",
+    "https://export.arxiv.org/api/query?id_list=2103.08097"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) conf-ieee-9414680. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "conf-ieee-9414680"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "conf-ieee-9414680"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2103.08097",
+      "https://api.crossref.org/works/10.1109/icassp39728.2021.9414680",
+      "https://ieeexplore.ieee.org/document/9414680/"
+    ]
+  }
+}

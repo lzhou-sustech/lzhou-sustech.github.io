@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2101-06843",
+  "arxivId": "2101.06843",
+  "title": "Resolution Limits of Non-Adaptive 20 Questions Search for Multiple Targets",
+  "authors": "Lin Zhou, Lin Bai, Alfred Hero",
+  "year": 2021,
+  "url": "https://arxiv.org/abs/2101.06843",
+  "pdfUrl": "https://arxiv.org/pdf/2101.06843",
+  "submitted": "2021-01-18",
+  "submittedTimestamp": "2021-01-18T02:24:39Z",
+  "updated": "2022-04-06",
+  "updatedTimestamp": "2022-04-06T13:36:21Z",
+  "sources": [
+    "https://arxiv.org/abs/2101.06843",
+    "https://export.arxiv.org/api/query?id_list=2101.06843"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) journal-multiple-targets-2022. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "journal-multiple-targets-2022"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-multiple-targets-2022"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2101.06843"
+    ]
+  }
+}

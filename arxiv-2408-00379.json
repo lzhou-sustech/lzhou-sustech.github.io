@@ -1,0 +1,34 @@
+{
+  "id": "arxiv-2408-00379",
+  "arxivId": "2408.00379",
+  "title": "Over-the-Air Diagnosis of Defective Elements in Intelligent Reflecting Surface",
+  "authors": "Ziyi Zhao, Zhaorui Wang, Lin Zhou, Chunsong Sun, Shuowen Zhang, Naofal Al-Dhahir, Liang Liu",
+  "year": 2024,
+  "url": "https://arxiv.org/abs/2408.00379",
+  "pdfUrl": "https://arxiv.org/pdf/2408.00379",
+  "submitted": "2024-08-01",
+  "submittedTimestamp": "2024-08-01T08:40:49Z",
+  "updated": "2025-04-15",
+  "updatedTimestamp": "2025-04-15T14:15:06Z",
+  "sources": [
+    "https://arxiv.org/abs/2408.00379",
+    "https://arxiv.org/pdf/2408.00379",
+    "https://export.arxiv.org/api/query?id_list=2408.00379"
+  ],
+  "identityEvidence": "Exact title and ordered coauthors match an existing verified publication in github-personal-webpage/publications, with established Lin Zhou collaborators; arXiv abs confirms author list.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-irs-diagnosis-2026"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2408.00379",
+      "https://api.crossref.org/works/10.1109/twc.2026.3690038",
+      "https://research.polyu.edu.hk/en/publications/over-the-air-diagnosis-of-defective-elements-in-intelligent-refle/",
+      "https://ieeexplore.ieee.org/document/11515019/"
+    ]
+  }
+}

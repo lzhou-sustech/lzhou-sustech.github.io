@@ -1,0 +1,31 @@
+{
+  "id": "arxiv-2608-10455",
+  "arxivId": "2608.10455",
+  "title": "Exponentially Consistent Low Complexity Tests for Statistical Sequence Matching",
+  "authors": "Lin Zhou",
+  "year": 2026,
+  "url": "https://arxiv.org/abs/2608.10455",
+  "pdfUrl": "https://arxiv.org/pdf/2608.10455",
+  "submitted": "2026-08-11",
+  "submittedTimestamp": "2026-08-11T04:11:49Z",
+  "updated": "2026-08-11",
+  "updatedTimestamp": "2026-08-11T04:11:49Z",
+  "sources": [
+    "https://arxiv.org/abs/2608.10455",
+    "https://arxiv.org/pdf/2608.10455",
+    "https://export.arxiv.org/api/query?id_list=2608.10455"
+  ],
+  "identityEvidence": "Primary PDF first page identifies L. Zhou at Southern University of Science and Technology, zhoul9@sustech.edu.cn.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact counterpart found. Do not map to journal-sequence-matching-2024 or to outlier-testing conferences: this sole-author manuscript introduces low-complexity sequence-matching tests and cites/distinguishes earlier sequence-matching work.",
+    "sources": [
+      "https://arxiv.org/abs/2608.10455",
+      "https://arxiv.org/pdf/2608.10455",
+      "https://api.crossref.org/works?query.title=Exponentially+Consistent+Low+Complexity+Tests+for+Statistical+Sequence+Matching&query.author=Zhou&rows=5"
+    ]
+  }
+}

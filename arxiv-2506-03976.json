@@ -1,0 +1,30 @@
+{
+  "id": "arxiv-2506-03976",
+  "arxivId": "2506.03976",
+  "title": "Large Deviations for Sequential Tests of Statistical Sequence Matching",
+  "authors": "Lin Zhou, Qianyun Wang, Yun Wei, Jingjing Wang",
+  "year": 2025,
+  "url": "https://arxiv.org/abs/2506.03976",
+  "pdfUrl": "https://arxiv.org/pdf/2506.03976",
+  "submitted": "2025-06-04",
+  "submittedTimestamp": "2025-06-04T14:07:53Z",
+  "updated": "2025-06-04",
+  "updatedTimestamp": "2025-06-04T14:07:53Z",
+  "sources": [
+    "https://arxiv.org/abs/2506.03976",
+    "https://arxiv.org/pdf/2506.03976",
+    "https://export.arxiv.org/api/query?id_list=2506.03976"
+  ],
+  "identityEvidence": "Primary arXiv HTML identifies L. Zhou at School of Cyber Science and Technology, Beihang University and lzhou@buaa.edu.cn; known coauthors Qianyun Wang, Yun Wei, Jingjing Wang.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Current coauthor-maintained research page expressly labels this exact title and all four authors as submitted. No exact published counterpart found. Do not merge with the 2024 fixed-length sequence matching publication, which has different scope and authors.",
+    "sources": [
+      "https://sites.google.com/view/cloudwei/research",
+      "https://arxiv.org/abs/2506.03976"
+    ]
+  }
+}

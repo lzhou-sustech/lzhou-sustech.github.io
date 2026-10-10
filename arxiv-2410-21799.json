@@ -1,0 +1,30 @@
+{
+  "id": "arxiv-2410-21799",
+  "arxivId": "2410.21799",
+  "title": "Exponentially Consistent Statistical Classification of Continuous Sequences with Distribution Uncertainty",
+  "authors": "Lina Zhu, Lin Zhou",
+  "year": 2024,
+  "url": "https://arxiv.org/abs/2410.21799",
+  "pdfUrl": "https://arxiv.org/pdf/2410.21799",
+  "submitted": "2024-10-29",
+  "submittedTimestamp": "2024-10-29T07:06:40Z",
+  "updated": "2024-10-29",
+  "updatedTimestamp": "2024-10-29T07:06:40Z",
+  "sources": [
+    "https://arxiv.org/abs/2410.21799",
+    "https://arxiv.org/pdf/2410.21799",
+    "https://export.arxiv.org/api/query?id_list=2410.21799"
+  ],
+  "identityEvidence": "Primary arXiv PDF first page identifies L. Zhou at School of Cyber Science and Technology, Beihang University, lzhou@buaa.edu.cn; known coauthor Lina Zhu.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "No exact published counterpart found in current local publications or bounded exact-title publisher/official-source web searches. This is a verification limit, not a proof that no publication exists. The work is distinct from outlier-hypothesis-testing papers by the same two authors.",
+    "sources": [
+      "https://arxiv.org/pdf/2410.21799",
+      "https://arxiv.org/pdf/2608.10455"
+    ]
+  }
+}

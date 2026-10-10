@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2506-12308",
+  "arxivId": "2506.12308",
+  "title": "From Ground to Sky: Architectures, Applications, and Challenges Shaping Low-Altitude Wireless Networks",
+  "authors": "Weijie Yuan, Yuanhao Cui, Jiacheng Wang, Fan Liu, Lin Zhou, Geng Sun, Tao Xiang, Jie Xu, Shi Jin, Sinem Coleri, Sumei Sun, Shiwen Mao, Abbas Jamalipour, Dong In Kim, Mohamed-Slim Alouini, Xuemin Shen",
+  "year": 2025,
+  "url": "https://arxiv.org/abs/2506.12308",
+  "pdfUrl": "https://arxiv.org/pdf/2506.12308",
+  "submitted": "2025-06-14",
+  "submittedTimestamp": "2025-06-14T02:04:41Z",
+  "updated": "2026-06-04",
+  "updatedTimestamp": "2026-06-04T05:17:24Z",
+  "sources": [
+    "https://arxiv.org/abs/2506.12308",
+    "https://arxiv.org/pdf/2506.12308",
+    "https://export.arxiv.org/api/query?id_list=2506.12308"
+  ],
+  "identityEvidence": "Primary arXiv HTML explicitly identifies L. Zhou at Southern University of Science and Technology with zhoul9@sustech.edu.cn; coauthor Weijie Yuan.",
+  "checkedDate": "2026-10-10",
+  "publicationNote": "Accepted for IEEE Communications Magazine; publication pending",
+  "publicationStatus": "preprint",
+  "publishedPublicationIds": [],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Official coauthor pages establish acceptance/to-appear status for IEEE Communications Magazine; an April 2026 date appears in the SKKU acceptance entry. No final publication date, DOI or pages were verified. Keep in Preprints per user instruction until publication is verified.",
+    "sources": [
+      "https://wireless.skku.edu/main/sub_page.php?page_idx=387",
+      "https://uwaterloo.ca/broadband-communications-research-lab/publication/journalmagazine-papers",
+      "https://www.eng.auburn.edu/~szm0001/publications.html",
+      "https://arxiv.org/abs/2506.12308"
+    ]
+  }
+}

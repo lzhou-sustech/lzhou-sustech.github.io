@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2105-00265",
+  "arxivId": "2105.00265",
+  "title": "Achievable Resolution Limits for the Noisy Adaptive 20 Questions Problem",
+  "authors": "Lin Zhou, Alfred Hero",
+  "year": 2021,
+  "url": "https://arxiv.org/abs/2105.00265",
+  "pdfUrl": "https://arxiv.org/pdf/2105.00265",
+  "submitted": "2021-05-01",
+  "submittedTimestamp": "2021-05-01T14:39:22Z",
+  "sources": [
+    "https://arxiv.org/abs/2105.00265",
+    "https://export.arxiv.org/api/query?id_list=2105.00265"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) conf-ieee-9517860. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "conf-ieee-9517860"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "conf-ieee-9517860"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2105.00265",
+      "https://api.crossref.org/works/10.1109/isit45174.2021.9517860",
+      "https://ieeexplore.ieee.org/document/9517860/"
+    ]
+  }
+}

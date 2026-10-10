@@ -1,0 +1,33 @@
+{
+  "id": "arxiv-2009-03505",
+  "arxivId": "2009.03505",
+  "title": "Second-Order Asymptotically Optimal Outlier Hypothesis Testing",
+  "authors": "Lin Zhou, Yun Wei, Alfred Hero",
+  "year": 2020,
+  "url": "https://arxiv.org/abs/2009.03505",
+  "pdfUrl": "https://arxiv.org/pdf/2009.03505",
+  "submitted": "2020-09-08",
+  "submittedTimestamp": "2020-09-08T03:47:18Z",
+  "updated": "2022-02-14",
+  "updatedTimestamp": "2022-02-14T06:25:16Z",
+  "sources": [
+    "https://arxiv.org/abs/2009.03505",
+    "https://export.arxiv.org/api/query?id_list=2009.03505"
+  ],
+  "identityEvidence": "Primary arXiv title and author list match the existing public publication(s) journal-second-order-outlier-2022. Lin Zhou is disambiguated by the matching title and named research coauthors; this is not a name-only match.",
+  "publicationIds": [
+    "journal-second-order-outlier-2022"
+  ],
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-second-order-outlier-2022"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Exact title, author identity and verified published citation match. The full journal/book counterpart is preferred over preliminary conference versions.",
+    "sources": [
+      "https://arxiv.org/abs/2009.03505"
+    ]
+  }
+}

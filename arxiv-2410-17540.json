@@ -1,0 +1,36 @@
+{
+  "id": "arxiv-2410-17540",
+  "arxivId": "2410.17540",
+  "title": "The Dispersion of Broadcast Channels With Degraded Message Sets Using Gaussian Codebooks",
+  "authors": "Zhuangfei Wu, Lin Bai, Jinpeng Xu, Lin Zhou, Mehul Motani",
+  "year": 2024,
+  "url": "https://arxiv.org/abs/2410.17540",
+  "pdfUrl": "https://arxiv.org/pdf/2410.17540",
+  "submitted": "2024-10-23",
+  "submittedTimestamp": "2024-10-23T03:40:57Z",
+  "updated": "2024-10-23",
+  "updatedTimestamp": "2024-10-23T03:40:57Z",
+  "sources": [
+    "https://arxiv.org/abs/2410.17540",
+    "https://arxiv.org/pdf/2410.17540",
+    "https://export.arxiv.org/api/query?id_list=2410.17540"
+  ],
+  "identityEvidence": "Exact title and ordered coauthors match an existing verified publication in github-personal-webpage/publications, with established Lin Zhou collaborators; arXiv abs confirms author list.",
+  "checkedDate": "2026-10-10",
+  "publicationStatus": "published",
+  "publishedPublicationIds": [
+    "journal-broadcast-dispersion-2025"
+  ],
+  "publicationStatusEvidence": {
+    "checkedDate": "2026-10-10",
+    "basis": "Recommend mapping at the work level. The distinctive title differs only by Gaussian versus Spherical, all five authors match in the same order, and the arXiv abstract already says the work uses spherical codebooks for both users. The published article identity and citation are verified by publisher-deposited Crossref metadata, including Lin Zhou ORCID0000-0002-5173-320X. This relationship is a strong content/author/title inference, not an explicit DOI crosslink from arXiv.",
+    "sources": [
+      "https://arxiv.org/abs/2410.17540",
+      "https://api.crossref.org/works/10.1109/TCOMM.2025.3626028",
+      "https://ieeexplore.ieee.org/document/11218870",
+      "https://api.crossref.org/works/10.1109/tcomm.2025.3626028",
+      "https://ieeexplore.ieee.org/document/11218870/"
+    ],
+    "confidence": "high-work-identity-inference"
+  }
+}
