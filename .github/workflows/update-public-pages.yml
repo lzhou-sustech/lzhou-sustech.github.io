@@ -12,7 +12,9 @@ on:
       - 'teaching.html'
       - 'contact.html'
       - 'ai-papers/**'
+      - 'script.js'
       - 'maintain_public_site.py'
+      - 'update_page_presentation.py'
       - '.github/workflows/update-public-pages.yml'
   workflow_dispatch:
 
@@ -37,6 +39,8 @@ jobs:
           ref: main
       - name: Maintain separate pages and public AI-paper links
         run: python3 maintain_public_site.py
+      - name: Number papers in descending order and expand homepage information
+        run: python3 update_page_presentation.py
       - name: Commit only the updated public pages
         id: commit
         shell: bash
@@ -53,7 +57,7 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Refresh dedicated public pages and AI-paper links'
+          git commit -m 'Refresh public pages, descending paper counts, and expanded homepage'
           git push origin HEAD:main
           echo 'updated=true' >> "$GITHUB_OUTPUT"
       - name: Request publication of the updated pages
