@@ -27,8 +27,10 @@ PAGES = (
 )
 BEGIN = '<!-- PUBLIC-PDFS:START -->'
 END = '<!-- PUBLIC-PDFS:END -->'
-NOTICE = ('<p class="draft-notice">AI-assisted working drafts. These results '
-          'have not been fully checked and may contain errors.</p>')
+NOTICE = ('<p class="ai-disclaimer">The results presented here were obtained with '
+          'the assistance of ChatGPT and have not yet been thoroughly checked. '
+          'Once they have been carefully checked and rewritten, the papers '
+          'will be uploaded to arXiv.</p>')
 LEGACY = '''  <script id="legacy-section-links">
     (() => {
       const pages = {research: 'research.html', publications: 'publications.html',
@@ -154,10 +156,11 @@ def render_page(template: str, section: str, filename: str, label: str) -> str:
 
 
 def pdf_listing(folder: Path) -> str:
-    cards: list[str] = []
+    """Render AI-aided manuscripts as scholarly citations with direct PDF links."""
+    citations: list[str] = []
     if folder.is_dir() and not folder.is_symlink():
         pdfs = sorted((p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
-                      key=lambda p: p.relative_to(folder).as_posix().casefold())
+                      key=lambda p: p.relative_to(folder).as_posix().casefold(), reverse=True)
         for pdf in pdfs:
             if pdf.is_symlink() or not pdf.resolve().is_relative_to(folder.resolve()):
                 continue
@@ -175,23 +178,44 @@ def pdf_listing(folder: Path) -> str:
             if not isinstance(title, str):
                 raise ValueError(f'PDF title must be text: {metadata_path}')
             url = html.escape(quote(pdf.relative_to(ROOT).as_posix(), safe='/'), quote=True)
-            authors = metadata.get('authors', '')
+            authors = metadata.get('authors', [])
             if isinstance(authors, list):
-                authors = ', '.join(str(author) for author in authors)
-            authors_html = f'<p class="preprint-authors">{html.escape(str(authors))}</p>' if authors else ''
-            description = metadata.get('description', '')
-            description_html = f'<p>{html.escape(str(description))}</p>' if description else ''
-            size = pdf.stat().st_size
-            size_label = f'{size / 1_048_576:.1f} MB' if size >= 1_048_576 else f'{max(1, round(size / 1024))} KB'
-            cards.append(
-                f'<li class="preprint-card"><h3><a href="{url}">{html.escape(title)}</a></h3>'
-                f'{authors_html}{description_html}<p class="preprint-links">'
-                f'<a href="{url}">Read PDF</a> <a href="{url}" download>Download PDF</a>'
-                f' <span class="preprint-size">{size_label}</span></p></li>'
+                names = [html.escape(str(name)) for name in authors if str(name).strip()]
+                if len(names) == 2:
+                    authors_html = ' and '.join(names)
+                elif len(names) > 2:
+                    authors_html = ', '.join(names[:-1]) + ', and ' + names[-1]
+                else:
+                    authors_html = names[0] if names else ''
+            else:
+                authors_html = html.escape(str(authors))
+            authors_html = authors_html.replace('Lin Zhou', '<strong>Lin Zhou</strong>')
+            author_prefix = f'{authors_html}. ' if authors_html else ''
+            year = str(metadata.get('year') or '').strip()
+            year_text = ', ' + html.escape(year) if year else ''
+            version = str(metadata.get('version') or '').strip()
+            version_text = (' <span class="secondary">(' + html.escape(version) + ')</span>') if version else ''
+            citations.append(
+                f'{author_prefix}<span class="publication-title">“'
+                f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
+                f'<em>Working paper</em>{year_text}. '
+                f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
+                f'{version_text}'
             )
-    if not cards:
+    if not citations:
         return '<p class="secondary">To be updated.</p>'
-    return NOTICE + '\n<ul class="preprint-list">\n' + '\n'.join(cards) + '\n</ul>'
+    entries = []
+    count = len(citations)
+    for index, citation in enumerate(citations):
+        number = count - index
+        entries.append(
+            f'<li class="ai-paper"><span class="ai-paper-number" '
+            f'aria-label="AI-aided paper {number}">[{number}]</span>'
+            f'<p>{citation}</p></li>'
+        )
+    return (NOTICE + '\n<ol class="ai-paper-list" reversed start="' + str(count) +
+            '" role="list" aria-label="AI-aided working papers">\n' +
+            '\n'.join(entries) + '\n</ol>')
 
 
 def refresh_ai(source: str) -> str:

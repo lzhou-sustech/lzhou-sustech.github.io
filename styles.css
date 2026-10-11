@@ -16,3 +16,10 @@
 .corresponding-marker{font-size:.75em;line-height:0;vertical-align:super;margin-left:1px}.publication-legend{font-size:.85rem;color:var(--muted);margin:6px 0 12px}
 
 .arxiv-list{font-size:.94rem}.arxiv-paper{margin-bottom:15px}.arxiv-paper p{margin:0 0 4px}.arxiv-dates,.arxiv-reference{font-size:.81rem;color:var(--muted)}.arxiv-links{font-size:.86rem}.older-arxiv{margin:13px 0 20px}.draft-notice{border-left:3px solid #aa965e;background:#fffdf7;padding:10px 13px;margin-bottom:20px}.ai-state{font-size:.81rem;color:#71571f;margin:0 0 5px;font-weight:700}.sidebar a[aria-current=page]{font-weight:700}
+
+/* The AI-Aided Papers page follows the same citation treatment as Publications. */
+#ai-papers .ai-disclaimer{font-size:.94rem;line-height:1.65;margin:0 0 24px;}
+#ai-papers .ai-paper-list{padding-left:0;list-style:none;margin:0 0 24px;}
+#ai-papers .ai-paper{position:relative;list-style:none;padding-left:3.5em;margin:0 0 18px;font-size:.94rem;line-height:1.65;}
+#ai-papers .ai-paper-number{position:absolute;left:0;top:0;font-weight:700;font-variant-numeric:tabular-nums;}
+#ai-papers .ai-paper p{margin:0;}
