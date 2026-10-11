@@ -20,6 +20,6 @@
 /* The AI-Aided Papers page follows the same citation treatment as Publications. */
 #ai-papers .ai-disclaimer{font-size:.94rem;line-height:1.65;margin:0 0 24px;}
 #ai-papers .ai-paper-list{padding-left:0;list-style:none;margin:0 0 24px;}
-#ai-papers .ai-paper{position:relative;list-style:none;padding-left:3.5em;margin:0 0 18px;font-size:.94rem;line-height:1.65;}
-#ai-papers .ai-paper-number{position:absolute;left:0;top:0;font-weight:700;font-variant-numeric:tabular-nums;}
-#ai-papers .ai-paper p{margin:0;}
+#ai-papers .ai-paper{display:grid;grid-template-columns:2.4em minmax(0,1fr);column-gap:.4em;align-items:baseline;list-style:none;padding:0;margin:0 0 18px;font-size:.94rem;line-height:1.65;}
+#ai-papers .ai-paper-number{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+#ai-papers .ai-paper-citation{min-width:0;}

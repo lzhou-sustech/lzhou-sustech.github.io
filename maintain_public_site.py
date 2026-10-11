@@ -193,14 +193,11 @@ def pdf_listing(folder: Path) -> str:
             author_prefix = f'{authors_html}. ' if authors_html else ''
             year = str(metadata.get('year') or '').strip()
             year_text = ', ' + html.escape(year) if year else ''
-            version = str(metadata.get('version') or '').strip()
-            version_text = (' <span class="secondary">(' + html.escape(version) + ')</span>') if version else ''
             citations.append(
                 f'{author_prefix}<span class="publication-title">“'
                 f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
                 f'<em>Working paper</em>{year_text}. '
                 f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
-                f'{version_text}'
             )
     if not citations:
         return '<p class="secondary">To be updated.</p>'
@@ -211,7 +208,7 @@ def pdf_listing(folder: Path) -> str:
         entries.append(
             f'<li class="ai-paper"><span class="ai-paper-number" '
             f'aria-label="AI-aided paper {number}">[{number}]</span>'
-            f'<p>{citation}</p></li>'
+            f' <span class="ai-paper-citation">{citation}</span></li>'
         )
     return (NOTICE + '\n<ol class="ai-paper-list" reversed start="' + str(count) +
             '" role="list" aria-label="AI-aided working papers">\n' +
