@@ -128,6 +128,7 @@ def publications(source: str) -> str:
         category = publication_category(values, body)
         attributes = re.sub(r'\bdata-type="[^"]+"', f'data-type="{category}"', attributes)
         papers.append((attributes, body, {**values, 'data-type': category}))
+    known = {name for name, _, _ in CATEGORIES}
     identifiers = [values.get('id') for _, _, values in papers]
     if not all(identifiers) or len(set(identifiers)) != len(identifiers):
         raise ValueError('Every publication must have one unique existing ID')
