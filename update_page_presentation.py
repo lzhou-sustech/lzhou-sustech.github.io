@@ -19,10 +19,10 @@ VERSION = 'magazines-20261012-1'
 GROUP_BEGIN = '<!-- PUBLICATION-GROUPS:START -->'
 GROUP_END = '<!-- PUBLICATION-GROUPS:END -->'
 CATEGORIES = (
-    ('journal', 'J', 'Journal articles'),
-    ('magazine', 'M', 'Magazines'),
-    ('conference', 'C', 'Conference papers'),
     ('book', 'B', 'Books and monographs'),
+    ('magazine', 'M', 'Magazines'),
+    ('journal', 'J', 'Journal articles'),
+    ('conference', 'C', 'Conference papers'),
 )
 MAGAZINE_IDS = frozenset({
     'journal-lawn-survey-2026',
@@ -175,6 +175,21 @@ def publications(source: str) -> str:
         attributes = remove_attrs(match['attrs'], 'aria-pressed')
         return f'<button{attributes} aria-pressed="{str(name == "all").lower()}">{labels[name]} <span>({counts[name]})</span></button>'
     source = button.sub(update_button, source)
+    # Keep filter tabs in the same category order as the displayed sections.
+    filter_group = re.compile(
+        r'(?P<open><div class="filter-group"[^>]*>)(?P<body>.*?)(?P<close></div>)', re.S)
+    def order_filter_buttons(match: re.Match[str]) -> str:
+        seen = list(button.finditer(match['body']))
+        desired = ('selected', 'all', 'book', 'magazine', 'journal', 'conference')
+        by_name = {item['filter']: item[0] for item in seen}
+        if len(seen) != len(desired) or set(by_name) != set(desired):
+            raise ValueError('Expected one button per publication filter')
+        return (match['open'] + '\n            ' +
+                '\n            '.join(by_name[name] for name in desired) +
+                '\n          ' + match['close'])
+    source, group_count = filter_group.subn(order_filter_buttons, source, count=1)
+    if group_count != 1:
+        raise ValueError('Expected exactly one publication filter group')
     return presentation(remove_total_summary(source, 'publications'), publication=True)
 
 
