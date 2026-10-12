@@ -2,7 +2,7 @@
 """Publish explicit descending labels, separate publication categories, and an open biography.
 
 Run after maintain_public_site.py. Citation HTML and links are preserved verbatim.
-Journal, conference, and book identifiers remain unchanged when visitors filter.
+Journal, magazine, conference, and book identifiers remain unchanged when visitors filter.
 Preprints form one continuous visible list. Top-level total-count summaries are
 omitted. Only the three presentation HTML files are written. No PDF or metadata
 is changed.
@@ -15,14 +15,20 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = 'category-numbering-20261010-1'
+VERSION = 'magazines-20261012-1'
 GROUP_BEGIN = '<!-- PUBLICATION-GROUPS:START -->'
 GROUP_END = '<!-- PUBLICATION-GROUPS:END -->'
 CATEGORIES = (
     ('journal', 'J', 'Journal articles'),
+    ('magazine', 'M', 'Magazines'),
     ('conference', 'C', 'Conference papers'),
     ('book', 'B', 'Books and monographs'),
 )
+MAGAZINE_IDS = frozenset({
+    'journal-lawn-survey-2026',
+    'survey-fanets-2026',
+    'survey-dd-isac-2024',
+})
 NUMBER_STYLE = '''  <style id="paper-list-presentation">
     ol.publication-list, ol.arxiv-list {padding-left:0;list-style:none;}
     li.publication, li.arxiv-paper {position:relative;list-style:none;padding-left:3.8em;}
@@ -94,13 +100,34 @@ def presentation(source: str, *, publication: bool) -> str:
     return source.replace('</head>', addition + '</head>', 1)
 
 
-def publications(source: str) -> str:
-    papers = items(source, 'publication')
-    if not papers:
-        raise ValueError('Publication list is missing; refusing to remove it')
-    known = {category for category, _, _ in CATEGORIES}
-    if any(values.get('data-type') not in known for _, _, values in papers):
+def publication_category(values: dict[str, str | None], body: str) -> str:
+    """Classify magazine, survey, and review pieces separately from journals."""
+    category = values.get('data-type')
+    if category not in {c for c, _, _ in CATEGORIES}:
         raise ValueError('Unknown publication type requires review')
+    if category not in ('journal', 'magazine'):
+        return str(category)
+    # Explicit decisions for existing papers; titles and venues classify new ones.
+    title_match = re.search(r'<span class="publication-title">(.*?)</span>', body, re.S)
+    venue_match = re.search(r'<cite>(.*?)</cite>', body, re.S)
+    title = re.sub(r'<[^>]*>', '', title_match[1]) if title_match else ''
+    venue = re.sub(r'<[^>]*>', '', venue_match[1]) if venue_match else ''
+    if (values.get('id') in MAGAZINE_IDS or
+            re.search(r'\b(survey|review|tutorial)\b', title, re.I) or
+            re.search(r'\bmagazine\b|\bIEEE Wireless Communications\b', venue, re.I)):
+        return 'magazine'
+    return str(category)
+
+
+def publications(source: str) -> str:
+    original_papers = items(source, 'publication')
+    if not original_papers:
+        raise ValueError('Publication list is missing; refusing to remove it')
+    papers = []
+    for attributes, body, values in original_papers:
+        category = publication_category(values, body)
+        attributes = re.sub(r'\bdata-type="[^"]+"', f'data-type="{category}"', attributes)
+        papers.append((attributes, body, {**values, 'data-type': category}))
     identifiers = [values.get('id') for _, _, values in papers]
     if not all(identifiers) or len(set(identifiers)) != len(identifiers):
         raise ValueError('Every publication must have one unique existing ID')
@@ -112,7 +139,7 @@ def publications(source: str) -> str:
         entries = [labelled_item(a, b, n-i, prefix, label) for i, (a, b) in enumerate(selected)]
         groups.append(
             f'<div class="publication-group" data-category="{category}" aria-labelledby="{category}-publications-title">\n'
-            f'<h2 id="{category}-publications-title">{label} ({n})</h2>\n'
+            f'<h2 id="{category}-publications-title">{label}</h2>\n'
             f'<ol class="publication-list" reversed start="{n or 1}" role="list" aria-label="{label}">\n'
             + '\n'.join(entries) + '\n</ol>\n</div>')
     replacement = GROUP_BEGIN + '\n<div id="publication-list">\n' + '\n'.join(groups) + '\n</div>\n' + GROUP_END
@@ -126,8 +153,18 @@ def publications(source: str) -> str:
     if count != 1:
         raise ValueError('Expected one complete publication-list container')
     # Default to the complete, separately numbered categories, not a selected subset.
+    # Insert the magazine button when refreshing an older publication layout.
+    if 'data-filter="magazine"' not in source:
+        pattern = r'(<button\b[^>]*data-filter="journal"[^>]*>.*?</button>)'
+        source, count = re.subn(
+            pattern,
+            lambda match: match[1] + '\n            <button type="button" data-filter="magazine">Magazines</button>',
+            source, count=1, flags=re.S,
+        )
+        if count != 1:
+            raise ValueError('Expected a journal filter to add Magazines')
     button = re.compile(r'<button\b(?P<attrs>[^>]*\bdata-filter="(?P<filter>[^"]+)"[^>]*)>(?P<body>.*?)</button>', re.S)
-    labels = {'selected': 'Selected', 'all': 'All', 'journal': 'Journals', 'conference': 'Conferences', 'book': 'Books'}
+    labels = {'selected': 'Selected', 'all': 'All', 'journal': 'Journals', 'magazine': 'Magazines', 'conference': 'Conferences', 'book': 'Books'}
     counts['all'] = len(papers)
     counts['selected'] = sum(v.get('data-selected') == 'true' for _, _, v in papers)
     def update_button(match: re.Match[str]) -> str:

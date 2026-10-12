@@ -14,7 +14,7 @@
   const groups = Array.from(list.querySelectorAll('.publication-group'));
   const normalize = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const searchable = publications.map(item => normalize(item.dataset.search || item.textContent || ''));
-  const labels = {all: 'publications', selected: 'selected publications', journal: 'journal articles', conference: 'conference papers', book: 'books and monographs'};
+  const labels = {all: 'publications', selected: 'selected publications', journal: 'journal articles', magazine: 'magazines, surveys and reviews', conference: 'conference papers', book: 'books and monographs'};
   let currentFilter = 'all';
   function update() {
     const words = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
