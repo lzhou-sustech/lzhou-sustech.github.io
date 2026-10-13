@@ -255,8 +255,10 @@ def expand_homepage(source: str) -> str:
             raise ValueError('Expected one homepage disclosure label')
         return '<div class="background-details">' + body + '</div>'
     result = pattern.sub(expand, source)
-    if re.search(r'<details\b', result):
-        raise ValueError('A collapsed information section remains on the homepage')
+    # Only the biography must be permanently expanded. News archive disclosures
+    # are intentional and must be preserved across subsequent site refreshes.
+    if re.search(r'<details\b[^>]*\bclass="background-details"', result):
+        raise ValueError('A collapsed biography section remains on the homepage')
     return result
 
 
