@@ -10,7 +10,9 @@ is changed.
 from __future__ import annotations
 
 import re
-from html import escape
+import json
+from datetime import datetime
+from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -258,12 +260,262 @@ def expand_homepage(source: str) -> str:
     return result
 
 
+
+# The two dynamic homepage features use the paper citations already published here.
+# Changing a publication's selection or adding a preprint automatically refreshes
+# the interactive research map and the News feed on the next site build.
+ATLAS_START = '<!-- PUBLICATION-ATLAS:START -->'
+ATLAS_END = '<!-- PUBLICATION-ATLAS:END -->'
+HOME_ATLAS_START = '<!-- HOMEPAGE-ATLAS:START -->'
+HOME_ATLAS_END = '<!-- HOMEPAGE-ATLAS:END -->'
+HOME_NEWS_START = '<!-- HOMEPAGE-NEWS:START -->'
+HOME_NEWS_END = '<!-- HOMEPAGE-NEWS:END -->'
+ATLAS_SCRIPT = 'publication-atlas.js?v=research-map-20261013-1'
+ATLAS_CSS = 'publication-atlas.css?v=research-map-20261013-1'
+
+PAPER_THEMES = {
+    'journal-covert-key-generation-2026': 3,
+    'journal-multiple-moving-targets-2026': 2,
+    'journal-continuous-outlier-2025': 1,
+    'journal-mac-rac-2025': 3,
+    'journal-sequential-outlier-2025': 1,
+    'journal-shannon-cipher-2025': 0,
+    'journal-sequence-matching-2024': 1,
+    'journal-gaussian-refinement-2023': 0,
+    'journal-gray-wyner-2017': 0,
+    'journal-successive-refinement-2017': 0,
+}
+
+
+def plain_text(fragment: str) -> str:
+    """Extract the visible citation text without introducing new metadata."""
+    fragment = re.sub(r'<sup\b[^>]*>.*?</sup>', '', fragment, flags=re.S)
+    return ' '.join(unescape(re.sub(r'<[^>]+>', '', fragment)).split())
+
+
+def publication_details(source: str) -> list[dict]:
+    result = []
+    for _, body, values in items(source, 'publication'):
+        title_markup = re.search(
+            r'<span class="publication-title">(.*?)</span>', body, flags=re.S)
+        title_anchor = re.search(
+            r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', title_markup[1], flags=re.S
+        ) if title_markup else None
+        venue_markup = re.search(r'<cite>(.*?)</cite>', body, flags=re.S)
+        year_match = re.search(r'\b(20\d{2})\.', body)
+        if not (title_anchor and venue_markup and year_match and values.get('id')):
+            raise ValueError('Incomplete publication citation: ' + str(values.get('id')))
+        pub_id = str(values['id'])
+        title = plain_text(title_anchor[2]).strip('“”')
+        authors_markup = body.split('<span class="publication-title">', 1)[0]
+        authors = plain_text(authors_markup).strip().rstrip('.')
+        arxiv = re.search(
+            r'<a\b[^>]*class="publication-arxiv"[^>]*href="([^"]+)"',
+            body, flags=re.S)
+        # Some older records place class after href; retain the exact source URL.
+        if not arxiv:
+            arxiv = re.search(
+                r'<a\b[^>]*href="([^"]+)"[^>]*class="publication-arxiv"',
+                body, flags=re.S)
+        topic = PAPER_THEMES.get(pub_id)
+        if topic is None:
+            words = title.lower()
+            if any(k in words for k in ('outlier', 'matching', 'classification', 'detection')):
+                topic = 1
+            elif any(k in words for k in ('questions', 'target', 'adaptive search')):
+                topic = 2
+            elif any(k in words for k in ('covert', 'secret key', 'multi-access', 'mac and rac')):
+                topic = 3
+            else:
+                topic = 0
+        result.append({
+            'id': pub_id,
+            'title': title,
+            'authors': authors,
+            'venue': plain_text(venue_markup[1]),
+            'year': int(year_match[1]),
+            'publisherUrl': unescape(title_anchor[1]),
+            'arxivUrl': unescape(arxiv[1]) if arxiv else '',
+            'theme': topic,
+            'selected': values.get('data-selected') == 'true',
+            'type': values.get('data-type'),
+        })
+    if not result or len({p['id'] for p in result}) != len(result):
+        raise ValueError('Publication identities are missing or duplicated')
+    return result
+
+
+def build_atlas_data(publication_source: str) -> str:
+    selected = [paper for paper in publication_details(publication_source)
+                if paper['selected']]
+    if not selected:
+        raise ValueError('Research map requires at least one selected paper')
+    # The location of an SVG dot is determined by year and theme, not a metric.
+    public = [{k: p[k] for k in (
+        'id', 'title', 'authors', 'venue', 'year',
+        'publisherUrl', 'arxivUrl', 'theme')} for p in selected]
+    return json.dumps(public, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
+
+
+def atlas_markup(data: str, *, homepage: bool) -> str:
+    if homepage:
+        title = ('<div class="home-feature-heading"><h2 id="selected-publications-title">'
+                 'Selected Publications</h2><a class="home-feature-link" '
+                 'href="publications.html">All publications →</a></div>'
+                 '<p class="home-feature-intro">Explore selected '
+                 'IEEE Transactions on Information Theory papers by research '
+                 'theme and publication year. Each point opens its citation '
+                 'and links.</p>')
+        opener = '<div id="selected-publications" class="home-feature" aria-labelledby="selected-publications-title">'
+        closer = '</div>'
+    else:
+        title = ('<h2 class="atlas-section-title" id="selected-map-title">Research map</h2>'
+                 '<p class="home-feature-intro">Your selected papers organized '
+                 'by research theme and publication year. Choose a dot to '
+                 'see its citation and publisher links.</p>')
+        opener = ('<div id="selected-publication-visualization" '
+                  'aria-labelledby="selected-map-title" hidden>')
+        closer = '</div>'
+    controls = (
+        '<div class="publication-atlas" data-publication-atlas>'
+        '<div class="atlas-toolbar">'
+        '<div class="atlas-switch" role="group" aria-label="Publication view">'
+        '<button type="button" data-atlas-mode="map" aria-pressed="true">Map</button>'
+        '<button type="button" data-atlas-mode="list" aria-pressed="false">List</button>'
+        '</div>'
+        '<p class="atlas-caption">Theme × year · select a point to explore a paper</p>'
+        '</div>'
+        '<div class="atlas-map" data-atlas-map></div>'
+        '<ol class="atlas-list" data-atlas-list hidden></ol>'
+        '<div class="atlas-detail" data-atlas-detail aria-label="Selected paper details"></div>'
+        '<p class="atlas-fallback">See the complete citations in '
+        '<a href="publications.html">Publications</a>.</p>'
+        '</div>'
+    )
+    return (opener + '\n' + title + '\n' + controls + '\n'
+            + '<script id="publication-atlas-data" type="application/json">'
+            + data + '</script>\n' + closer)
+
+
+def news_markup(publication_source: str, preprint_source: str) -> str:
+    entries = []
+    for _, body, values in items(preprint_source, 'arxiv-paper')[:4]:
+        title_markup = re.search(
+            r'<span class="publication-title">(.*?)</span>', body, flags=re.S)
+        title_anchor = re.search(
+            r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', title_markup[1], flags=re.S
+        ) if title_markup else None
+        submitted = re.search(r'<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"', body)
+        arxiv = re.search(
+            r'<a\b[^>]*class="publication-arxiv"[^>]*href="([^"]+)"',
+            body, flags=re.S)
+        if not (title_anchor and submitted and arxiv):
+            raise ValueError('Missing arXiv citation field: ' + str(values.get('id')))
+        date = datetime.strptime(submitted[1], '%Y-%m-%d')
+        entries.append(
+            '<li class="news-entry">'
+            f'<time class="news-date" datetime="{date.strftime("%Y-%m")}">'
+            f'{date.strftime("%b %Y")}</time>'
+            '<div class="news-copy"><p class="news-type">New arXiv preprint</p>'
+            f'<a href="{escape(unescape(arxiv[1]), quote=True)}">'
+            f'{escape(plain_text(title_anchor[2]))}</a>.</div></li>'
+        )
+    journals = [p for p in publication_details(publication_source)
+                if p['type'] == 'journal'][:3]
+    for paper in journals:
+        entries.append(
+            '<li class="news-entry">'
+            f'<time class="news-date" datetime="{paper["year"]}">'
+            f'{paper["year"]}</time>'
+            f'<div class="news-copy"><p class="news-type">Journal publication · '
+            f'{escape(paper["venue"])}</p>'
+            f'<a href="{escape(paper["publisherUrl"], quote=True)}">'
+            f'{escape(paper["title"])}</a>.</div></li>'
+        )
+    if not entries:
+        return '<p class="secondary">Publication updates will appear here.</p>'
+    latest = entries[:6]
+    older = entries[6:]
+    html_news = '<ul class="news-feed">' + '\n'.join(latest) + '</ul>'
+    if older:
+        html_news += ('<details class="news-older"><summary>Earlier publication updates</summary>'
+                      '<ul class="news-feed">' + '\n'.join(older) + '</ul></details>')
+    return (
+        '<div id="news" class="home-feature" aria-labelledby="news-title">'
+        '<div class="home-feature-heading"><h2 id="news-title">News</h2>'
+        '<a class="home-feature-link" href="preprints.html">Preprints →</a></div>'
+        '<p class="news-intro">Recent papers from my arXiv and publication lists. '
+        'Preprint dates are submission dates; journal entries show publication '
+        'years rather than acceptance dates.</p>'
+        + html_news +
+        '<p class="news-meta-note">This feed is refreshed whenever the '
+        '<a href="preprints.html">Preprints</a> or '
+        '<a href="publications.html">Publications</a> page is updated.</p>'
+        '</div>'
+    )
+
+
+def marked_area(source: str, start: str, end: str, markup: str,
+                *, insert_before: str) -> str:
+    block = start + '\n' + markup + '\n' + end
+    if start in source or end in source:
+        if source.count(start) != 1 or source.count(end) != 1:
+            raise ValueError('Incomplete feature markers: ' + start)
+        regex = re.escape(start) + r'.*?' + re.escape(end)
+        return re.sub(regex, lambda _: block, source, count=1, flags=re.S)
+    if source.count(insert_before) != 1:
+        raise ValueError('Cannot find a unique feature placement for ' + start)
+    return source.replace(insert_before, block + '\n' + insert_before, 1)
+
+
+def feature_scripts(source: str) -> str:
+    link = f'<link rel="stylesheet" href="{ATLAS_CSS}">'
+    script = f'<script src="{ATLAS_SCRIPT}" defer></script>'
+    if 'publication-atlas.css?' not in source:
+        source = source.replace('</head>', '  ' + link + '\n</head>', 1)
+    if 'publication-atlas.js?' not in source:
+        source = source.replace('</head>', '  ' + script + '\n</head>', 1)
+    return source
+
+
+def update_research_features(homepage: str, publications_page: str,
+                             preprints_page: str) -> tuple[str, str]:
+    data = build_atlas_data(publications_page)
+    homepage = marked_area(
+        homepage, HOME_ATLAS_START, HOME_ATLAS_END,
+        atlas_markup(data, homepage=True),
+        insert_before='      </section>\n      <footer>'
+    )
+    homepage = marked_area(
+        homepage, HOME_NEWS_START, HOME_NEWS_END,
+        news_markup(publications_page, preprints_page),
+        insert_before='      </section>\n      <footer>'
+    )
+    # Add small navigation anchors without altering the seven-page sidebar.
+    if 'id="home-quicklinks"' not in homepage:
+        anchor = '        <div id="about">'
+        links = ('        <div id="home-quicklinks" class="home-quicklinks">'
+                 '<a href="#selected-publications">Selected Publications</a>'
+                 '<a href="#news">News</a></div>\n')
+        if homepage.count(anchor) != 1:
+            raise ValueError('Cannot locate homepage About section')
+        homepage = homepage.replace(anchor, links + anchor, 1)
+    publications_page = marked_area(
+        publications_page, ATLAS_START, ATLAS_END,
+        atlas_markup(data, homepage=False),
+        insert_before='        <!-- PUBLICATION-GROUPS:START -->'
+    )
+    return feature_scripts(homepage), feature_scripts(publications_page)
+
+
 def main() -> None:
     names = ('index.html', 'publications.html', 'preprints.html')
     original = {name: (ROOT / name).read_text(encoding='utf-8') for name in names}
     updated = {'index.html': expand_homepage(original['index.html']),
                'publications.html': publications(original['publications.html']),
                'preprints.html': preprints(original['preprints.html'])}
+    updated['index.html'], updated['publications.html'] = update_research_features(
+        updated['index.html'], updated['publications.html'], updated['preprints.html'])
     # Verify citation contents and links by ID, independently of category order.
     for name, item_class in [('publications.html', 'publication'), ('preprints.html', 'arxiv-paper')]:
         before = {v['id']: body for _, body, v in items(original[name], item_class)}

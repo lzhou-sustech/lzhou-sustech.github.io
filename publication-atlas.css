@@ -1,0 +1,88 @@
+/* Research Atlas and News — intentionally scoped to the homepage / Publications page. */
+.home-feature{margin-top:42px}
+.home-feature-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.home-feature-heading h2{flex:1;min-width:190px}
+.home-feature-link{font-family:Arial,Helvetica,sans-serif;font-size:.83rem;font-weight:600;white-space:nowrap}
+.home-feature-intro{font-size:.93rem;line-height:1.65;color:#4f5b69;max-width:77ch;margin:-4px 0 18px}
+.home-quicklinks{display:flex;gap:18px;flex-wrap:wrap;font-size:.84rem;margin:1px 0 17px}
+.home-quicklinks a{font-weight:600}
+.publication-atlas{border:1px solid #dae3ef;border-radius:11px;background:#fff;overflow:hidden;box-shadow:0 7px 25px rgba(26,48,82,.035)}
+.atlas-toolbar{display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap;padding:13px 17px;border-bottom:1px solid #e5eaf0;background:#f8fafc}
+.atlas-switch{display:inline-flex;align-items:center;border:1px solid #c8d5e5;padding:3px;border-radius:7px;background:#fff;gap:2px}
+.atlas-switch button{border:0;background:transparent;border-radius:5px;color:#52617a;font:600 .8rem/1.5 Arial,Helvetica,sans-serif;padding:5px 15px;cursor:pointer}
+.atlas-switch button[aria-pressed=true]{color:#173f76;background:#e8f0fa;box-shadow:0 1px 3px rgba(30,60,100,.08)}
+.atlas-switch button:hover{background:#e8eef6}
+.atlas-switch button:focus-visible,.atlas-list-choice:focus-visible{outline:2px solid #255ea1;outline-offset:2px}
+.atlas-caption{font:400 .78rem/1.5 Arial,Helvetica,sans-serif;color:#637289;margin:0}
+.atlas-map{background:linear-gradient(180deg,#fff,#fbfdff);padding:11px}
+.atlas-viewport{width:100%;overflow-x:auto;overflow-y:hidden}
+.atlas-svg{display:block;width:100%;min-width:780px;height:auto;overflow:visible}
+.atlas-band{fill:#f6f9fc}
+.atlas-band-alt{fill:#f0f5fa}
+.atlas-lane-label{font:600 13px/1.3 Arial,Helvetica,sans-serif;fill:#44516a}
+.atlas-lane-guide{stroke:#d9e0e9;stroke-width:1;stroke-dasharray:2 5}
+.atlas-year-guide{stroke:#c9d8e8;stroke-width:.8;stroke-dasharray:4 7}
+.atlas-year-label{font:600 13px Arial,Helvetica,sans-serif;fill:#5f7187}
+.atlas-axis-title{font:italic 12px Georgia,serif;fill:#6a7d92}
+.atlas-connection{fill:none;stroke-width:2;stroke-opacity:.32;stroke-linecap:round}
+.atlas-paper-node{cursor:pointer;outline:none}
+.atlas-node-halo{opacity:.14;transition:opacity .18s ease}
+.atlas-node-center{stroke:white;stroke-width:2.7;transition:r .18s ease,stroke-width .18s ease}
+.atlas-paper-node:hover .atlas-node-halo,.atlas-paper-node:focus-visible .atlas-node-halo{opacity:.34}
+.atlas-paper-node:hover .atlas-node-center,.atlas-paper-node:focus-visible .atlas-node-center{stroke-width:4}
+.atlas-paper-node.is-current .atlas-node-halo{opacity:.33}
+.atlas-paper-node.is-current .atlas-node-center{stroke:#1e3855;stroke-width:3}
+.atlas-paper-node:focus-visible .atlas-node-center{stroke:#142d53;stroke-width:4}
+.atlas-list{list-style:none!important;margin:0!important;padding:6px 12px!important;max-height:365px;overflow:auto}
+.atlas-list-item{list-style:none!important;margin:0!important;padding:0!important;border-bottom:1px solid #edf1f5}
+.atlas-list-item:last-child{border-bottom:0}
+.atlas-list-choice{width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;text-align:left;border:0;border-radius:5px;background:transparent;color:#19395d;font:inherit;padding:11px 9px;cursor:pointer}
+.atlas-list-choice:hover,.atlas-list-choice[aria-pressed=true]{background:#f0f5fb}
+.atlas-list-choice-title{font-size:.91rem;flex:1 1 380px}
+.atlas-list-choice-meta{font:400 .75rem/1.6 Arial,Helvetica,sans-serif;color:#65778d;flex:0 1 auto}
+.atlas-detail{padding:16px 20px 17px;border-top:1px solid #e2e8ef;background:#fcfdff;min-height:137px}
+.atlas-detail-kicker{font:700 .73rem/1.4 Arial,Helvetica,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--atlas-topic-color,#3b6fa8);margin-bottom:7px}
+.atlas-detail h3{font-family:Georgia,'Times New Roman',serif;color:#253a56;font-size:1.06rem;line-height:1.35;font-weight:700;margin:0 0 6px}
+.atlas-detail h3 a{color:inherit}
+.atlas-detail-authors{font-size:.85rem;color:#48556a;margin:0 0 3px}
+.atlas-detail-venue{font-size:.81rem;font-style:italic;color:#58677b;margin:0 0 8px}
+.atlas-detail-links{display:flex;gap:15px;flex-wrap:wrap;margin:0}
+.atlas-detail-links a{font:600 .78rem/1.6 Arial,Helvetica,sans-serif}
+#selected-publication-visualization{margin:14px 0 24px}
+#selected-publication-visualization .atlas-section-title{margin:0 0 10px;font-size:1.06rem;color:#355a83}
+#selected-publication-visualization .atlas-detail{min-height:115px}
+#news{margin-bottom:25px}
+.news-intro{font-size:.9rem;color:#586474;line-height:1.6;margin:-4px 0 17px}
+.news-feed{list-style:none;padding:0!important;margin:0!important}
+.news-entry{display:grid;grid-template-columns:101px minmax(0,1fr);gap:14px;padding:13px 1px;border-bottom:1px solid #e6ecf1;list-style:none;margin:0!important}
+.news-entry:last-child{border-bottom:0}
+.news-date{font:700 .78rem/1.5 Arial,Helvetica,sans-serif;color:#587391;padding-top:2px}
+.news-copy{font-size:.91rem;line-height:1.65;color:#2e3645}
+.news-copy a{font-weight:600}
+.news-type{font:600 .74rem/1.5 Arial,Helvetica,sans-serif;letter-spacing:.035em;color:#747f8c;text-transform:uppercase;margin:0 0 3px}
+.news-older{margin:10px 0 0}
+.news-older summary{font:600 .82rem/1.6 Arial,Helvetica,sans-serif;color:#245c96;cursor:pointer}
+.news-older .news-feed{margin-top:9px!important}
+.news-meta-note{font-size:.78rem;color:#6d7784;margin:14px 0 0;line-height:1.5}
+@media(max-width:650px){
+  .home-feature{margin-top:30px}
+  .home-feature-heading h2{margin-top:15px}
+  .atlas-toolbar{padding:11px 12px}
+  .atlas-detail{padding:14px}
+  .atlas-list-choice-title{flex-basis:220px}
+  .news-entry{grid-template-columns:78px minmax(0,1fr);gap:10px}
+  .news-date{font-size:.72rem}
+  .news-copy{font-size:.86rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .atlas-node-halo,.atlas-node-center{transition:none}
+}
+@media print{
+  .publication-atlas{box-shadow:none;border-color:#bfc8d0}
+  .atlas-toolbar,.atlas-map,.atlas-list{display:none!important}
+  .atlas-detail{min-height:0}
+  .news-older>*:not(summary){display:block}
+}
+
+.atlas-fallback{font-size:.86rem;color:#61728a;margin:0;padding:13px 16px}
+.publication-atlas.atlas-ready .atlas-fallback{display:none}

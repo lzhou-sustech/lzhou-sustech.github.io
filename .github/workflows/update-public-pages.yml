@@ -13,6 +13,9 @@ on:
       - 'contact.html'
       - 'ai-papers/**'
       - 'script.js'
+      - 'paper-filters.js'
+      - 'publication-atlas.js'
+      - 'publication-atlas.css'
       - 'maintain_public_site.py'
       - 'update_page_presentation.py'
       - '.github/workflows/update-public-pages.yml'
@@ -37,6 +40,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+      - name: Verify website scripts
+        run: |
+          python3 -m py_compile maintain_public_site.py update_page_presentation.py
+          node --check publication-atlas.js
+          node --check paper-filters.js
       - name: Maintain separate pages and public AI-paper links
         run: python3 maintain_public_site.py
       - name: Number papers in descending order and expand homepage information
