@@ -273,6 +273,14 @@ HOME_NEWS_END = '<!-- HOMEPAGE-NEWS:END -->'
 ATLAS_SCRIPT = 'publication-atlas.js?v=research-map-20261013-1'
 ATLAS_CSS = 'publication-atlas.css?v=research-map-20261013-1'
 
+# Complete-bibliography map, separate from the 10-paper selected research atlas.
+HOME_FULL_MAP_START = '<!-- HOMEPAGE-PUBLICATIONS-MAP:START -->'
+HOME_FULL_MAP_END = '<!-- HOMEPAGE-PUBLICATIONS-MAP:END -->'
+PAGE_FULL_MAP_START = '<!-- PAGE-PUBLICATIONS-MAP:START -->'
+PAGE_FULL_MAP_END = '<!-- PAGE-PUBLICATIONS-MAP:END -->'
+FULL_MAP_SCRIPT = 'publications-map.js?v=all-papers-map-20261013-1'
+FULL_MAP_CSS = 'publications-map.css?v=all-papers-map-20261013-1'
+
 PAPER_THEMES = {
     'journal-covert-key-generation-2026': 3,
     'journal-multiple-moving-targets-2026': 2,
@@ -330,6 +338,7 @@ def publication_details(source: str) -> list[dict]:
                 topic = 0
         result.append({
             'id': pub_id,
+            'number': str(values.get('data-paper-number') or ''),
             'title': title,
             'authors': authors,
             'venue': plain_text(venue_markup[1]),
@@ -475,7 +484,118 @@ def feature_scripts(source: str) -> str:
         source = source.replace('</head>', '  ' + link + '\n</head>', 1)
     if 'publication-atlas.js?' not in source:
         source = source.replace('</head>', '  ' + script + '\n</head>', 1)
+    full_css = f'<link rel="stylesheet" href="{FULL_MAP_CSS}">'
+    full_script = f'<script src="{FULL_MAP_SCRIPT}" defer></script>'
+    if 'publications-map.css?' not in source:
+        source = source.replace('</head>', '  ' + full_css + '\n</head>', 1)
+    if 'publications-map.js?' not in source:
+        source = source.replace('</head>', '  ' + full_script + '\n</head>', 1)
     return source
+
+
+
+def full_map_theme(paper: dict) -> int:
+    """Group works by the research subject of the title (not journal quality)."""
+    title = paper['title'].lower()
+    # Query/search work is grouped together, including privacy-search tradeoffs.
+    if any(phrase in title for phrase in (
+            '20 questions', 'twenty questions', 'moving target',
+            'multiple targets', 'beam alignment', 'adaptive querying',
+            'adaptive noisy', 'querying')):
+        return 2
+    if any(phrase in title for phrase in (
+            'covert', 'secret', 'privacy', 'cipher', 'maximal leakage',
+            'key generation', 'physical-layer security')):
+        return 3
+    if any(phrase in title for phrase in (
+            'outlier', 'hypothesis testing', 'hypothesis test',
+            'statistical sequence matching', 'statistical classification',
+            'distributed detection', 'outlying sequence',
+            'identification with lossy recovery', 'm-ary classification',
+            'binary classification')):
+        return 1
+    if any(phrase in title for phrase in (
+            'source coding', 'rate-distortion', 'rate distortion',
+            'gray-wyner', 'wyner-ziv', 'successive refinement',
+            'joint source-channel', 'jscc', 'lossy recovery',
+            'lossy multi-connectivity', 'gaussian codebooks',
+            'streaming compression', 'streaming slepian-wolf',
+            'kaspi problem', 'multiple description coding',
+            'finite blocklength lossy', 'slepian-wolf',
+            'codebooks for arbitrary sources')):
+        return 0
+    return 4
+
+
+def build_full_publications_map_data(publications_page: str) -> tuple[str, int, int, int]:
+    papers = publication_details(publications_page)
+    if not papers:
+        raise ValueError('Cannot draw a complete publications map without papers')
+    types = {'journal', 'conference', 'magazine', 'book'}
+    if any(paper['type'] not in types for paper in papers):
+        raise ValueError('Unknown publication type in publications map')
+    for paper in papers:
+        paper['mapTheme'] = full_map_theme(paper)
+        if not paper['number']:
+            raise ValueError('Missing canonical publication number: ' + paper['id'])
+    fields = ('id', 'number', 'title', 'authors', 'venue', 'year',
+              'publisherUrl', 'arxivUrl', 'type', 'mapTheme')
+    data = [{key: paper[key] for key in fields} for paper in papers]
+    rendered = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+    return rendered.replace('<', '\\u003c'), len(data), min(
+        p['year'] for p in papers), max(p['year'] for p in papers)
+
+
+def full_map_markup(data: str, count: int, first_year: int,
+                    last_year: int, *, homepage: bool) -> str:
+    if homepage:
+        opener = ('<div id="publications-map" class="home-feature full-map-section" '
+                  'aria-labelledby="publications-map-title">')
+        intro = (
+            '<div class="home-feature-heading">'
+            '<h2 id="publications-map-title">Publications Map</h2>'
+            '<a class="home-feature-link" href="publications.html">'
+            'View publications →</a></div>'
+        )
+    else:
+        opener = ('<div id="publication-map-on-publications" '
+                  'class="full-map-section" '
+                  'aria-labelledby="full-publication-map-title">')
+        intro = (
+            '<div class="home-feature-heading">'
+            '<h2 id="full-publication-map-title">Publications Map</h2>'
+            '<a class="home-feature-link" href="#publication-list">'
+            'Full publication list ↓</a></div>'
+        )
+    summary = (
+        '<p class="home-feature-intro">Explore all '
+        f'{count} published works by research topic and year. '
+        'Bubble numbers show how many works belong to each group. '
+        'Select one to see the papers and their links. '
+        'Topic assignments are approximate; arXiv-only preprints are listed separately.</p>'
+    )
+    controls = (
+        '<div class="full-map-shell" data-full-publications-map>'
+        '<div class="full-map-topbar">'
+        '<div class="full-map-mode" role="group" aria-label="Publications map mode">'
+        '<button type="button" data-full-map-mode="map" aria-pressed="true">Map</button>'
+        '<button type="button" data-full-map-mode="list" aria-pressed="false">List</button>'
+        '</div>'
+        f'<p class="full-map-meta">{count} works · '
+        f'{first_year}–{last_year}</p></div>'
+        '<div class="full-map-filters" data-full-map-filters '
+        'role="group" aria-label="Filter the map by publication type"></div>'
+        '<div class="full-map-chart" data-full-map-chart></div>'
+        '<ol class="full-map-list" data-full-map-list hidden></ol>'
+        '<div class="full-map-detail" data-full-map-detail '
+        'aria-label="Publication group details" aria-live="polite"></div>'
+        '<p class="full-map-fallback">Browse the full bibliography at '
+        '<a href="publications.html">Publications</a>.</p>'
+        '<script type="application/json" data-full-map-data>'
+        + data +
+        '</script></div>'
+    )
+    return opener + '\n' + intro + '\n' + summary + '\n' + controls + '\n</div>'
 
 
 def update_research_features(homepage: str, publications_page: str,
@@ -505,6 +625,27 @@ def update_research_features(homepage: str, publications_page: str,
         atlas_markup(data, homepage=False),
         insert_before='        <!-- PUBLICATION-GROUPS:START -->'
     )
+    all_data, n_all, oldest, newest = build_full_publications_map_data(publications_page)
+    homepage = marked_area(
+        homepage, HOME_FULL_MAP_START, HOME_FULL_MAP_END,
+        full_map_markup(all_data, n_all, oldest, newest, homepage=True),
+        insert_before=HOME_ATLAS_START
+    )
+    publications_page = marked_area(
+        publications_page, PAGE_FULL_MAP_START, PAGE_FULL_MAP_END,
+        full_map_markup(all_data, n_all, oldest, newest, homepage=False),
+        insert_before='        <div class="publication-tools" id="publication-tools" hidden>'
+    )
+    # Keep quick navigation aligned with the on-page section order.
+    if '<a href="#publications-map">Publications Map</a>' not in homepage:
+        selected_link = '<a href="#selected-publications">Selected Publications</a>'
+        if homepage.count(selected_link) != 1:
+            raise ValueError('Could not locate selected-publications navigation link')
+        homepage = homepage.replace(
+            selected_link,
+            '<a href="#publications-map">Publications Map</a>' + selected_link,
+            1
+        )
     return feature_scripts(homepage), feature_scripts(publications_page)
 
 

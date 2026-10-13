@@ -1,0 +1,80 @@
+/* Publications Map: a browsable overview of the entire published bibliography.
+ * Uses the same quiet, scholarly visual language as the Selected Publications atlas.
+ */
+.full-map-section{margin-top:38px;margin-bottom:32px}
+.full-map-section .home-feature-intro{max-width:83ch}
+.full-map-shell{border:1px solid #d9e3ee;background:#fff;border-radius:11px;overflow:hidden;box-shadow:0 8px 26px rgba(23,57,103,.04)}
+.full-map-topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 17px;border-bottom:1px solid #e3eaf1;background:#f8fafc;flex-wrap:wrap}
+.full-map-mode{display:inline-flex;gap:3px;padding:3px;border:1px solid #ccd8e6;border-radius:7px;background:white}
+.full-map-mode button{font:600 .8rem/1.4 Arial,Helvetica,sans-serif;background:transparent;border:0;padding:6px 15px;border-radius:5px;color:#52647e;cursor:pointer}
+.full-map-mode button:hover{background:#edf3f9}
+.full-map-mode button[aria-pressed="true"]{color:#173f76;background:#e6effb}
+.full-map-meta{margin:0;font:.78rem/1.5 Arial,Helvetica,sans-serif;color:#69798f}
+.full-map-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px 17px 12px;border-bottom:1px solid #edf1f6}
+.full-map-filter{border:1px solid #d6e0ea;background:#fff;border-radius:20px;font:600 .78rem/1.5 Arial,Helvetica,sans-serif;color:#425a77;cursor:pointer;padding:6px 12px;white-space:nowrap}
+.full-map-filter:hover{background:#edf4fb}
+.full-map-filter[aria-pressed="true"]{background:#244f7e;border-color:#244f7e;color:#fff}
+.full-map-mode button:focus-visible,.full-map-filter:focus-visible,.full-map-list-button:focus-visible{outline:2px solid #2a649f;outline-offset:2px}
+.full-map-chart{padding:14px 13px 0;background:linear-gradient(180deg,#fff 0%,#fbfdff 100%)}
+.full-map-viewport{overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-color:#c5d4e5 #f3f6fa}
+.full-map-svg{display:block;min-width:760px;width:100%;height:auto;overflow:visible}
+.full-map-band{fill:#f8fafc}
+.full-map-band-alt{fill:#f0f5fa}
+.full-map-theme-label{font:600 14px Arial,Helvetica,sans-serif;fill:#465b73}
+.full-map-baseline{stroke:#ccd9e6;stroke-width:1;stroke-dasharray:2 5}
+.full-map-year-line{stroke:#e0e9f2;stroke-dasharray:4 6;stroke-width:1}
+.full-map-year-label{font:600 12px Arial,Helvetica,sans-serif;fill:#677d95}
+.full-map-axis-caption{font:italic 12px Georgia,serif;fill:#78869a}
+.full-map-bin{cursor:pointer;outline:none}
+.full-map-bin-halo{opacity:.12;transition:opacity .15s ease}
+.full-map-bin-circle{stroke:#fff;stroke-width:3;opacity:.92;transition:opacity .15s ease,stroke-width .15s ease}
+.full-map-bin-count{font:700 14px Arial,Helvetica,sans-serif;fill:white;pointer-events:none}
+.full-map-bin:hover .full-map-bin-halo,.full-map-bin:focus-visible .full-map-bin-halo{opacity:.30}
+.full-map-bin.is-active .full-map-bin-halo{opacity:.39}
+.full-map-bin.is-active .full-map-bin-circle{stroke:#233e58;stroke-width:3.2}
+.full-map-bin:focus-visible .full-map-bin-circle{stroke:#173759;stroke-width:5}
+.full-map-detail{padding:17px 21px 18px;border-top:1px solid #e1e9f2;background:#fbfcfe}
+.full-map-detail-kicker{text-transform:uppercase;font:700 .73rem/1.5 Arial,Helvetica,sans-serif;letter-spacing:.07em;color:#587b9d;margin:0 0 6px}
+.full-map-detail-title{font:700 1.08rem/1.4 Georgia,'Times New Roman',serif;color:#29476b;margin:0 0 13px}
+.full-map-paper-results{margin:0!important;padding:0!important;list-style:none!important;max-height:300px;overflow-y:auto;overscroll-behavior:contain}
+.full-map-paper{list-style:none!important;display:grid;grid-template-columns:3.7em minmax(0,1fr);gap:8px;margin:0!important;padding:10px 0!important;border-top:1px solid #ebeff4}
+.full-map-paper:first-child{border-top:0;padding-top:0!important}
+.full-map-paper-number{font:700 .89rem/1.65 Georgia,serif;color:#355c84;white-space:nowrap}
+.full-map-paper-title{font-size:.89rem;line-height:1.55;margin:0 0 3px}
+.full-map-paper-title a{color:#254c7c;font-weight:600}
+.full-map-paper-meta{font-size:.78rem;color:#68788b;margin:0 0 5px}
+.full-map-paper-links{display:flex;gap:15px;flex-wrap:wrap}
+.full-map-paper-links a{font:600 .76rem/1.4 Arial,Helvetica,sans-serif}
+.full-map-list{list-style:none!important;margin:0!important;padding:9px 16px!important;max-height:405px;overflow-y:auto}
+.full-map-list-row{list-style:none!important;padding:0!important;margin:0!important;border-bottom:1px solid #edf2f7}
+.full-map-list-row:last-child{border-bottom:0}
+.full-map-list-button{display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap;justify-content:space-between;text-align:left;width:100%;padding:12px 8px;background:transparent;color:#253e5b;border:0;border-radius:5px;font:inherit;cursor:pointer}
+.full-map-list-button:hover,.full-map-list-button[aria-pressed="true"]{background:#edf4fb}
+.full-map-list-name{font-size:.89rem;line-height:1.5;flex:1 1 350px}
+.full-map-list-meta{font:.76rem/1.5 Arial,Helvetica,sans-serif;color:#6c7e94}
+.full-map-fallback{font-size:.84rem;color:#6b7888;margin:0;padding:13px 18px;border-top:1px solid #e6edf5}
+.full-map-ready .full-map-fallback{display:none}
+#publication-map-on-publications{margin:22px 0 31px}
+#publication-map-on-publications .home-feature-heading h2{margin:0 0 12px;color:#416caa}
+#publication-map-on-publications .home-feature-heading a{font-size:.8rem}
+@media(max-width:650px){
+ .full-map-section{margin-top:30px;margin-bottom:27px}
+ .full-map-topbar{padding:12px}
+ .full-map-filters{padding:12px;gap:6px}
+ .full-map-filter{font-size:.75rem;padding:5px 9px}
+ .full-map-chart{padding:7px 9px 0}
+ .full-map-svg{min-width:715px}
+ .full-map-detail{padding:14px}
+ .full-map-list{padding:7px 10px!important}
+ .full-map-paper{grid-template-columns:3.3em minmax(0,1fr)}
+ .full-map-list-name{flex-basis:210px}
+}
+@media(prefers-reduced-motion:reduce){
+ .full-map-bin-circle,.full-map-bin-halo{transition:none}
+}
+@media print{
+ .full-map-topbar,.full-map-filters,.full-map-chart,.full-map-list{display:none!important}
+ .full-map-detail{padding:11px}
+ .full-map-paper-results{max-height:none;overflow:visible}
+ .full-map-fallback{display:none!important}
+}
