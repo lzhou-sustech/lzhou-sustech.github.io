@@ -27,10 +27,7 @@ PAGES = (
 )
 BEGIN = '<!-- PUBLIC-PDFS:START -->'
 END = '<!-- PUBLIC-PDFS:END -->'
-NOTICE = ('<p class="ai-disclaimer">The results presented here were obtained with '
-          'the assistance of ChatGPT and have not yet been thoroughly checked. '
-          'Once they have been carefully checked and rewritten, the papers '
-          'will be uploaded to arXiv.</p>')
+NOTICE = '<p class="ai-disclaimer">Papers here are written with the help of ChatGPT.</p>'
 LEGACY = '''  <script id="legacy-section-links">
     (() => {
       const pages = {research: 'research.html', publications: 'publications.html',
@@ -193,11 +190,22 @@ def pdf_listing(folder: Path) -> str:
             author_prefix = f'{authors_html}. ' if authors_html else ''
             year = str(metadata.get('year') or '').strip()
             year_text = ', ' + html.escape(year) if year else ''
+            category = metadata.get('citationType') or 'Working paper'
+            if not isinstance(category, str):
+                raise ValueError(f'PDF citation type must be text: {metadata_path}')
+            arxiv_url = metadata.get('arxivUrl') or ''
+            if not isinstance(arxiv_url, str):
+                raise ValueError(f'arXiv link must be text: {metadata_path}')
+            arxiv_link = (
+                ' <a class="publication-arxiv" href="' +
+                html.escape(arxiv_url, quote=True) + '">[arXiv]</a>'
+            ) if arxiv_url.startswith('https://arxiv.org/abs/') else ''
             citations.append(
                 f'{author_prefix}<span class="publication-title">“'
                 f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
-                f'<em>Working paper</em>{year_text}. '
+                f'<em>{html.escape(category)}</em>{year_text}. '
                 f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
+                f'{arxiv_link}'
             )
     if not citations:
         return '<p class="secondary">To be updated.</p>'
