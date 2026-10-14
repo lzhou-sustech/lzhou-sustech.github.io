@@ -11,6 +11,7 @@ from __future__ import annotations
 import html
 import json
 import re
+from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
@@ -154,10 +155,10 @@ def render_page(template: str, section: str, filename: str, label: str) -> str:
 
 def pdf_listing(folder: Path) -> str:
     """Render AI-aided manuscripts as scholarly citations with direct PDF links."""
-    citations: list[str] = []
+    citations: list[tuple[str, str]] = []
     if folder.is_dir() and not folder.is_symlink():
         pdfs = sorted((p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
-                      key=lambda p: p.relative_to(folder).as_posix().casefold(), reverse=True)
+                      key=lambda p: p.relative_to(folder).as_posix().casefold())
         for pdf in pdfs:
             if pdf.is_symlink() or not pdf.resolve().is_relative_to(folder.resolve()):
                 continue
@@ -190,6 +191,15 @@ def pdf_listing(folder: Path) -> str:
             author_prefix = f'{authors_html}. ' if authors_html else ''
             year = str(metadata.get('year') or '').strip()
             year_text = ', ' + html.escape(year) if year else ''
+            updated = metadata.get('updated')
+            if updated is None:
+                updated = f'{year}-01-01' if re.fullmatch(r'\d{4}', year) else '0001-01-01'
+            if not isinstance(updated, str):
+                raise ValueError(f'Paper update date must be text: {metadata_path}')
+            try:
+                date.fromisoformat(updated)
+            except ValueError as exc:
+                raise ValueError(f'Invalid paper update date: {metadata_path}') from exc
             category = metadata.get('citationType') or 'Working paper'
             if not isinstance(category, str):
                 raise ValueError(f'PDF citation type must be text: {metadata_path}')
@@ -200,18 +210,21 @@ def pdf_listing(folder: Path) -> str:
                 ' <a class="publication-arxiv" href="' +
                 html.escape(arxiv_url, quote=True) + '">[arXiv]</a>'
             ) if arxiv_url.startswith('https://arxiv.org/abs/') else ''
-            citations.append(
+            citations.append((
+                updated,
                 f'{author_prefix}<span class="publication-title">“'
                 f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
                 f'<em>{html.escape(category)}</em>{year_text}. '
                 f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
                 f'{arxiv_link}'
-            )
+            ))
     if not citations:
         return '<p class="secondary">To be updated.</p>'
+    # Put the most recently updated work first; use a stable name tie-breaker.
+    citations.sort(key=lambda item: item[0], reverse=True)
     entries = []
     count = len(citations)
-    for index, citation in enumerate(citations):
+    for index, (_, citation) in enumerate(citations):
         number = count - index
         entries.append(
             f'<li class="ai-paper"><span class="ai-paper-number" '
