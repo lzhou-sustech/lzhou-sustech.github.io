@@ -409,27 +409,88 @@ def atlas_markup(data: str, *, homepage: bool) -> str:
 
 
 def news_markup(publication_source: str, preprint_source: str) -> str:
-    entries = []
-    for _, body, values in items(preprint_source, 'arxiv-paper')[:4]:
+    """Build publication news from both Preprints and arXiv-linked AI papers.
+
+    Moving an arXiv paper between the two site sections must not make its
+    original submission announcement disappear. Submission dates are taken
+    from the primary arXiv records, never guessed from AI revision dates.
+    """
+    announcements: dict[str, tuple[str, str]] = {}
+
+    for _, body, values in items(preprint_source, 'arxiv-paper'):
         title_markup = re.search(
             r'<span class="publication-title">(.*?)</span>', body, flags=re.S)
         title_anchor = re.search(
             r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', title_markup[1], flags=re.S
         ) if title_markup else None
-        submitted = re.search(r'<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"', body)
+        submitted = re.search(
+            r'<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"', body)
         arxiv = re.search(
             r'<a\b[^>]*class="publication-arxiv"[^>]*href="([^"]+)"',
             body, flags=re.S)
         if not (title_anchor and submitted and arxiv):
             raise ValueError('Missing arXiv citation field: ' + str(values.get('id')))
-        date = datetime.strptime(submitted[1], '%Y-%m-%d')
+        arxiv_url = unescape(arxiv[1])
+        datetime.strptime(submitted[1], '%Y-%m-%d')
+        announcements[arxiv_url] = (submitted[1], plain_text(title_anchor[2]))
+
+    ai_folder = ROOT / 'ai-papers'
+    if ai_folder.is_dir():
+        for metadata_path in sorted(ai_folder.rglob('*.json')):
+            if metadata_path.is_symlink() or not metadata_path.with_suffix('.pdf').is_file():
+                continue
+            try:
+                metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
+            except (OSError, ValueError) as exc:
+                raise ValueError(f'Invalid AI-aided paper metadata: {metadata_path}') from exc
+            if not isinstance(metadata, dict):
+                raise ValueError(f'Invalid AI-aided paper record: {metadata_path}')
+            arxiv_url = metadata.get('arxivUrl')
+            if not arxiv_url:
+                continue
+            if not isinstance(arxiv_url, str):
+                raise ValueError(f'Invalid arXiv URL in {metadata_path}')
+            match = re.fullmatch(
+                r'https://arxiv\.org/abs/(\d{4}\.\d{4,5})(?:v\d+)?',
+                arxiv_url)
+            if match is None:
+                raise ValueError(f'Unrecognized arXiv URL in {metadata_path}')
+            canonical_url = 'https://arxiv.org/abs/' + match[1]
+            if canonical_url in announcements:
+                continue
+            # Reuse the original arXiv submission metadata, even if a later
+            # revision of the manuscript was placed under AI-Aided Papers.
+            record_file = ROOT / ('arxiv-' + match[1].replace('.', '-') + '.json')
+            record_submitted = None
+            if record_file.is_file() and not record_file.is_symlink():
+                record = json.loads(record_file.read_text(encoding='utf-8'))
+                if not isinstance(record, dict) or record.get('arxivId') != match[1]:
+                    raise ValueError(f'Mismatched arXiv source metadata: {record_file}')
+                record_submitted = record.get('submitted')
+            submitted = metadata.get('submitted') or record_submitted
+            if not isinstance(submitted, str):
+                raise ValueError(f'Missing arXiv submission date for {metadata_path}')
+            datetime.strptime(submitted, '%Y-%m-%d')
+            title = metadata.get('title')
+            if not isinstance(title, str) or not title.strip():
+                raise ValueError(f'Missing AI-aided paper title in {metadata_path}')
+            announcements[canonical_url] = (submitted, title.strip())
+
+    # The five newest distinct arXiv submissions, followed by formally
+    # published articles. Only dates supplied by sources appear on the page.
+    recent_arxiv = sorted(announcements.items(),
+                         key=lambda item: (item[1][0], item[0]),
+                         reverse=True)[:5]
+    entries = []
+    for url, (submitted, title) in recent_arxiv:
+        date = datetime.strptime(submitted, '%Y-%m-%d')
         entries.append(
             '<li class="news-entry">'
             f'<time class="news-date" datetime="{date.strftime("%Y-%m")}">'
             f'{date.strftime("%b %Y")}</time>'
             '<div class="news-copy"><p class="news-type">New arXiv preprint</p>'
-            f'<a href="{escape(unescape(arxiv[1]), quote=True)}">'
-            f'{escape(plain_text(title_anchor[2]))}</a>.</div></li>'
+            f'<a href="{escape(url, quote=True)}">{escape(title)}</a>.'
+            '</div></li>'
         )
     journals = [p for p in publication_details(publication_source)
                 if p['type'] == 'journal'][:3]
@@ -449,19 +510,24 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
     older = entries[6:]
     html_news = '<ul class="news-feed">' + '\n'.join(latest) + '</ul>'
     if older:
-        html_news += ('<details class="news-older"><summary>Earlier publication updates</summary>'
-                      '<ul class="news-feed">' + '\n'.join(older) + '</ul></details>')
+        html_news += (
+            '<details class="news-older">'
+            '<summary>Earlier publication updates</summary>'
+            '<ul class="news-feed">' + '\n'.join(older) + '</ul></details>'
+        )
     return (
         '<div id="news" class="home-feature" aria-labelledby="news-title">'
         '<div class="home-feature-heading"><h2 id="news-title">News</h2>'
         '<a class="home-feature-link" href="preprints.html">Preprints →</a></div>'
-        '<p class="news-intro">Recent papers from my arXiv and publication lists. '
+        '<p class="news-intro">Recent arXiv preprints and published papers. '
         'Preprint dates are submission dates; journal entries show publication '
         'years rather than acceptance dates.</p>'
         + html_news +
-        '<p class="news-meta-note">This feed is refreshed whenever the '
-        '<a href="preprints.html">Preprints</a> or '
-        '<a href="publications.html">Publications</a> page is updated.</p>'
+        '<p class="news-meta-note">Checked weekly for publication updates. '
+        'Announcements are generated from verified '
+        '<a href="preprints.html">Preprints</a>, '
+        '<a href="ai-aided-papers.html">AI-Aided Papers</a>, and '
+        '<a href="publications.html">Publications</a> records.</p>'
         '</div>'
     )
 

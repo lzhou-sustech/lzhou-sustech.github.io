@@ -21,6 +21,10 @@ on:
       - 'maintain_public_site.py'
       - 'update_page_presentation.py'
       - '.github/workflows/update-public-pages.yml'
+  # Every Monday at 04:23 UTC (12:23 China Standard Time).
+  # Rebuild the News feed from verified publication and arXiv records.
+  schedule:
+    - cron: '23 4 * * 1'
   workflow_dispatch:
 
 permissions:
