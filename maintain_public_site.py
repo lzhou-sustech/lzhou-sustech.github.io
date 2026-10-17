@@ -159,10 +159,14 @@ def pdf_listing(folder: Path) -> str:
     if folder.is_dir() and not folder.is_symlink():
         pdfs = sorted((p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
                       key=lambda p: p.relative_to(folder).as_posix().casefold())
-        for pdf in pdfs:
+        remote_records = sorted(
+            (p for p in folder.rglob('*.json')
+             if p.is_file() and not p.with_suffix('.pdf').is_file()),
+            key=lambda p: p.relative_to(folder).as_posix().casefold())
+        for pdf in [*pdfs, *remote_records]:
             if pdf.is_symlink() or not pdf.resolve().is_relative_to(folder.resolve()):
                 continue
-            metadata_path = pdf.with_suffix('.json')
+            metadata_path = pdf if pdf.suffix.lower() == '.json' else pdf.with_suffix('.json')
             metadata: dict = {}
             if metadata_path.is_file() and not metadata_path.is_symlink():
                 try:
@@ -175,7 +179,17 @@ def pdf_listing(folder: Path) -> str:
             title = metadata.get('title') or re.sub(r'[_-]+', ' ', pdf.stem)
             if not isinstance(title, str):
                 raise ValueError(f'PDF title must be text: {metadata_path}')
-            url = html.escape(quote(pdf.relative_to(ROOT).as_posix(), safe='/'), quote=True)
+            if pdf.suffix.lower() == '.json':
+                remote_url = metadata.get('pdfUrl')
+                if remote_url is None:
+                    continue
+                if (not isinstance(remote_url, str) or
+                        not re.fullmatch(r'https://arxiv\.org/pdf/\d{4}\.\d{4,5}(?:v\d+)?',
+                                         remote_url)):
+                    raise ValueError(f'Expected an official arXiv PDF URL: {metadata_path}')
+                url = html.escape(remote_url, quote=True)
+            else:
+                url = html.escape(quote(pdf.relative_to(ROOT).as_posix(), safe='/'), quote=True)
             authors = metadata.get('authors', [])
             if isinstance(authors, list):
                 names = [html.escape(str(name)) for name in authors if str(name).strip()]

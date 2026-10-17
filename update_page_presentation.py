@@ -437,7 +437,7 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
     ai_folder = ROOT / 'ai-papers'
     if ai_folder.is_dir():
         for metadata_path in sorted(ai_folder.rglob('*.json')):
-            if metadata_path.is_symlink() or not metadata_path.with_suffix('.pdf').is_file():
+            if metadata_path.is_symlink():
                 continue
             try:
                 metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
@@ -445,6 +445,9 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
                 raise ValueError(f'Invalid AI-aided paper metadata: {metadata_path}') from exc
             if not isinstance(metadata, dict):
                 raise ValueError(f'Invalid AI-aided paper record: {metadata_path}')
+            if (not metadata_path.with_suffix('.pdf').is_file()
+                    and not metadata.get('pdfUrl')):
+                continue
             arxiv_url = metadata.get('arxivUrl')
             if not arxiv_url:
                 continue
