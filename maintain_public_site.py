@@ -214,6 +214,28 @@ def pdf_listing(folder: Path) -> str:
                 date.fromisoformat(updated)
             except ValueError as exc:
                 raise ValueError(f'Invalid paper update date: {metadata_path}') from exc
+            submitted = metadata.get('submitted')
+            if submitted is not None:
+                if not isinstance(submitted, str):
+                    raise ValueError(f'Paper submission date must be text: {metadata_path}')
+                try:
+                    date.fromisoformat(submitted)
+                except ValueError as exc:
+                    raise ValueError(f'Invalid paper submission date: {metadata_path}') from exc
+            # Sort arXiv works by their original submission date, not by
+            # when they were moved into this section or subsequently revised.
+            # A working paper with no submission date uses its revision date.
+            sort_date = submitted or updated
+            if submitted:
+                date_label, date_value = 'Submitted', submitted
+            elif metadata.get('updated'):
+                date_label, date_value = 'Updated', updated
+            else:
+                date_label, date_value = '', ''
+            date_html = (
+                f' <span class="ai-paper-dates">({date_label} '
+                f'<time datetime="{date_value}">{date_value}</time>)</span>'
+            ) if date_value else ''
             category = metadata.get('citationType') or 'Working paper'
             if not isinstance(category, str):
                 raise ValueError(f'PDF citation type must be text: {metadata_path}')
@@ -225,16 +247,17 @@ def pdf_listing(folder: Path) -> str:
                 html.escape(arxiv_url, quote=True) + '">[arXiv]</a>'
             ) if arxiv_url.startswith('https://arxiv.org/abs/') else ''
             citations.append((
-                updated,
+                sort_date,
                 f'{author_prefix}<span class="publication-title">“'
                 f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
                 f'<em>{html.escape(category)}</em>{year_text}. '
                 f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
-                f'{arxiv_link}'
+                f'{arxiv_link}{date_html}'
             ))
     if not citations:
         return '<p class="secondary">To be updated.</p>'
-    # Put the most recently updated work first; use a stable name tie-breaker.
+    # Reverse chronological by displayed date: arXiv submission first,
+    # otherwise the documented update date; use a stable name tie-breaker.
     citations.sort(key=lambda item: item[0], reverse=True)
     entries = []
     count = len(citations)
