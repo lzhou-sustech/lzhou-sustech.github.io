@@ -23,4 +23,4 @@
 #ai-papers .ai-paper{display:grid;grid-template-columns:2.4em minmax(0,1fr);column-gap:.4em;align-items:baseline;list-style:none;padding:0;margin:0 0 18px;font-size:.94rem;line-height:1.65;}
 #ai-papers .ai-paper-number{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
 #ai-papers .ai-paper-citation{min-width:0;}
-#ai-papers .ai-paper-dates{font-size:.81rem;color:var(--muted);white-space:nowrap;}
+#ai-papers .ai-paper-dates{font-size:.81rem;color:var(--muted);white-space:normal;}

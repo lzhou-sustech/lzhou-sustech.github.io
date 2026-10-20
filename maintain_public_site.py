@@ -11,7 +11,8 @@ from __future__ import annotations
 import html
 import json
 import re
-from datetime import date
+import subprocess
+from datetime import date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
@@ -153,6 +154,47 @@ def render_page(template: str, section: str, filename: str, label: str) -> str:
     return normalize_navigation(source, filename)
 
 
+def repository_file_dates(path: Path) -> list[str]:
+    """Return unique file-change dates from Git, oldest first, in UTC+08.
+
+    GitHub's publishing workflow checks out full history. A shallow or
+    non-Git checkout falls back to explicit dates in the JSON metadata.
+    These dates describe changes to the PDF, not merely its citation.
+    """
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+        completed = subprocess.run(
+            ['git', 'log', '--follow', '--format=%cI', '--', relative],
+            cwd=ROOT, capture_output=True, text=True, check=False, timeout=15)
+    except (OSError, ValueError, subprocess.TimeoutExpired):
+        return []
+    if completed.returncode:
+        return []
+    timezone_cst = timezone(timedelta(hours=8))
+    days: set[str] = set()
+    for line in completed.stdout.splitlines():
+        if line.strip():
+            days.add(datetime.fromisoformat(line.strip()).astimezone(
+                timezone_cst).date().isoformat())
+    return sorted(days)
+
+
+def validate_calendar_dates(values: object, field: str) -> list[str]:
+    if not isinstance(values, list) or any(not isinstance(v, str) for v in values):
+        raise ValueError(f'{field} must be a list of YYYY-MM-DD dates')
+    for value in values:
+        if date.fromisoformat(value).isoformat() != value:
+            raise ValueError(f'Invalid {field} date: {value}')
+    return sorted(set(values))
+
+
+def date_citation(label: str, value: str) -> str:
+    if date.fromisoformat(value).isoformat() != value:
+        raise ValueError(f'Invalid citation date: {value}')
+    return (html.escape(label) + ' <time datetime="' + value + '">' +
+            value + '</time>')
+
+
 def pdf_listing(folder: Path) -> str:
     """Render AI-aided manuscripts as scholarly citations with direct PDF links."""
     citations: list[tuple[str, str]] = []
@@ -215,27 +257,56 @@ def pdf_listing(folder: Path) -> str:
             except ValueError as exc:
                 raise ValueError(f'Invalid paper update date: {metadata_path}') from exc
             submitted = metadata.get('submitted')
-            if submitted is not None:
-                if not isinstance(submitted, str):
-                    raise ValueError(f'Paper submission date must be text: {metadata_path}')
-                try:
-                    date.fromisoformat(submitted)
-                except ValueError as exc:
-                    raise ValueError(f'Invalid paper submission date: {metadata_path}') from exc
-            # Sort arXiv works by their original submission date, not by
-            # when they were moved into this section or subsequently revised.
-            # A working paper with no submission date uses its revision date.
-            sort_date = submitted or updated
+            if submitted is not None and not isinstance(submitted, str):
+                raise ValueError(f'Paper submission date must be text: {metadata_path}')
             if submitted:
-                date_label, date_value = 'Submitted', submitted
-            elif metadata.get('updated'):
-                date_label, date_value = 'Updated', updated
-            else:
-                date_label, date_value = '', ''
+                date.fromisoformat(submitted)
+
+            # Keep the distinction between an arXiv version, a PDF committed
+            # to this website, and a metadata-only link to a hosted PDF.
+            local_pdf = pdf.suffix.lower() == '.pdf'
+            history = repository_file_dates(pdf if local_pdf else metadata_path)
+            added_here = metadata.get('siteFirstUploaded') or (
+                history[0] if history else None)
+            if added_here is not None:
+                if not isinstance(added_here, str):
+                    raise ValueError(f'Initial upload date must be text: {metadata_path}')
+                date.fromisoformat(added_here)
+            pdf_revisions = validate_calendar_dates(
+                metadata.get('pdfRevisionDates', []), 'pdfRevisionDates')
+            if local_pdf:
+                pdf_revisions = sorted(set(
+                    pdf_revisions + [d for d in history if
+                                     added_here is None or d > added_here]))
+            arxiv_revisions = validate_calendar_dates(
+                metadata.get('arxivRevisionDates', []), 'arxivRevisionDates')
+            if submitted:
+                arxiv_revisions = [d for d in arxiv_revisions if d > submitted]
+            elif arxiv_revisions:
+                raise ValueError(f'arXiv revisions need submission date: {metadata_path}')
+
+            # The site's established ordering uses arXiv submission dates for
+            # preprints, otherwise the latest recorded manuscript revision.
+            sort_date = submitted or updated
+            date_parts = []
+            if submitted:
+                date_parts.append(date_citation('arXiv submitted', submitted))
+                for index, revision in enumerate(arxiv_revisions, start=2):
+                    date_parts.append(date_citation(
+                        f'arXiv revised (v{index})', revision))
+                if added_here:
+                    date_parts.append(date_citation(
+                        'PDF uploaded here' if local_pdf else 'Linked here',
+                        added_here))
+            elif added_here:
+                date_parts.append(date_citation('First uploaded here', added_here))
+            if local_pdf:
+                for revision in pdf_revisions:
+                    date_parts.append(date_citation('PDF updated', revision))
             date_html = (
-                f' <span class="ai-paper-dates">({date_label} '
-                f'<time datetime="{date_value}">{date_value}</time>)</span>'
-            ) if date_value else ''
+                ' <span class="ai-paper-dates">(' + '; '.join(date_parts) +
+                ')</span>'
+            ) if date_parts else ''
             category = metadata.get('citationType') or 'Working paper'
             if not isinstance(category, str):
                 raise ValueError(f'PDF citation type must be text: {metadata_path}')
