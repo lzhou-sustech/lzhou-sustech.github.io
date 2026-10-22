@@ -2,20 +2,16 @@
 """Maintain separate, read-only pages and the owner's public AI-paper listing.
 
 The original single-page layout is migrated once, without rewriting its paper
-citations. Later runs preserve each page's content and refresh only navigation,
-the arXiv-only preprint layout, and AI-paper links. Source metadata, PDFs, images,
-and all other assets are left unchanged. GitHub enforces repository write access.
+citations. Subsequent runs maintain six public pages, including one consolidated
+Preprints page for arXiv and other working manuscripts. Source PDFs, metadata,
+and other assets are preserved. GitHub enforces repository write access.
 """
 from __future__ import annotations
 
 import html
-import json
 import re
-import subprocess
-from datetime import date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 PAGES = (
@@ -23,17 +19,15 @@ PAGES = (
     ('research', 'research.html', 'Research'),
     ('publications', 'publications.html', 'Publications'),
     ('preprints', 'preprints.html', 'Preprints'),
-    ('ai-papers', 'ai-aided-papers.html', 'AI-Aided Papers'),
     ('teaching', 'teaching.html', 'Teaching & service'),
     ('contact', 'contact.html', 'Contact'),
 )
 BEGIN = '<!-- PUBLIC-PDFS:START -->'
 END = '<!-- PUBLIC-PDFS:END -->'
-NOTICE = '<p class="ai-disclaimer">Papers here are written with the help of ChatGPT.</p>'
 LEGACY = '''  <script id="legacy-section-links">
     (() => {
       const pages = {research: 'research.html', publications: 'publications.html',
-        preprints: 'preprints.html', 'ai-papers': 'ai-aided-papers.html',
+        preprints: 'preprints.html', 'ai-papers': 'preprints.html',
         teaching: 'teaching.html', contact: 'contact.html'};
       const openLegacyLink = () => {
         const destination = pages[window.location.hash.slice(1)];
@@ -134,7 +128,7 @@ def render_page(template: str, section: str, filename: str, label: str) -> str:
     descriptions = {
         'research.html': 'Research interests of Lin Zhou at SUSTech.',
         'publications.html': 'Publications by Lin Zhou: books, monographs, journal articles, and conference papers.',
-        'preprints.html': 'arXiv preprints by Lin Zhou.',
+        'preprints.html': 'Preprints and working papers by Lin Zhou.',
         'teaching.html': 'Teaching and professional service of Lin Zhou.',
         'contact.html': 'Contact information for Lin Zhou at SUSTech.',
     }
@@ -154,206 +148,6 @@ def render_page(template: str, section: str, filename: str, label: str) -> str:
     return normalize_navigation(source, filename)
 
 
-def repository_file_dates(path: Path) -> list[str]:
-    """Return unique file-change dates from Git, oldest first, in UTC+08.
-
-    GitHub's publishing workflow checks out full history. A shallow or
-    non-Git checkout falls back to explicit dates in the JSON metadata.
-    These dates describe changes to the PDF, not merely its citation.
-    """
-    try:
-        relative = path.relative_to(ROOT).as_posix()
-        completed = subprocess.run(
-            ['git', 'log', '--follow', '--format=%cI', '--', relative],
-            cwd=ROOT, capture_output=True, text=True, check=False, timeout=15)
-    except (OSError, ValueError, subprocess.TimeoutExpired):
-        return []
-    if completed.returncode:
-        return []
-    timezone_cst = timezone(timedelta(hours=8))
-    days: set[str] = set()
-    for line in completed.stdout.splitlines():
-        if line.strip():
-            days.add(datetime.fromisoformat(line.strip()).astimezone(
-                timezone_cst).date().isoformat())
-    return sorted(days)
-
-
-def validate_calendar_dates(values: object, field: str) -> list[str]:
-    if not isinstance(values, list) or any(not isinstance(v, str) for v in values):
-        raise ValueError(f'{field} must be a list of YYYY-MM-DD dates')
-    for value in values:
-        if date.fromisoformat(value).isoformat() != value:
-            raise ValueError(f'Invalid {field} date: {value}')
-    return sorted(set(values))
-
-
-def date_citation(label: str, value: str) -> str:
-    if date.fromisoformat(value).isoformat() != value:
-        raise ValueError(f'Invalid citation date: {value}')
-    return (html.escape(label) + ' <time datetime="' + value + '">' +
-            value + '</time>')
-
-
-def pdf_listing(folder: Path) -> str:
-    """Render AI-aided manuscripts as scholarly citations with direct PDF links."""
-    citations: list[tuple[str, str]] = []
-    if folder.is_dir() and not folder.is_symlink():
-        pdfs = sorted((p for p in folder.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf'),
-                      key=lambda p: p.relative_to(folder).as_posix().casefold())
-        remote_records = sorted(
-            (p for p in folder.rglob('*.json')
-             if p.is_file() and not p.with_suffix('.pdf').is_file()),
-            key=lambda p: p.relative_to(folder).as_posix().casefold())
-        for pdf in [*pdfs, *remote_records]:
-            if pdf.is_symlink() or not pdf.resolve().is_relative_to(folder.resolve()):
-                continue
-            metadata_path = pdf if pdf.suffix.lower() == '.json' else pdf.with_suffix('.json')
-            metadata: dict = {}
-            if metadata_path.is_file() and not metadata_path.is_symlink():
-                try:
-                    value = json.loads(metadata_path.read_text(encoding='utf-8'))
-                except (OSError, ValueError) as exc:
-                    raise ValueError(f'Invalid PDF metadata: {metadata_path}') from exc
-                if not isinstance(value, dict):
-                    raise ValueError(f'PDF metadata must be an object: {metadata_path}')
-                metadata = value
-            title = metadata.get('title') or re.sub(r'[_-]+', ' ', pdf.stem)
-            if not isinstance(title, str):
-                raise ValueError(f'PDF title must be text: {metadata_path}')
-            if pdf.suffix.lower() == '.json':
-                remote_url = metadata.get('pdfUrl')
-                if remote_url is None:
-                    continue
-                if (not isinstance(remote_url, str) or
-                        not re.fullmatch(r'https://arxiv\.org/pdf/\d{4}\.\d{4,5}(?:v\d+)?',
-                                         remote_url)):
-                    raise ValueError(f'Expected an official arXiv PDF URL: {metadata_path}')
-                url = html.escape(remote_url, quote=True)
-            else:
-                url = html.escape(quote(pdf.relative_to(ROOT).as_posix(), safe='/'), quote=True)
-            authors = metadata.get('authors', [])
-            if isinstance(authors, list):
-                names = [html.escape(str(name)) for name in authors if str(name).strip()]
-                if len(names) == 2:
-                    authors_html = ' and '.join(names)
-                elif len(names) > 2:
-                    authors_html = ', '.join(names[:-1]) + ', and ' + names[-1]
-                else:
-                    authors_html = names[0] if names else ''
-            else:
-                authors_html = html.escape(str(authors))
-            authors_html = authors_html.replace('Lin Zhou', '<strong>Lin Zhou</strong>')
-            author_prefix = f'{authors_html}. ' if authors_html else ''
-            year = str(metadata.get('year') or '').strip()
-            year_text = ', ' + html.escape(year) if year else ''
-            updated = metadata.get('updated')
-            if updated is None:
-                updated = f'{year}-01-01' if re.fullmatch(r'\d{4}', year) else '0001-01-01'
-            if not isinstance(updated, str):
-                raise ValueError(f'Paper update date must be text: {metadata_path}')
-            try:
-                date.fromisoformat(updated)
-            except ValueError as exc:
-                raise ValueError(f'Invalid paper update date: {metadata_path}') from exc
-            submitted = metadata.get('submitted')
-            if submitted is not None and not isinstance(submitted, str):
-                raise ValueError(f'Paper submission date must be text: {metadata_path}')
-            if submitted:
-                date.fromisoformat(submitted)
-
-            # Keep the distinction between an arXiv version, a PDF committed
-            # to this website, and a metadata-only link to a hosted PDF.
-            local_pdf = pdf.suffix.lower() == '.pdf'
-            history = repository_file_dates(pdf if local_pdf else metadata_path)
-            added_here = metadata.get('siteFirstUploaded') or (
-                history[0] if history else None)
-            if added_here is not None:
-                if not isinstance(added_here, str):
-                    raise ValueError(f'Initial upload date must be text: {metadata_path}')
-                date.fromisoformat(added_here)
-            pdf_revisions = validate_calendar_dates(
-                metadata.get('pdfRevisionDates', []), 'pdfRevisionDates')
-            if local_pdf:
-                pdf_revisions = sorted(set(
-                    pdf_revisions + [d for d in history if
-                                     added_here is None or d > added_here]))
-            arxiv_revisions = validate_calendar_dates(
-                metadata.get('arxivRevisionDates', []), 'arxivRevisionDates')
-            if submitted:
-                arxiv_revisions = [d for d in arxiv_revisions if d > submitted]
-            elif arxiv_revisions:
-                raise ValueError(f'arXiv revisions need submission date: {metadata_path}')
-
-            # The site's established ordering uses arXiv submission dates for
-            # preprints, otherwise the latest recorded manuscript revision.
-            sort_date = submitted or updated
-            date_parts = []
-            if submitted:
-                date_parts.append(date_citation('arXiv submitted', submitted))
-                for index, revision in enumerate(arxiv_revisions, start=2):
-                    date_parts.append(date_citation(
-                        f'arXiv revised (v{index})', revision))
-                if added_here:
-                    date_parts.append(date_citation(
-                        'PDF uploaded here' if local_pdf else 'Linked here',
-                        added_here))
-            elif added_here:
-                date_parts.append(date_citation('First uploaded here', added_here))
-            if local_pdf:
-                for revision in pdf_revisions:
-                    date_parts.append(date_citation('PDF updated', revision))
-            date_html = (
-                ' <span class="ai-paper-dates">(' + '; '.join(date_parts) +
-                ')</span>'
-            ) if date_parts else ''
-            category = metadata.get('citationType') or 'Working paper'
-            if not isinstance(category, str):
-                raise ValueError(f'PDF citation type must be text: {metadata_path}')
-            arxiv_url = metadata.get('arxivUrl') or ''
-            if not isinstance(arxiv_url, str):
-                raise ValueError(f'arXiv link must be text: {metadata_path}')
-            arxiv_link = (
-                ' <a class="publication-arxiv" href="' +
-                html.escape(arxiv_url, quote=True) + '">[arXiv]</a>'
-            ) if arxiv_url.startswith('https://arxiv.org/abs/') else ''
-            citations.append((
-                sort_date,
-                f'{author_prefix}<span class="publication-title">“'
-                f'<a href="{url}" type="application/pdf">{html.escape(title)}</a>.”</span> '
-                f'<em>{html.escape(category)}</em>{year_text}. '
-                f'<a class="publication-pdf" href="{url}" type="application/pdf">[PDF]</a>'
-                f'{arxiv_link}{date_html}'
-            ))
-    if not citations:
-        return '<p class="secondary">To be updated.</p>'
-    # Reverse chronological by displayed date: arXiv submission first,
-    # otherwise the documented update date; use a stable name tie-breaker.
-    citations.sort(key=lambda item: item[0], reverse=True)
-    entries = []
-    count = len(citations)
-    for index, (_, citation) in enumerate(citations):
-        number = count - index
-        entries.append(
-            f'<li class="ai-paper"><span class="ai-paper-number" '
-            f'aria-label="AI-aided paper {number}">[{number}]</span>'
-            f' <span class="ai-paper-citation">{citation}</span></li>'
-        )
-    return (NOTICE + '\n<ol class="ai-paper-list" reversed start="' + str(count) +
-            '" role="list" aria-label="AI-aided working papers">\n' +
-            '\n'.join(entries) + '\n</ol>')
-
-
-def refresh_ai(source: str) -> str:
-    # Include the disclaimer only when actual papers are available to read.
-    source = re.sub(r'<p class="draft-notice">.*?</p>', '', source, flags=re.S)
-    if source.count(BEGIN) != 1 or source.count(END) != 1:
-        raise ValueError('AI page must have exactly one complete PUBLIC-PDFS section')
-    replacement = f'{BEGIN}\n{pdf_listing(ROOT / "ai-papers")}\n{END}'
-    return re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END), lambda _: replacement,
-                  source, count=1, flags=re.S)
-
-
 def validate(pages: dict[str, str]) -> None:
     expected_nav = [filename for _, filename, _ in PAGES]
     for section, filename, _ in PAGES:
@@ -371,20 +165,18 @@ def validate(pages: dict[str, str]) -> None:
             raise ValueError(f'{filename}: public editing controls remain')
     preprints = pages['preprints.html']
     if any(text in preprints for text in ('Uploaded PDFs', BEGIN, 'preprint-list', 'preprint-empty')):
-        raise ValueError('Preprints must contain arXiv papers only')
+        raise ValueError('Preprints contain legacy public upload controls')
 
 
 def main() -> None:
     originals = {filename: (ROOT / filename).read_text(encoding='utf-8')
                  for _, filename, _ in PAGES if (ROOT / filename).is_file()}
-    if 'index.html' not in originals or 'ai-aided-papers.html' not in originals:
-        raise ValueError('The homepage and AI-paper page must both exist')
+    if 'index.html' not in originals:
+        raise ValueError('The homepage must exist')
     pages = dict(originals)
     if 'publications' in Audit(originals['index.html']).sections:
         # One-time migration: copy the existing HTML, preserving every citation.
         for section, filename, label in PAGES:
-            if section == 'ai-papers':
-                continue
             if filename != 'index.html' and filename in originals:
                 raise ValueError(f'Refusing to overwrite existing page during migration: {filename}')
             content = extract_section(originals['index.html'], section)
@@ -397,7 +189,6 @@ def main() -> None:
     for _, filename, _ in PAGES:
         pages[filename] = normalize_navigation(pages[filename], filename)
     pages['preprints.html'] = arxiv_only(pages['preprints.html'])
-    pages['ai-aided-papers.html'] = refresh_ai(pages['ai-aided-papers.html'])
     validate(pages)
     # Validate all seven outputs before changing any file. Never delete assets.
     pending = [(filename, source) for filename, source in pages.items()
@@ -406,7 +197,7 @@ def main() -> None:
         (ROOT / filename).write_text(source, encoding='utf-8')
         print(f'Updated {filename}')
     if not pending:
-        print('All seven public pages are already current')
+        print('All six public pages are already current')
 
 
 if __name__ == '__main__':

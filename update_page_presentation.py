@@ -313,10 +313,10 @@ def publication_details(source: str) -> list[dict]:
         ) if title_markup else None
         venue_markup = re.search(r'<cite>(.*?)</cite>', body, flags=re.S)
         year_match = re.search(r'\b(20\d{2})\.', body)
-        if not (title_anchor and venue_markup and year_match and values.get('id')):
+        if not (title_markup and venue_markup and year_match and values.get('id')):
             raise ValueError('Incomplete publication citation: ' + str(values.get('id')))
         pub_id = str(values['id'])
-        title = plain_text(title_anchor[2]).strip('“”')
+        title = plain_text(title_anchor[2] if title_anchor else title_markup[1]).strip('“”')
         authors_markup = body.split('<span class="publication-title">', 1)[0]
         authors = plain_text(authors_markup).strip().rstrip('.')
         arxiv = re.search(
@@ -345,7 +345,8 @@ def publication_details(source: str) -> list[dict]:
             'authors': authors,
             'venue': plain_text(venue_markup[1]),
             'year': int(year_match[1]),
-            'publisherUrl': unescape(title_anchor[1]),
+            'publisherUrl': unescape(title_anchor[1]) if title_anchor else '',
+            'forthcoming': bool(re.search(r'\(to appear\)', body, flags=re.I)),
             'arxivUrl': unescape(arxiv[1]) if arxiv else '',
             'theme': topic,
             'selected': values.get('data-selected') == 'true',
@@ -409,15 +410,18 @@ def atlas_markup(data: str, *, homepage: bool) -> str:
 
 
 def news_markup(publication_source: str, preprint_source: str) -> str:
-    """Build publication news from both Preprints and arXiv-linked AI papers.
+    """Generate News from published articles and consolidated Preprints.
 
-    Moving an arXiv paper between the two site sections must not make its
-    original submission announcement disappear. Submission dates are taken
-    from the primary arXiv records, never guessed from AI revision dates.
+    Preserve verified arXiv submission dates, even for papers previously
+    hosted under another section. Local working drafts are not mislabeled
+    as new arXiv postings.
     """
     announcements: dict[str, tuple[str, str]] = {}
 
     for _, body, values in items(preprint_source, 'arxiv-paper'):
+        # A working manuscript in Preprints has no arXiv submission date.
+        if 'preprint-working' in (values.get('class') or '').split():
+            continue
         title_markup = re.search(
             r'<span class="publication-title">(.*?)</span>', body, flags=re.S)
         title_anchor = re.search(
@@ -433,51 +437,6 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
         arxiv_url = unescape(arxiv[1])
         datetime.strptime(submitted[1], '%Y-%m-%d')
         announcements[arxiv_url] = (submitted[1], plain_text(title_anchor[2]))
-
-    ai_folder = ROOT / 'ai-papers'
-    if ai_folder.is_dir():
-        for metadata_path in sorted(ai_folder.rglob('*.json')):
-            if metadata_path.is_symlink():
-                continue
-            try:
-                metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
-            except (OSError, ValueError) as exc:
-                raise ValueError(f'Invalid AI-aided paper metadata: {metadata_path}') from exc
-            if not isinstance(metadata, dict):
-                raise ValueError(f'Invalid AI-aided paper record: {metadata_path}')
-            if (not metadata_path.with_suffix('.pdf').is_file()
-                    and not metadata.get('pdfUrl')):
-                continue
-            arxiv_url = metadata.get('arxivUrl')
-            if not arxiv_url:
-                continue
-            if not isinstance(arxiv_url, str):
-                raise ValueError(f'Invalid arXiv URL in {metadata_path}')
-            match = re.fullmatch(
-                r'https://arxiv\.org/abs/(\d{4}\.\d{4,5})(?:v\d+)?',
-                arxiv_url)
-            if match is None:
-                raise ValueError(f'Unrecognized arXiv URL in {metadata_path}')
-            canonical_url = 'https://arxiv.org/abs/' + match[1]
-            if canonical_url in announcements:
-                continue
-            # Reuse the original arXiv submission metadata, even if a later
-            # revision of the manuscript was placed under AI-Aided Papers.
-            record_file = ROOT / ('arxiv-' + match[1].replace('.', '-') + '.json')
-            record_submitted = None
-            if record_file.is_file() and not record_file.is_symlink():
-                record = json.loads(record_file.read_text(encoding='utf-8'))
-                if not isinstance(record, dict) or record.get('arxivId') != match[1]:
-                    raise ValueError(f'Mismatched arXiv source metadata: {record_file}')
-                record_submitted = record.get('submitted')
-            submitted = metadata.get('submitted') or record_submitted
-            if not isinstance(submitted, str):
-                raise ValueError(f'Missing arXiv submission date for {metadata_path}')
-            datetime.strptime(submitted, '%Y-%m-%d')
-            title = metadata.get('title')
-            if not isinstance(title, str) or not title.strip():
-                raise ValueError(f'Missing AI-aided paper title in {metadata_path}')
-            announcements[canonical_url] = (submitted, title.strip())
 
     # The five newest distinct arXiv submissions, followed by formally
     # published articles. Only dates supplied by sources appear on the page.
@@ -498,13 +457,15 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
     journals = [p for p in publication_details(publication_source)
                 if p['type'] == 'journal'][:3]
     for paper in journals:
+        status = 'Forthcoming journal article · ' if paper['forthcoming'] else 'Journal publication · '
+        journal_url = paper['publisherUrl'] or ('publications.html#' + paper['id'])
         entries.append(
             '<li class="news-entry">'
             f'<time class="news-date" datetime="{paper["year"]}">'
             f'{paper["year"]}</time>'
-            f'<div class="news-copy"><p class="news-type">Journal publication · '
+            f'<div class="news-copy"><p class="news-type">{escape(status)}'
             f'{escape(paper["venue"])}</p>'
-            f'<a href="{escape(paper["publisherUrl"], quote=True)}">'
+            f'<a href="{escape(journal_url, quote=True)}">'
             f'{escape(paper["title"])}</a>.</div></li>'
         )
     if not entries:
@@ -527,9 +488,8 @@ def news_markup(publication_source: str, preprint_source: str) -> str:
         'years rather than acceptance dates.</p>'
         + html_news +
         '<p class="news-meta-note">Checked weekly for publication updates. '
-        'Announcements are generated from verified '
-        '<a href="preprints.html">Preprints</a>, '
-        '<a href="ai-aided-papers.html">AI-Aided Papers</a>, and '
+        'Announcements are generated from '
+        '<a href="preprints.html">Preprints</a> and '
         '<a href="publications.html">Publications</a> records.</p>'
         '</div>'
     )

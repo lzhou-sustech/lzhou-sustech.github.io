@@ -8,10 +8,9 @@ on:
       - 'research.html'
       - 'publications.html'
       - 'preprints.html'
-      - 'ai-aided-papers.html'
       - 'teaching.html'
       - 'contact.html'
-      - 'ai-papers/**'
+      - 'preprint-pdfs/**'
       - 'script.js'
       - 'paper-filters.js'
       - 'publication-atlas.js'
@@ -53,7 +52,7 @@ jobs:
           node --check publication-atlas.js
           node --check publications-map.js
           node --check paper-filters.js
-      - name: Maintain separate pages and public AI-paper links
+      - name: Maintain consolidated public preprints and navigation
         run: python3 maintain_public_site.py
       - name: Number papers in descending order and expand homepage information
         run: python3 update_page_presentation.py
@@ -62,7 +61,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for page in index.html research.html publications.html preprints.html ai-aided-papers.html teaching.html contact.html; do
+          for page in index.html research.html publications.html preprints.html teaching.html contact.html; do
             if [ -f "$page" ]; then
               git add -- "$page"
             fi
