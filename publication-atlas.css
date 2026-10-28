@@ -86,3 +86,17 @@
 
 .atlas-fallback{font-size:.86rem;color:#61728a;margin:0;padding:13px 16px}
 .publication-atlas.atlas-ready .atlas-fallback{display:none}
+
+/* Compact citation list for the ten selected first/corresponding-author TIT papers. */
+#selected-publications .selected-tit-list{list-style:none!important;margin:12px 0 0!important;padding:0!important}
+#selected-publications .selected-tit-item{display:grid;grid-template-columns:3.35em minmax(0,1fr);column-gap:12px;align-items:start;list-style:none!important;padding:12px 0!important;margin:0!important;border-bottom:1px solid #e4eaf1}
+#selected-publications .selected-tit-item:first-child{border-top:1px solid #e4eaf1}
+#selected-publications .selected-tit-number{display:block;white-space:nowrap;font:700 .87rem/1.7 Georgia,serif;color:#345f90;text-decoration:none}
+#selected-publications .selected-tit-number:hover{text-decoration:underline}
+#selected-publications .selected-tit-citation{min-width:0}
+#selected-publications .selected-tit-citation p{margin:0;font-size:.91rem;line-height:1.65;color:#303a49}
+#selected-publications .selected-tit-citation .publication-title{font-weight:600}
+#selected-publications .selected-tit-citation .publication-publisher,#selected-publications .selected-tit-citation .publication-arxiv{font-size:.8rem;white-space:nowrap}
+#selected-publications .selected-tit-citation sup.corresponding-marker{font-size:.72em}
+@media(max-width:500px){#selected-publications .selected-tit-item{grid-template-columns:2.95em minmax(0,1fr);column-gap:8px;padding:11px 0!important}#selected-publications .selected-tit-citation p{font-size:.86rem}}
+@media print{#selected-publications .selected-tit-item{break-inside:avoid}}

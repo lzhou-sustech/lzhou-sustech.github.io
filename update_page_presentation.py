@@ -263,19 +263,18 @@ def expand_homepage(source: str) -> str:
 
 
 
-# The two dynamic homepage features use the paper citations already published here.
-# Changing a publication's selection or adding a preprint automatically refreshes
-# the interactive research map and the News feed on the next site build.
+# Publication features use the existing bibliography and preprints.
+# The complete Publications Map, selected TIT citation list, and News feed
+# are rebuilt from source citations during website updates.
 ATLAS_START = '<!-- PUBLICATION-ATLAS:START -->'
 ATLAS_END = '<!-- PUBLICATION-ATLAS:END -->'
 HOME_ATLAS_START = '<!-- HOMEPAGE-ATLAS:START -->'
 HOME_ATLAS_END = '<!-- HOMEPAGE-ATLAS:END -->'
 HOME_NEWS_START = '<!-- HOMEPAGE-NEWS:START -->'
 HOME_NEWS_END = '<!-- HOMEPAGE-NEWS:END -->'
-ATLAS_SCRIPT = 'publication-atlas.js?v=research-map-20261013-1'
 ATLAS_CSS = 'publication-atlas.css?v=research-map-20261013-1'
 
-# Complete-bibliography map, separate from the 10-paper selected research atlas.
+# Complete-bibliography map, separate from the 10-paper TIT citation list.
 HOME_FULL_MAP_START = '<!-- HOMEPAGE-PUBLICATIONS-MAP:START -->'
 HOME_FULL_MAP_END = '<!-- HOMEPAGE-PUBLICATIONS-MAP:END -->'
 PAGE_FULL_MAP_START = '<!-- PAGE-PUBLICATIONS-MAP:START -->'
@@ -357,56 +356,70 @@ def publication_details(source: str) -> list[dict]:
     return result
 
 
-def build_atlas_data(publication_source: str) -> str:
-    selected = [paper for paper in publication_details(publication_source)
-                if paper['selected']]
-    if not selected:
-        raise ValueError('Research map requires at least one selected paper')
-    # The location of an SVG dot is determined by year and theme, not a metric.
-    public = [{k: p[k] for k in (
-        'id', 'title', 'authors', 'venue', 'year',
-        'publisherUrl', 'arxivUrl', 'theme')} for p in selected]
-    return json.dumps(public, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
+def selected_tit_markup(publication_source: str) -> str:
+    """Render ten first-author or corresponding-author IEEE TIT citations.
 
+    Reuse the published citation HTML and its stable journal identifier.
+    A missing corresponding-author marker is not assumed to be present.
+    """
+    entries = []
+    identifiers = set()
+    for _, body, values in items(publication_source, 'publication'):
+        if values.get('data-selected') != 'true':
+            continue
+        paper_id = values.get('id')
+        number = values.get('data-paper-number')
+        if not paper_id or not number or not re.fullmatch(r'J\d+', number):
+            raise ValueError('Selected paper needs a stable journal identifier')
+        if paper_id in identifiers:
+            raise ValueError('Duplicate selected paper: ' + paper_id)
+        identifiers.add(paper_id)
+        if (values.get('data-type') != 'journal' or
+                not re.search(r'<cite>\s*IEEE Transactions on Information Theory\s*</cite>',
+                              body, re.S)):
+            raise ValueError('Selected paper is not an IEEE TIT article: ' + paper_id)
+        author_markup = body.split('<span class="publication-title">', 1)[0]
+        first_author = bool(re.search(
+            r'<p>\s*<strong>Lin Zhou</strong>', author_markup))
+        corresponding = bool(re.search(
+            r'<strong>Lin Zhou</strong>\s*<sup\b[^>]*class="corresponding-marker"',
+            author_markup))
+        if not (first_author or corresponding):
+            raise ValueError('Selected paper lacks the required author role: ' + paper_id)
 
-def atlas_markup(data: str, *, homepage: bool) -> str:
-    if homepage:
-        title = ('<div class="home-feature-heading"><h2 id="selected-publications-title">'
-                 'Selected Publications</h2><a class="home-feature-link" '
-                 'href="publications.html">All publications →</a></div>'
-                 '<p class="home-feature-intro">Explore selected '
-                 'IEEE Transactions on Information Theory papers by research '
-                 'theme and publication year. Each point opens its citation '
-                 'and links.</p>')
-        opener = '<div id="selected-publications" class="home-feature" aria-labelledby="selected-publications-title">'
-        closer = '</div>'
-    else:
-        title = ('<h2 class="atlas-section-title" id="selected-map-title">Research map</h2>'
-                 '<p class="home-feature-intro">Your selected papers organized '
-                 'by research theme and publication year. Choose a dot to '
-                 'see its citation and publisher links.</p>')
-        opener = ('<div id="selected-publication-visualization" '
-                  'aria-labelledby="selected-map-title" hidden>')
-        closer = '</div>'
-    controls = (
-        '<div class="publication-atlas" data-publication-atlas>'
-        '<div class="atlas-toolbar">'
-        '<div class="atlas-switch" role="group" aria-label="Publication view">'
-        '<button type="button" data-atlas-mode="map" aria-pressed="true">Map</button>'
-        '<button type="button" data-atlas-mode="list" aria-pressed="false">List</button>'
-        '</div>'
-        '<p class="atlas-caption">Theme × year · select a point to explore a paper</p>'
-        '</div>'
-        '<div class="atlas-map" data-atlas-map></div>'
-        '<ol class="atlas-list" data-atlas-list hidden></ol>'
-        '<div class="atlas-detail" data-atlas-detail aria-label="Selected paper details"></div>'
-        '<p class="atlas-fallback">See the complete citations in '
-        '<a href="publications.html">Publications</a>.</p>'
-        '</div>'
+        title_match = re.search(r'<span class="publication-title">(.*?)</span>',
+                                body, re.S)
+        if not title_match:
+            raise ValueError('Selected paper has no title: ' + paper_id)
+        href = 'publications.html#' + escape(paper_id, quote=True)
+        # Link forthcoming papers to their journal citation until a publisher
+        # URL becomes available. Existing publisher and arXiv links are kept.
+        if not re.search(r'<a\b', title_match[1]):
+            body = body.replace(
+                title_match[0],
+                f'<span class="publication-title"><a href="{href}">'
+                + title_match[1] + '</a></span>', 1)
+        entries.append(
+            '<li class="selected-tit-item">'
+            f'<a class="selected-tit-number" href="{href}">[{escape(number)}]</a>'
+            f'<div class="selected-tit-citation">{body}</div></li>'
+        )
+    if len(entries) != 10:
+        raise ValueError(
+            f'Expected 10 eligible selected IEEE TIT articles, got {len(entries)}')
+    return (
+        '<div id="selected-publications" class="home-feature selected-tit-section" '
+        'aria-labelledby="selected-publications-title">'
+        '<div class="home-feature-heading"><h2 id="selected-publications-title">'
+        'Selected Publications</h2><a class="home-feature-link" '
+        'href="publications.html">All publications →</a></div>'
+        '<p class="home-feature-intro">Ten papers in <em>IEEE Transactions on '
+        'Information Theory</em> for which I am first author or corresponding '
+        'author. An asterisk marks corresponding authorship.</p>'
+        '<ol class="selected-tit-list" role="list">'
+        + '\n'.join(entries) +
+        '</ol></div>'
     )
-    return (opener + '\n' + title + '\n' + controls + '\n'
-            + '<script id="publication-atlas-data" type="application/json">'
-            + data + '</script>\n' + closer)
 
 
 def news_markup(publication_source: str, preprint_source: str) -> str:
@@ -509,12 +522,14 @@ def marked_area(source: str, start: str, end: str, markup: str,
 
 
 def feature_scripts(source: str) -> str:
+    # The shared stylesheet also provides homepage News and list formatting.
     link = f'<link rel="stylesheet" href="{ATLAS_CSS}">'
-    script = f'<script src="{ATLAS_SCRIPT}" defer></script>'
     if 'publication-atlas.css?' not in source:
         source = source.replace('</head>', '  ' + link + '\n</head>', 1)
-    if 'publication-atlas.js?' not in source:
-        source = source.replace('</head>', '  ' + script + '\n</head>', 1)
+    # No second interactive atlas: retain only the complete Publications Map.
+    source = re.sub(
+        r'\s*<script src="publication-atlas\.js\?[^"]+" defer></script>',
+        '', source)
     full_css = f'<link rel="stylesheet" href="{FULL_MAP_CSS}">'
     full_script = f'<script src="{FULL_MAP_SCRIPT}" defer></script>'
     if 'publications-map.css?' not in source:
@@ -522,7 +537,6 @@ def feature_scripts(source: str) -> str:
     if 'publications-map.js?' not in source:
         source = source.replace('</head>', '  ' + full_script + '\n</head>', 1)
     return source
-
 
 
 def full_map_theme(paper: dict) -> int:
@@ -631,10 +645,9 @@ def full_map_markup(data: str, count: int, first_year: int,
 
 def update_research_features(homepage: str, publications_page: str,
                              preprints_page: str) -> tuple[str, str]:
-    data = build_atlas_data(publications_page)
     homepage = marked_area(
         homepage, HOME_ATLAS_START, HOME_ATLAS_END,
-        atlas_markup(data, homepage=True),
+        selected_tit_markup(publications_page),
         insert_before='      </section>\n      <footer>'
     )
     homepage = marked_area(
@@ -642,7 +655,7 @@ def update_research_features(homepage: str, publications_page: str,
         news_markup(publications_page, preprints_page),
         insert_before='      </section>\n      <footer>'
     )
-    # Add small navigation anchors without altering the seven-page sidebar.
+    # Keep homepage quicklinks without modifying the six-page navigation.
     if 'id="home-quicklinks"' not in homepage:
         anchor = '        <div id="about">'
         links = ('        <div id="home-quicklinks" class="home-quicklinks">'
@@ -651,11 +664,15 @@ def update_research_features(homepage: str, publications_page: str,
         if homepage.count(anchor) != 1:
             raise ValueError('Cannot locate homepage About section')
         homepage = homepage.replace(anchor, links + anchor, 1)
-    publications_page = marked_area(
-        publications_page, ATLAS_START, ATLAS_END,
-        atlas_markup(data, homepage=False),
-        insert_before='        <!-- PUBLICATION-GROUPS:START -->'
-    )
+    # Retire the second, redundant Selected Publications visualization.
+    # The Publications page keeps the full map and Selected (10) filter.
+    if ATLAS_START in publications_page or ATLAS_END in publications_page:
+        if (publications_page.count(ATLAS_START) != 1 or
+                publications_page.count(ATLAS_END) != 1):
+            raise ValueError('Incomplete legacy selected-map markers')
+        publications_page = re.sub(
+            re.escape(ATLAS_START) + r'.*?' + re.escape(ATLAS_END),
+            '', publications_page, count=1, flags=re.S)
     all_data, n_all, oldest, newest = build_full_publications_map_data(publications_page)
     homepage = marked_area(
         homepage, HOME_FULL_MAP_START, HOME_FULL_MAP_END,
