@@ -1,0 +1,32 @@
+{
+  "id": "journal-continuous-sequence-matching-2026",
+  "title": "Exponentially Consistent Tests for Statistical Sequence Matching of Continuous Sequences",
+  "authors": "Lin Zhou and Weijie Yuan",
+  "year": 2026,
+  "venue": "IEEE Transactions on Information Theory",
+  "type": "journal",
+  "status": "published",
+  "topic": "inference",
+  "selected": true,
+  "details": "",
+  "doi": "10.1109/TIT.2026.3750968",
+  "url": "https://ieeexplore.ieee.org/document/11780264/",
+  "doiUrl": "https://doi.org/10.1109/TIT.2026.3750968",
+  "sources": [
+    {
+      "label": "IEEE publisher-deposited Crossref metadata",
+      "url": "https://api.crossref.org/works/10.1109/TIT.2026.3750968"
+    },
+    {
+      "label": "IEEE Xplore record",
+      "url": "https://ieeexplore.ieee.org/document/11780264/"
+    }
+  ],
+  "verifiedOn": "2026-11-21",
+  "identityEvidence": {
+    "orcid": "0000-0002-5173-320X",
+    "affiliation": "Southern University of Science and Technology"
+  },
+  "publicationDatePrecision": "year",
+  "publicationStatusNote": "IEEE publisher-deposited publication record verified. Exact online date, final volume, issue, and pagination are not available in the primary metadata; registration timestamps and provisional pages are not used as publication dates or final pagination."
+}

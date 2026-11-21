@@ -19,9 +19,13 @@ on:
       - 'publications-map.css'
       - 'maintain_public_site.py'
       - 'update_page_presentation.py'
+      - 'test_publication_news.py'
+      - 'publication-news.json'
       - '.github/workflows/update-public-pages.yml'
   # Every Monday at 04:23 UTC (12:23 China Standard Time).
   # Rebuild the News feed from verified publication and arXiv records.
+  # Source discovery and lastChecked updates are performed by the authorized
+  # weekly publication watch; this build does not claim a new source check.
   schedule:
     - cron: '23 4 * * 1'
   workflow_dispatch:
@@ -49,6 +53,7 @@ jobs:
       - name: Verify website scripts
         run: |
           python3 -m py_compile maintain_public_site.py update_page_presentation.py
+          python3 -m unittest -v test_publication_news.py
           node --check publication-atlas.js
           node --check publications-map.js
           node --check paper-filters.js
@@ -80,3 +85,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
+

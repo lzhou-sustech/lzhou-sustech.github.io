@@ -15,6 +15,7 @@ from datetime import datetime
 from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 VERSION = 'magazines-20261012-1'
@@ -422,89 +423,230 @@ def selected_tit_markup(publication_source: str) -> str:
     )
 
 
-def news_markup(publication_source: str, preprint_source: str) -> str:
-    """Generate News from published articles and consolidated Preprints.
+def news_date(value: str) -> tuple[int, int, int]:
+    """Validate a source date without filling unknown months or days."""
+    if not isinstance(value, str) or not re.fullmatch(
+            r'\d{4}(?:-\d{2}(?:-\d{2})?)?', value):
+        raise ValueError('Invalid News date: ' + repr(value))
+    pattern = {4: '%Y', 7: '%Y-%m', 10: '%Y-%m-%d'}[len(value)]
+    datetime.strptime(value, pattern)
+    parts = [int(part) for part in value.split('-')]
+    return tuple(parts + [0] * (3 - len(parts)))
 
-    Preserve verified arXiv submission dates, even for papers previously
-    hosted under another section. Local working drafts are not mislabeled
-    as new arXiv postings.
+
+def news_url(value: str) -> str:
+    """Accept an explicit public HTTPS source, never executable markup."""
+    if not isinstance(value, str):
+        raise ValueError('News URLs must be strings')
+    parsed = urlsplit(value)
+    if (parsed.scheme != 'https' or not parsed.hostname or parsed.username
+            or parsed.password or any(c.isspace() for c in value)):
+        raise ValueError('News needs a public HTTPS URL: ' + repr(value))
+    return value
+
+
+def arxiv_identity(url: str) -> str:
+    parsed = urlsplit(news_url(url))
+    match = re.fullmatch(r'/(?:abs|pdf)/(\d{4}\.\d{4,5})(?:v\d+)?(?:\.pdf)?/?',
+                         parsed.path)
+    if parsed.hostname not in ('arxiv.org', 'export.arxiv.org') or not match:
+        raise ValueError('News needs an official arXiv paper URL: ' + url)
+    return match[1]
+
+
+def news_events(publication_source: str, preprint_source: str,
+                ledger: dict | None) -> tuple[list[dict], str | None]:
+    """Combine source-backed events with existing citation dates.
+
+    The ledger records a publication check; rendering this page does not perform
+    one. Year-only legacy citations sort after more precise dates in that year,
+    while their visible dates retain their original precision.
     """
-    announcements: dict[str, tuple[str, str]] = {}
-
+    papers = publication_details(publication_source)
+    publications_by_id = {paper['id']: paper for paper in papers}
+    arxiv_by_record = {}
+    for paper in papers:
+        if paper['arxivUrl']:
+            identity = arxiv_identity(paper['arxivUrl'])
+            arxiv_by_record[paper['id']] = identity
+            arxiv_by_record['arxiv-' + identity.replace('.', '-')] = identity
+    submissions = {}
     for _, body, values in items(preprint_source, 'arxiv-paper'):
-        # A working manuscript in Preprints has no arXiv submission date.
         if 'preprint-working' in (values.get('class') or '').split():
             continue
         title_markup = re.search(
-            r'<span class="publication-title">(.*?)</span>', body, flags=re.S)
-        title_anchor = re.search(
-            r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', title_markup[1], flags=re.S
-        ) if title_markup else None
+            r'<span class="publication-title">(.*?)</span>', body, re.S)
         submitted = re.search(
             r'<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"', body)
-        arxiv = re.search(
-            r'<a\b[^>]*class="publication-arxiv"[^>]*href="([^"]+)"',
-            body, flags=re.S)
-        if not (title_anchor and submitted and arxiv):
+        arxiv_links = [attrs(anchor)['href'] for anchor in re.findall(
+            r'<a\b[^>]*>', body) if 'publication-arxiv' in
+            (attrs(anchor).get('class') or '').split()]
+        if not (title_markup and submitted and len(arxiv_links) == 1 and values.get('id')):
             raise ValueError('Missing arXiv citation field: ' + str(values.get('id')))
-        arxiv_url = unescape(arxiv[1])
-        datetime.strptime(submitted[1], '%Y-%m-%d')
-        announcements[arxiv_url] = (submitted[1], plain_text(title_anchor[2]))
+        url = str(arxiv_links[0])
+        identity = arxiv_identity(url)
+        news_date(submitted[1])
+        if identity in submissions:
+            raise ValueError('Duplicate arXiv citation: ' + identity)
+        arxiv_by_record[str(values['id'])] = identity
+        arxiv_by_record['arxiv-' + identity.replace('.', '-')] = identity
+        submissions[identity] = {
+            'id': 'arxiv-submission-' + identity,
+            'recordId': str(values['id']), 'kind': 'arxiv-submission',
+            'date': submitted[1], 'title': plain_text(title_markup[1]).strip('“”.'),
+            'url': url,
+        }
 
-    # The five newest distinct arXiv submissions, followed by formally
-    # published articles. Only dates supplied by sources appear on the page.
-    recent_arxiv = sorted(announcements.items(),
-                         key=lambda item: (item[1][0], item[0]),
-                         reverse=True)[:5]
+    events = []
+    checked = None
+    ledger_submissions = set()
+    covered_publications = set()
+    if ledger is not None:
+        if (not isinstance(ledger, dict) or type(ledger.get('schemaVersion')) is not int
+                or ledger['schemaVersion'] != 1):
+            raise ValueError('Unsupported publication-news.json schemaVersion')
+        checked = ledger.get('lastChecked')
+        news_date(checked)
+        if len(checked) != 10 or not isinstance(ledger.get('events'), list):
+            raise ValueError('News ledger needs an exact lastChecked date and events list')
+        identifiers, event_keys = set(), set()
+        kinds = {'arxiv-submission', 'arxiv-revision', 'publication-online',
+                 'publication-issue', 'publication-verified', 'accepted'}
+        for event in ledger['events']:
+            if not isinstance(event, dict):
+                raise ValueError('News events must be objects')
+            for field in ('id', 'recordId', 'kind', 'date', 'title', 'url'):
+                if not isinstance(event.get(field), str) or not event[field].strip():
+                    raise ValueError('Missing News event field: ' + field)
+            identifier, kind, record = event['id'], event['kind'], event['recordId']
+            if identifier in identifiers or not re.fullmatch(r'[A-Za-z0-9._:-]+', identifier):
+                raise ValueError('Invalid or duplicate News event ID: ' + identifier)
+            identifiers.add(identifier)
+            if kind not in kinds:
+                raise ValueError('Unknown News event kind: ' + kind)
+            if news_date(event['date']) > news_date(checked):
+                raise ValueError('News event is later than its source check: ' + identifier)
+            news_url(event['url'])
+            sources = event.get('sources')
+            if not isinstance(sources, list) or not sources:
+                raise ValueError('News event needs primary sources: ' + identifier)
+            for source in sources:
+                news_url(source)
+            if event.get('venue') is not None and not isinstance(event['venue'], str):
+                raise ValueError('News event venue must be text: ' + identifier)
+            if kind.startswith('arxiv-'):
+                identity = arxiv_identity(event['url'])
+                if arxiv_by_record.get(record) != identity:
+                    raise ValueError('News arXiv event does not match its paper: ' + identifier)
+                if not any(arxiv_identity(source) == identity for source in sources
+                           if urlsplit(source).hostname in ('arxiv.org', 'export.arxiv.org')):
+                    raise ValueError('News arXiv event needs its own arXiv source: ' + identifier)
+                key = (identity, kind, event['date'] if kind == 'arxiv-revision' else '')
+                if kind == 'arxiv-submission':
+                    if identity in submissions and event['date'] != submissions[identity]['date']:
+                        raise ValueError('News and Preprints submission dates disagree: ' + identifier)
+                    ledger_submissions.add(identity)
+            else:
+                if record not in publications_by_id:
+                    raise ValueError('Unknown News publication record: ' + record)
+                paper = publications_by_id[record]
+                if kind != 'accepted' and paper['forthcoming']:
+                    raise ValueError('A forthcoming citation cannot be announced as published: ' + record)
+                if kind == 'publication-verified':
+                    if len(event['date']) != 10:
+                        raise ValueError('Publication verification needs an exact check date: ' + identifier)
+                    known_url = paper['publisherUrl'].rstrip('/')
+                    if event['url'].rstrip('/') != known_url:
+                        raise ValueError('Verified publication must link to its publisher citation: ' + identifier)
+                    if 'publicationYear' in event and (
+                            type(event['publicationYear']) is not int or
+                            not 1000 <= event['publicationYear'] <= 9999):
+                        raise ValueError('Invalid publication year: ' + identifier)
+                if 'IEEE' in paper['venue']:
+                    hosts = [urlsplit(source).hostname or '' for source in sources]
+                    if not any(host == 'ieee.org' or host.endswith('.ieee.org') or
+                               host in ('api.crossref.org', 'doi.org') for host in hosts):
+                        raise ValueError('IEEE News needs a publisher or DOI source: ' + identifier)
+                # Once an exact online date is known, replace the verification
+                # event instead of announcing the same publication twice.
+                key = (record, 'publication-online' if kind == 'publication-verified' else kind, '')
+                covered_publications.add(record)
+            if key in event_keys:
+                raise ValueError('Duplicate News event for a paper: ' + identifier)
+            event_keys.add(key)
+            events.append(dict(event))
+
+    events.extend(event for identity, event in submissions.items()
+                  if identity not in ledger_submissions)
+    # Retain familiar historical summaries until their verified event dates are
+    # recorded. The publication year is not presented as an online/acceptance date.
+    for paper in [p for p in papers if p['type'] == 'journal'][:3]:
+        if paper['id'] not in covered_publications:
+            events.append({
+                'id': 'publication-summary-' + paper['id'], 'recordId': paper['id'],
+                'kind': 'forthcoming-summary' if paper['forthcoming'] else 'publication-summary',
+                'date': str(paper['year']), 'title': paper['title'].rstrip('.'),
+                'url': paper['publisherUrl'] or ('publications.html#' + paper['id']),
+                'venue': paper['venue'],
+            })
+    events.sort(key=lambda event: (news_date(event['date']), event['id']), reverse=True)
+    return events, checked
+
+
+def news_markup(publication_source: str, preprint_source: str,
+                ledger: dict | None = None) -> str:
+    """Render one chronological feed from verified, distinct paper events."""
+    ledger_path = ROOT / 'publication-news.json'
+    if ledger is None and ledger_path.is_file():
+        ledger = json.loads(ledger_path.read_text(encoding='utf-8'))
+    events, checked = news_events(publication_source, preprint_source, ledger)
+    labels = {
+        'arxiv-submission': 'New arXiv preprint',
+        'arxiv-revision': 'Revised arXiv preprint',
+        'publication-online': 'Published online',
+        'publication-issue': 'Journal issue publication',
+        'publication-verified': 'Online publication verified',
+        'accepted': 'Accepted / forthcoming',
+        'forthcoming-summary': 'Forthcoming journal article',
+        'publication-summary': 'Journal publication',
+    }
     entries = []
-    for url, (submitted, title) in recent_arxiv:
-        date = datetime.strptime(submitted, '%Y-%m-%d')
+    for event in events:
+        date = event['date']
+        pattern = {4: '%Y', 7: '%Y-%m', 10: '%Y-%m-%d'}[len(date)]
+        display = datetime.strptime(date, pattern).strftime(
+            {4: '%Y', 7: '%b %Y', 10: '%d %b %Y'}[len(date)]).lstrip('0')
+        if event['kind'] == 'publication-verified':
+            display = 'Verified ' + display
+        label = labels[event['kind']]
+        if event.get('venue'):
+            label += ' · ' + event['venue']
+        title = event['title'].rstrip('.')
+        ending = '' if title.endswith(('?', '!')) else '.'
         entries.append(
-            '<li class="news-entry">'
-            f'<time class="news-date" datetime="{date.strftime("%Y-%m")}">'
-            f'{date.strftime("%b %Y")}</time>'
-            '<div class="news-copy"><p class="news-type">New arXiv preprint</p>'
-            f'<a href="{escape(url, quote=True)}">{escape(title)}</a>.'
-            '</div></li>'
-        )
-    journals = [p for p in publication_details(publication_source)
-                if p['type'] == 'journal'][:3]
-    for paper in journals:
-        status = 'Forthcoming journal article · ' if paper['forthcoming'] else 'Journal publication · '
-        journal_url = paper['publisherUrl'] or ('publications.html#' + paper['id'])
-        entries.append(
-            '<li class="news-entry">'
-            f'<time class="news-date" datetime="{paper["year"]}">'
-            f'{paper["year"]}</time>'
-            f'<div class="news-copy"><p class="news-type">{escape(status)}'
-            f'{escape(paper["venue"])}</p>'
-            f'<a href="{escape(journal_url, quote=True)}">'
-            f'{escape(paper["title"])}</a>.</div></li>'
-        )
-    if not entries:
-        return '<p class="secondary">Publication updates will appear here.</p>'
-    latest = entries[:6]
-    older = entries[6:]
-    html_news = '<ul class="news-feed">' + '\n'.join(latest) + '</ul>'
-    if older:
-        html_news += (
-            '<details class="news-older">'
-            '<summary>Earlier publication updates</summary>'
-            '<ul class="news-feed">' + '\n'.join(older) + '</ul></details>'
-        )
+            '<li class="news-entry" data-news-id="' + escape(event['id'], quote=True) + '">'
+            f'<time class="news-date" datetime="{date}">{display}</time>'
+            f'<div class="news-copy"><p class="news-type">{escape(label)}</p>'
+            f'<a href="{escape(event["url"], quote=True)}">{escape(title)}</a>{ending}'
+            '</div></li>')
+    html_news = '<ul class="news-feed">' + '\n'.join(entries[:6]) + '</ul>'
+    if len(entries) > 6:
+        html_news += ('<details class="news-older"><summary>Earlier publication updates</summary>'
+                      '<ul class="news-feed">' + '\n'.join(entries[6:]) + '</ul></details>')
+    check_note = ''
+    if checked:
+        display = datetime.strptime(checked, '%Y-%m-%d').strftime('%d %b %Y').lstrip('0')
+        check_note = (f'Last publication check: <time datetime="{checked}">{display}</time>. ')
     return (
         '<div id="news" class="home-feature" aria-labelledby="news-title">'
         '<div class="home-feature-heading"><h2 id="news-title">News</h2>'
         '<a class="home-feature-link" href="preprints.html">Preprints →</a></div>'
-        '<p class="news-intro">Recent arXiv preprints and published papers. '
-        'Preprint dates are submission dates; journal entries show publication '
-        'years rather than acceptance dates.</p>'
-        + html_news +
-        '<p class="news-meta-note">Checked weekly for publication updates. '
-        'Announcements are generated from '
-        '<a href="preprints.html">Preprints</a> and '
-        '<a href="publications.html">Publications</a> records.</p>'
-        '</div>'
+        '<p class="news-intro">Preprints, revisions, and formal publications, newest first. '
+        '“Verified” marks when a publication record was confirmed if its exact online '
+        'publication date is unavailable.</p>'
+        + html_news + '<p class="news-meta-note">' + check_note +
+        'See <a href="preprints.html">Preprints</a> and '
+        '<a href="publications.html">Publications</a> for the full records.</p></div>'
     )
 
 
@@ -719,3 +861,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+

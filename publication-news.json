@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "lastChecked": "2026-11-21",
+  "events": [
+    {
+      "id": "ieee-tit-2026-3750968-online",
+      "recordId": "journal-continuous-sequence-matching-2026",
+      "kind": "publication-verified",
+      "date": "2026-11-21",
+      "title": "Exponentially Consistent Tests for Statistical Sequence Matching of Continuous Sequences",
+      "url": "https://ieeexplore.ieee.org/document/11780264/",
+      "venue": "IEEE Transactions on Information Theory",
+      "publicationYear": 2026,
+      "sources": [
+        "https://api.crossref.org/works/10.1109/TIT.2026.3750968",
+        "https://ieeexplore.ieee.org/document/11780264/"
+      ],
+      "verificationNote": "The date is the first verification for this website update, not the unknown exact online publication date. Replace this event with publication-online once an exact primary-source date is available."
+    },
+    {
+      "id": "ieee-mnet-2026-3744847-online",
+      "recordId": "magazine-covert-isac-lawn-2026",
+      "kind": "publication-verified",
+      "date": "2026-11-21",
+      "title": "Rethinking ISAC in Low-Altitude Wireless Networks: Can It Operate Covertly?",
+      "url": "https://ieeexplore.ieee.org/document/11766240/",
+      "venue": "IEEE Network",
+      "publicationYear": 2026,
+      "sources": [
+        "https://api.crossref.org/works/10.1109/MNET.2026.3744847",
+        "https://ieeexplore.ieee.org/document/11766240/"
+      ],
+      "verificationNote": "The date is the first verification for this website update, not the unknown exact online publication date. Replace this event with publication-online once an exact primary-source date is available."
+    },
+    {
+      "id": "arxiv-submission-2610.38306",
+      "recordId": "arxiv-2610-38306",
+      "kind": "arxiv-submission",
+      "date": "2026-10-28",
+      "title": "Exact Second-Order Asymptotics for the Gaussian Gray–Wyner Problem",
+      "url": "https://arxiv.org/abs/2610.38306",
+      "sources": [
+        "https://arxiv.org/abs/2610.38306"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2610.11998",
+      "recordId": "arxiv-2610-11998",
+      "kind": "arxiv-submission",
+      "date": "2026-10-08",
+      "title": "Exact Second-Order Asymptotics for the Discrete Wyner–Ziv Problem",
+      "url": "https://arxiv.org/abs/2610.11998",
+      "sources": [
+        "https://arxiv.org/abs/2610.11998"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2610.01307",
+      "recordId": "arxiv-2610-01307",
+      "kind": "arxiv-submission",
+      "date": "2026-10-01",
+      "title": "Exploiting UAV Attitude for Covert Communications: Dynamics-Consistent Trajectory-Attitude Co-Design",
+      "url": "https://arxiv.org/abs/2610.01307",
+      "sources": [
+        "https://arxiv.org/abs/2610.01307"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2609.24675",
+      "recordId": "arxiv-2609-24675",
+      "kind": "arxiv-submission",
+      "date": "2026-09-21",
+      "title": "Exact Second-Order Asymptotics for Covert Communication over DMCs with Variational Distance Constraints",
+      "url": "https://arxiv.org/abs/2609.24675",
+      "sources": [
+        "https://arxiv.org/abs/2609.24675"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2609.14404",
+      "recordId": "arxiv-2609-14404",
+      "kind": "arxiv-submission",
+      "date": "2026-09-13",
+      "title": "Successive Refinement Under Strong-Sense Perfect Perception",
+      "url": "https://arxiv.org/abs/2609.14404",
+      "sources": [
+        "https://arxiv.org/abs/2609.14404"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2609.10436",
+      "recordId": "arxiv-2609-10436",
+      "kind": "arxiv-submission",
+      "date": "2026-09-09",
+      "title": "Mobility Information Capacity in the Sky: A Gaussian Channel Perspective",
+      "url": "https://arxiv.org/abs/2609.10436",
+      "sources": [
+        "https://arxiv.org/abs/2609.10436"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2608.10455",
+      "recordId": "arxiv-2608-10455",
+      "kind": "arxiv-submission",
+      "date": "2026-08-11",
+      "title": "Exponentially Consistent Low Complexity Tests for Statistical Sequence Matching",
+      "url": "https://arxiv.org/abs/2608.10455",
+      "sources": [
+        "https://arxiv.org/abs/2608.10455"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2603.29645",
+      "recordId": "arxiv-2603-29645",
+      "kind": "arxiv-submission",
+      "date": "2026-03-31",
+      "title": "Second-Order Asymptotics for Covert Communication over Quasi-Static Multiple-Antenna Fading Channels",
+      "url": "https://arxiv.org/abs/2603.29645",
+      "sources": [
+        "https://arxiv.org/abs/2603.29645"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2601.16799",
+      "recordId": "arxiv-2601-16799",
+      "kind": "arxiv-submission",
+      "date": "2026-01-23",
+      "title": "Adaptive Beam Alignment using Noisy Twenty Questions Estimation with Trained Questioner",
+      "url": "https://arxiv.org/abs/2601.16799",
+      "sources": [
+        "https://arxiv.org/abs/2601.16799"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2506.12308",
+      "recordId": "arxiv-2506-12308",
+      "kind": "arxiv-submission",
+      "date": "2025-06-14",
+      "title": "From Ground to Sky: Architectures, Applications, and Challenges Shaping Low-Altitude Wireless Networks",
+      "url": "https://arxiv.org/abs/2506.12308",
+      "sources": [
+        "https://arxiv.org/abs/2506.12308"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2506.03976",
+      "recordId": "arxiv-2506-03976",
+      "kind": "arxiv-submission",
+      "date": "2025-06-04",
+      "title": "Large Deviations for Sequential Tests of Statistical Sequence Matching",
+      "url": "https://arxiv.org/abs/2506.03976",
+      "sources": [
+        "https://arxiv.org/abs/2506.03976"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2505.00558",
+      "recordId": "arxiv-2505-00558",
+      "kind": "arxiv-submission",
+      "date": "2025-05-01",
+      "title": "Exponentially Consistent Low Complexity Tests for Outlier Hypothesis Testing",
+      "url": "https://arxiv.org/abs/2505.00558",
+      "sources": [
+        "https://arxiv.org/abs/2505.00558"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2410.21799",
+      "recordId": "arxiv-2410-21799",
+      "kind": "arxiv-submission",
+      "date": "2024-10-29",
+      "title": "Exponentially Consistent Statistical Classification of Continuous Sequences with Distribution Uncertainty",
+      "url": "https://arxiv.org/abs/2410.21799",
+      "sources": [
+        "https://arxiv.org/abs/2410.21799"
+      ]
+    },
+    {
+      "id": "arxiv-submission-2210.12736",
+      "recordId": "arxiv-2210-12736",
+      "kind": "arxiv-submission",
+      "date": "2022-10-23",
+      "title": "Achievable Error Exponents for Two-Phase Multiple Classification",
+      "url": "https://arxiv.org/abs/2210.12736",
+      "sources": [
+        "https://arxiv.org/abs/2210.12736"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2609.24675-2026-09-30",
+      "recordId": "arxiv-2609-24675",
+      "kind": "arxiv-revision",
+      "date": "2026-09-30",
+      "title": "Exact Second-Order Asymptotics for Covert Communication over DMCs with Variational Distance Constraints",
+      "url": "https://arxiv.org/abs/2609.24675",
+      "sources": [
+        "https://arxiv.org/abs/2609.24675"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2603.29645-2026-08-11",
+      "recordId": "arxiv-2603-29645",
+      "kind": "arxiv-revision",
+      "date": "2026-08-11",
+      "title": "Second-Order Asymptotics for Covert Communication over Quasi-Static Multiple-Antenna Fading Channels",
+      "url": "https://arxiv.org/abs/2603.29645",
+      "sources": [
+        "https://arxiv.org/abs/2603.29645"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2601.16799-2026-01-26",
+      "recordId": "arxiv-2601-16799",
+      "kind": "arxiv-revision",
+      "date": "2026-01-26",
+      "title": "Adaptive Beam Alignment using Noisy Twenty Questions Estimation with Trained Questioner",
+      "url": "https://arxiv.org/abs/2601.16799",
+      "sources": [
+        "https://arxiv.org/abs/2601.16799"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2506.12308-2026-06-04",
+      "recordId": "arxiv-2506-12308",
+      "kind": "arxiv-revision",
+      "date": "2026-06-04",
+      "title": "From Ground to Sky: Architectures, Applications, and Challenges Shaping Low-Altitude Wireless Networks",
+      "url": "https://arxiv.org/abs/2506.12308",
+      "sources": [
+        "https://arxiv.org/abs/2506.12308"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2505.00558-2026-01-08",
+      "recordId": "arxiv-2505-00558",
+      "kind": "arxiv-revision",
+      "date": "2026-01-08",
+      "title": "Exponentially Consistent Low Complexity Tests for Outlier Hypothesis Testing",
+      "url": "https://arxiv.org/abs/2505.00558",
+      "sources": [
+        "https://arxiv.org/abs/2505.00558"
+      ]
+    },
+    {
+      "id": "arxiv-revision-2210.12736-2023-05-26",
+      "recordId": "arxiv-2210-12736",
+      "kind": "arxiv-revision",
+      "date": "2023-05-26",
+      "title": "Achievable Error Exponents for Two-Phase Multiple Classification",
+      "url": "https://arxiv.org/abs/2210.12736",
+      "sources": [
+        "https://arxiv.org/abs/2210.12736"
+      ]
+    }
+  ],
+  "lastCheckSources": [
+    "https://export.arxiv.org/api/query?search_query=au%3A%22Zhou_Lin%22&sortBy=lastUpdatedDate&sortOrder=descending&max_results=200",
+    "https://api.crossref.org/works?filter=orcid%3A0000-0002-5173-320X%2Cfrom-update-date%3A2026-09-01&rows=100&sort=updated&order=desc"
+  ],
+  "lastCheckNotes": [
+    "Verified all 14 currently listed arXiv papers and checked the complete author-name API inventory; no newer own-author arXiv submission or revision after 2026-10-28.",
+    "Crossref exact-ORCID and broader IEEE author searches identified the two publisher records added or updated in this check. Direct IEEE pages did not expose exact publication dates, so verification dates are explicitly labeled."
+  ]
+}
