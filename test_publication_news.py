@@ -1,5 +1,6 @@
 """Regression checks for dated publication announcements and safe rebuilding."""
 import contextlib
+from datetime import date
 import io
 import json
 from pathlib import Path
@@ -52,6 +53,11 @@ def ledger(*events):
 
 
 class PublicationNewsTests(unittest.TestCase):
+    def setUp(self):
+        clock = patch.object(presentation, 'publication_today', return_value=date(2026, 11, 22))
+        clock.start()
+        self.addCleanup(clock.stop)
+
     def test_online_publications_and_revisions_mix_with_all_submissions(self):
         revision = event(
             id='revision-1', recordId='arxiv-2610-00001', kind='arxiv-revision',
@@ -140,6 +146,81 @@ class PublicationNewsTests(unittest.TestCase):
             without_ledger = presentation.news_markup(PUBLICATIONS, preprints())
         self.assertNotIn('Last publication check', without_ledger)
         self.assertNotIn('Checked weekly', without_ledger)
+
+    def test_rolling_cutoff_is_inclusive_and_preserves_date_precision(self):
+        self.assertEqual(presentation.recent_cutoff(), date(2024, 11, 22))
+        self.assertEqual(presentation.recent_cutoff(date(2028, 2, 29)), date(2026, 2, 28))
+        self.assertFalse(presentation.is_recent('2024-11-21'))
+        self.assertTrue(presentation.is_recent('2024-11-22'))
+        self.assertFalse(presentation.is_recent('2024-11'))
+        self.assertFalse(presentation.is_recent('2024'))
+        self.assertTrue(presentation.is_recent('2024-12'))
+        self.assertTrue(presentation.is_recent('2025'))
+        self.assertFalse(presentation.is_recent('2027'))
+
+    def test_expired_ledger_records_do_not_require_retained_preprints(self):
+        expired = event(id='removed-paper', recordId='removed-arxiv', kind='arxiv-submission',
+                        date='2024-11-21', url='https://arxiv.org/abs/2411.00001',
+                        sources=['https://arxiv.org/abs/2411.00001'])
+        boundary = event(id='boundary', date='2024-11-22')
+        month = event(id='month', recordId='journal-forthcoming', kind='accepted', date='2024-12')
+        data = ledger(expired, boundary, month)
+        events, checked = presentation.news_events(PUBLICATIONS, preprints(), data)
+        self.assertNotIn('removed-paper', [e['id'] for e in events])
+        self.assertIn('boundary', [e['id'] for e in events])
+        self.assertIn('month', [e['id'] for e in events])
+        self.assertEqual(checked, '2026-11-21')
+        markup = presentation.news_markup(PUBLICATIONS, preprints(), data)
+        self.assertNotIn('2024-11-21', markup)
+        self.assertIn('datetime="2024-12">Dec 2024', markup)
+        with self.assertRaisesRegex(ValueError, 'does not match its paper'):
+            presentation.news_events(PUBLICATIONS, preprints(),
+                                     ledger(dict(expired, date='2024-11-22')))
+
+    def test_preprint_retention_uses_source_revisions_not_link_or_pdf_dates(self):
+        def time(value):
+            return f'<time datetime="{value}">{value}</time>'
+
+        def row(identity, dates, working=False):
+            extra = ' preprint-working' if working else ''
+            return (f'<li class="arxiv-paper{extra}" id="{identity}"><p>Paper {identity} '
+                    f'<span class="arxiv-dates">({dates})</span></p></li>')
+
+        original = ('<html><head>\n</head><body><p class="publication-intro">Preprints.</p>'
+                    '<ol class="arxiv-list">' +
+                    row('boundary', 'Submitted ' + time('2024-11-22')) +
+                    row('revised', 'Submitted ' + time('2020-01-01') + ' · Updated ' + time('2024-11-22')) +
+                    row('website-only', 'Submitted ' + time('2020-01-01') +
+                        ' · Linked here ' + time('2026-11-20') + ' · PDF uploaded ' + time('2026-11-20') +
+                        ' · Earlier website PDF: first uploaded ' + time('2026-11-20') +
+                        ', updated ' + time('2026-11-21')) +
+                    row('working-upload', 'First uploaded ' + time('2020-01-01') +
+                        ' · PDF uploaded ' + time('2024-11-22'), working=True) +
+                    row('expired', 'Submitted ' + time('2024-11-21')) + '</ol></body></html>')
+        updated = presentation.preprints(original)
+        retained = presentation.items(updated, 'arxiv-paper')
+        self.assertEqual([v['id'] for _, _, v in retained], ['boundary', 'revised', 'working-upload'])
+        self.assertEqual([v['data-paper-number'] for _, _, v in retained], ['3', '2', '1'])
+        before = {v['id']: b for _, b, v in presentation.items(original, 'arxiv-paper')}
+        self.assertEqual({v['id']: b for _, b, v in retained}, {key: before[key] for key in
+                         ('boundary', 'revised', 'working-upload')})
+        self.assertEqual(presentation.preprints(updated), updated)
+        empty = presentation.preprints(updated, as_of=date(2030, 1, 1))
+        self.assertEqual(presentation.items(empty, 'arxiv-paper'), [])
+        self.assertIn('No preprints have been submitted or revised', empty)
+        self.assertEqual(presentation.preprints(empty, as_of=date(2030, 1, 1)), empty)
+
+    def test_future_rebuild_expires_every_news_event_without_advancing_check(self):
+        data = ledger(event())
+        events, checked = presentation.news_events(PUBLICATIONS, preprints(), data,
+                                                 as_of=date(2030, 1, 1))
+        self.assertEqual(events, [])
+        self.assertEqual(checked, '2026-11-21')
+        markup = presentation.news_markup(PUBLICATIONS, preprints(), data, as_of=date(2030, 1, 1))
+        self.assertIn('No publication updates from the past two years', markup)
+        self.assertNotIn('class="news-entry"', markup)
+        self.assertNotIn('news-older', markup)
+        self.assertIn('Last publication check: <time datetime="2026-11-21">', markup)
 
     def test_real_page_generation_is_idempotent_and_preserves_citations(self):
         source = Path(__file__).resolve().parent

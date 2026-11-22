@@ -165,28 +165,6 @@
       ]
     },
     {
-      "id": "arxiv-submission-2410.21799",
-      "recordId": "arxiv-2410-21799",
-      "kind": "arxiv-submission",
-      "date": "2024-10-29",
-      "title": "Exponentially Consistent Statistical Classification of Continuous Sequences with Distribution Uncertainty",
-      "url": "https://arxiv.org/abs/2410.21799",
-      "sources": [
-        "https://arxiv.org/abs/2410.21799"
-      ]
-    },
-    {
-      "id": "arxiv-submission-2210.12736",
-      "recordId": "arxiv-2210-12736",
-      "kind": "arxiv-submission",
-      "date": "2022-10-23",
-      "title": "Achievable Error Exponents for Two-Phase Multiple Classification",
-      "url": "https://arxiv.org/abs/2210.12736",
-      "sources": [
-        "https://arxiv.org/abs/2210.12736"
-      ]
-    },
-    {
       "id": "arxiv-revision-2609.24675-2026-09-30",
       "recordId": "arxiv-2609-24675",
       "kind": "arxiv-revision",
@@ -239,17 +217,6 @@
       "url": "https://arxiv.org/abs/2505.00558",
       "sources": [
         "https://arxiv.org/abs/2505.00558"
-      ]
-    },
-    {
-      "id": "arxiv-revision-2210.12736-2023-05-26",
-      "recordId": "arxiv-2210-12736",
-      "kind": "arxiv-revision",
-      "date": "2023-05-26",
-      "title": "Achievable Error Exponents for Two-Phase Multiple Classification",
-      "url": "https://arxiv.org/abs/2210.12736",
-      "sources": [
-        "https://arxiv.org/abs/2210.12736"
       ]
     }
   ],

@@ -16,6 +16,16 @@ Use Lin Zhou's ORCID `0000-0002-5173-320X`, SUSTech affiliation, title, coauthor
 
 Keep the six-page navigation and the consolidated Preprints page. The former AI-Aided Papers page remains retired. Only the owner's verified work belongs in the website; related-literature alerts do not authorize publishing other researchers' papers or private research details.
 
+### Rolling two-year window
+
+News and Preprints show only updates from the preceding two calendar years, using the current date in `Asia/Shanghai`. The cutoff is inclusive and advances automatically on each scheduled rebuild; for example, on November 22, 2026 it is November 22, 2024. A February 29 cutoff is clamped to February 28 when the earlier year is not a leap year.
+
+- News uses each announcement's event date, including explicitly labeled publication-verification dates. Remove expired events from the active `publication-news.json` ledger during maintenance. The renderer also excludes expired events from the visible feed and its disclosure list, so an old event cannot reappear after a rebuild.
+- Preprints uses the latest genuine arXiv submission/revision date. For local working papers, use the latest actual manuscript upload/revision date. Linking an old paper to the website or uploading a PDF copy of an existing arXiv paper does not reset its age.
+- Remove expired rows from the public Preprints listing and renumber the remaining papers. Retain source metadata and PDF files; Git history preserves earlier listing versions. A genuinely new arXiv revision can make an older paper eligible again.
+- Keep source-date precision. For a month-only or year-only News date straddling the cutoff, include it only if its earliest possible date falls within the window; do not invent an exact displayed date.
+- Apply the cutoff even when no new publications are found. A retention-only rebuild must not advance `lastChecked`, which records an actual source check.
+
 Update the canonical citation in `publications.html` or `preprints.html` and its JSON metadata. Preserve stable publication IDs and historical submission/upload dates. Keep a published paper's arXiv link where a counterpart is verified. Add magazine articles with `data-type="magazine"`; do not add them to the journal count.
 
 Record announcements in `publication-news.json`:
@@ -26,7 +36,7 @@ Record announcements in `publication-news.json`:
 - Kinds: `arxiv-submission`, `arxiv-revision`, `publication-online`, `publication-issue`, `publication-verified`, or `accepted`.
 - Source dates may be `YYYY-MM-DD`, `YYYY-MM`, or `YYYY` and must retain that precision. A `publication-verified` event requires a full check date, may include `publicationYear`, and is visibly labeled as verification rather than publication date.
 - Replace a `publication-verified` event with `publication-online` when its exact source date is later confirmed; do not announce the same online publication twice.
-- Keep all earlier events. Deduplicate arXiv submission events against the citation records. Accepted/forthcoming status must stay distinct from online publication.
+- Keep only events within the rolling two-year window in the active News ledger. Deduplicate arXiv submission events against the citation records. Accepted/forthcoming status must stay distinct from online publication.
 
 If source access is partial, retain the last completed check date and report the limitation in the task result. Individual unavailable exact dates do not prevent a completed check when publisher-deposited evidence establishes the underlying record; preserve the uncertainty explicitly.
 
@@ -40,6 +50,6 @@ python3 maintain_public_site.py
 python3 update_page_presentation.py
 ```
 
-Check that News contains the new events in chronological order, both publication maps agree with the citations, and the selected TIT list and navigation remain consistent. Re-running the presentation script should produce no further changes. Commit the source records, ledger, and generated HTML through authorized GitHub access. Use an expected-head check to avoid overwriting concurrent updates.
+Check that News contains eligible events in chronological order, all public News and Preprints rows meet the rolling two-year rule, both publication maps agree with the citations, and the selected TIT list and navigation remain consistent. Re-running the presentation script should produce no further changes. Commit the source records, ledger, and generated HTML through authorized GitHub access. Use an expected-head check to avoid overwriting concurrent updates.
 
 Verify the maintenance and GitHub Pages workflows and the live homepage before reporting publication as complete. If a write, build, or deployment fails, report the failure and retain the prepared changes for recovery. Do not substitute a successful build for a successful source check or a successful deployment.

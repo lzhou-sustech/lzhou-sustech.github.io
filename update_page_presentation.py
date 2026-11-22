@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Publish explicit descending labels, separate publication categories, and an open biography.
 
-Run after maintain_public_site.py. Citation HTML and links are preserved verbatim.
+Run after maintain_public_site.py. Retained citation HTML and links are preserved verbatim.
 Journal, magazine, conference, and book identifiers remain unchanged when visitors filter.
-Preprints form one continuous visible list. Top-level total-count summaries are
+News and preprints retain the most recent two years. Preprints form one continuous
+visible list. Top-level total-count summaries are
 omitted. Only the three presentation HTML files are written. No PDF or metadata
 is changed.
 """
@@ -11,11 +12,12 @@ from __future__ import annotations
 
 import re
 import json
-from datetime import datetime
+from datetime import date, datetime
 from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent
 VERSION = 'magazines-20261012-1'
@@ -196,8 +198,65 @@ def publications(source: str) -> str:
     return presentation(remove_total_summary(source, 'publications'), publication=True)
 
 
-def preprints(source: str) -> str:
-    # Older papers belong in the same visible list, never a disclosure control.
+def publication_today() -> date:
+    """Use the site's owner's calendar date, including on UTC build runners."""
+    return datetime.now(ZoneInfo('Asia/Shanghai')).date()
+
+
+def recent_cutoff(as_of: date | None = None) -> date:
+    """Two calendar years ago, inclusive; Feb 29 anniversaries clamp to Feb 28."""
+    as_of = as_of or publication_today()
+    try:
+        return as_of.replace(year=as_of.year - 2)
+    except ValueError:
+        return as_of.replace(year=as_of.year - 2, day=28)
+
+
+def is_recent(value: str, *, as_of: date | None = None) -> bool:
+    """Retain a source period only if its earliest possible date is in range.
+
+    Missing month/day components are used only to compare the source period
+    with the cutoff; the source's displayed date and precision never change.
+    """
+    as_of = as_of or publication_today()
+    year, month, day = news_date(value)
+    earliest = date(year, month or 1, day or 1)
+    return recent_cutoff(as_of) <= earliest <= as_of
+
+
+def preprint_latest_date(body: str, values: dict[str, str | None]) -> str:
+    """Read genuine source dates without promoting website bookkeeping dates."""
+    dated = re.findall(r'<span\b[^>]*class="arxiv-dates"[^>]*>(.*?)</span>', body, re.S)
+    if len(dated) != 1:
+        raise ValueError('Preprint needs one labeled source-date block: ' + str(values.get('id')))
+    working = 'preprint-working' in (values.get('class') or '').split()
+    source_dates = []
+    for segment in unescape(dated[0]).split('·'):
+        label = plain_text(segment).lstrip(' (').lower()
+        if 'linked here' in label:
+            continue
+        if not working and any(word in label for word in ('website', 'pdf', 'uploaded')):
+            continue
+        accepted_labels = r'(?:arxiv\s+)?(?:submitted|first submitted|updated|last updated|revised|last revised|revision)\b'
+        if working:
+            accepted_labels = (r'(?:first uploaded|uploaded|pdf uploaded|first pdf uploaded|'
+                               r'manuscript revision|manuscript revised|revised manuscript|'
+                               r'submitted|first submitted|updated|last updated|revised|last revised|revision)\b')
+        if not re.match(accepted_labels, label):
+            continue
+        for value in re.findall(r'<time\b[^>]*datetime="([^"]+)"', segment):
+            news_date(value)
+            if len(value) != 10:
+                raise ValueError('Preprint source date must be exact: ' + str(values.get('id')))
+            source_dates.append(value)
+    if not source_dates:
+        raise ValueError('Preprint has no genuine submission or revision date: ' + str(values.get('id')))
+    return max(source_dates)
+
+
+def preprints(source: str, *, as_of: date | None = None) -> str:
+    as_of = as_of or publication_today()
+    # Remove legacy disclosure wrappers before retaining only recent papers.
     disclosure = re.compile(
         r'<details\b(?P<attrs>[^>]*)>(?P<body>.*?)</details>', re.S)
 
@@ -214,6 +273,7 @@ def preprints(source: str) -> str:
         return body
 
     source = disclosure.sub(unwrap_older, source)
+    source = re.sub(r'\s*<p class="preprint-retention-empty">.*?</p>', '', source, flags=re.S)
     block_pattern = re.compile(
         r'<(?P<tag>ol|ul)\b(?P<attrs>[^>]*\bclass="arxiv-list"[^>]*)>'
         r'(?P<body>.*?)</(?P=tag)>', re.S)
@@ -236,13 +296,24 @@ def preprints(source: str) -> str:
     identifiers = [values.get('id') for _, _, values in papers]
     if not all(identifiers) or len(set(identifiers)) != len(identifiers):
         raise ValueError('Every preprint must have one unique existing ID')
+    papers = [(a, b, v) for a, b, v in papers
+              if is_recent(preprint_latest_date(b, v), as_of=as_of)]
     total = len(papers)
     entries = [labelled_item(a, b, total-i, '', 'Preprint')
                for i, (a, b, _) in enumerate(papers)]
     attributes = remove_attrs(blocks[0]['attrs'], 'start|reversed|role')
     replacement = (f'<ol{attributes} reversed start="{total or 1}" role="list">'
                    + '\n'.join(entries) + '</ol>')
+    if not entries:
+        replacement += ('<p class="preprint-retention-empty">No preprints have been '
+                        'submitted or revised in the past two years.</p>')
     source = source[:blocks[0].start()] + replacement + source[blocks[-1].end():]
+    source, intro_count = re.subn(
+        r'<p class="publication-intro">.*?</p>',
+        '<p class="publication-intro">ArXiv preprints and working manuscripts '
+        'submitted or revised in the past two years.</p>', source, count=1, flags=re.S)
+    if intro_count != 1:
+        raise ValueError('Expected one Preprints introduction')
     return presentation(remove_total_summary(source, 'preprints'), publication=False)
 
 
@@ -455,13 +526,14 @@ def arxiv_identity(url: str) -> str:
 
 
 def news_events(publication_source: str, preprint_source: str,
-                ledger: dict | None) -> tuple[list[dict], str | None]:
+                ledger: dict | None, *, as_of: date | None = None) -> tuple[list[dict], str | None]:
     """Combine source-backed events with existing citation dates.
 
     The ledger records a publication check; rendering this page does not perform
     one. Year-only legacy citations sort after more precise dates in that year,
     while their visible dates retain their original precision.
     """
+    as_of = as_of or publication_today()
     papers = publication_details(publication_source)
     publications_by_id = {paper['id']: paper for paper in papers}
     arxiv_by_record = {}
@@ -534,6 +606,10 @@ def news_events(publication_source: str, preprint_source: str,
                 news_url(source)
             if event.get('venue') is not None and not isinstance(event['venue'], str):
                 raise ValueError('News event venue must be text: ' + identifier)
+            # Expired ledger entries can outlive their public Preprints row.
+            # Validate their basic data, then skip record-identity checks.
+            if not is_recent(event['date'], as_of=as_of):
+                continue
             if kind.startswith('arxiv-'):
                 identity = arxiv_identity(event['url'])
                 if arxiv_by_record.get(record) != identity:
@@ -589,17 +665,18 @@ def news_events(publication_source: str, preprint_source: str,
                 'url': paper['publisherUrl'] or ('publications.html#' + paper['id']),
                 'venue': paper['venue'],
             })
+    events = [event for event in events if is_recent(event['date'], as_of=as_of)]
     events.sort(key=lambda event: (news_date(event['date']), event['id']), reverse=True)
     return events, checked
 
 
 def news_markup(publication_source: str, preprint_source: str,
-                ledger: dict | None = None) -> str:
+                ledger: dict | None = None, *, as_of: date | None = None) -> str:
     """Render one chronological feed from verified, distinct paper events."""
     ledger_path = ROOT / 'publication-news.json'
     if ledger is None and ledger_path.is_file():
         ledger = json.loads(ledger_path.read_text(encoding='utf-8'))
-    events, checked = news_events(publication_source, preprint_source, ledger)
+    events, checked = news_events(publication_source, preprint_source, ledger, as_of=as_of)
     labels = {
         'arxiv-submission': 'New arXiv preprint',
         'arxiv-revision': 'Revised arXiv preprint',
@@ -629,9 +706,10 @@ def news_markup(publication_source: str, preprint_source: str,
             f'<div class="news-copy"><p class="news-type">{escape(label)}</p>'
             f'<a href="{escape(event["url"], quote=True)}">{escape(title)}</a>{ending}'
             '</div></li>')
-    html_news = '<ul class="news-feed">' + '\n'.join(entries[:6]) + '</ul>'
+    html_news = ('<ul class="news-feed">' + '\n'.join(entries[:6]) + '</ul>' if entries
+                 else '<p class="secondary">No publication updates from the past two years.</p>')
     if len(entries) > 6:
-        html_news += ('<details class="news-older"><summary>Earlier publication updates</summary>'
+        html_news += ('<details class="news-older"><summary>More updates from the past two years</summary>'
                       '<ul class="news-feed">' + '\n'.join(entries[6:]) + '</ul></details>')
     check_note = ''
     if checked:
@@ -641,7 +719,8 @@ def news_markup(publication_source: str, preprint_source: str,
         '<div id="news" class="home-feature" aria-labelledby="news-title">'
         '<div class="home-feature-heading"><h2 id="news-title">News</h2>'
         '<a class="home-feature-link" href="preprints.html">Preprints →</a></div>'
-        '<p class="news-intro">Preprints, revisions, and formal publications, newest first. '
+        '<p class="news-intro">Preprints, revisions, and formal publications from the past '
+        'two years, newest first. '
         '“Verified” marks when a publication record was confirmed if its exact online '
         'publication date is unavailable.</p>'
         + html_news + '<p class="news-meta-note">' + check_note +
@@ -786,7 +865,7 @@ def full_map_markup(data: str, count: int, first_year: int,
 
 
 def update_research_features(homepage: str, publications_page: str,
-                             preprints_page: str) -> tuple[str, str]:
+                             preprints_page: str, *, as_of: date | None = None) -> tuple[str, str]:
     homepage = marked_area(
         homepage, HOME_ATLAS_START, HOME_ATLAS_END,
         selected_tit_markup(publications_page),
@@ -794,7 +873,7 @@ def update_research_features(homepage: str, publications_page: str,
     )
     homepage = marked_area(
         homepage, HOME_NEWS_START, HOME_NEWS_END,
-        news_markup(publications_page, preprints_page),
+        news_markup(publications_page, preprints_page, as_of=as_of),
         insert_before='      </section>\n      <footer>'
     )
     # Keep homepage quicklinks without modifying the six-page navigation.
@@ -839,20 +918,23 @@ def update_research_features(homepage: str, publications_page: str,
     return feature_scripts(homepage), feature_scripts(publications_page)
 
 
-def main() -> None:
+def main(*, as_of: date | None = None) -> None:
+    as_of = as_of or publication_today()
     names = ('index.html', 'publications.html', 'preprints.html')
     original = {name: (ROOT / name).read_text(encoding='utf-8') for name in names}
     updated = {'index.html': expand_homepage(original['index.html']),
                'publications.html': publications(original['publications.html']),
-               'preprints.html': preprints(original['preprints.html'])}
+               'preprints.html': preprints(original['preprints.html'], as_of=as_of)}
     updated['index.html'], updated['publications.html'] = update_research_features(
-        updated['index.html'], updated['publications.html'], updated['preprints.html'])
+        updated['index.html'], updated['publications.html'], updated['preprints.html'], as_of=as_of)
     # Verify citation contents and links by ID, independently of category order.
     for name, item_class in [('publications.html', 'publication'), ('preprints.html', 'arxiv-paper')]:
-        before = {v['id']: body for _, body, v in items(original[name], item_class)}
+        before = {v['id']: body for _, body, v in items(original[name], item_class)
+                  if name != 'preprints.html' or
+                  is_recent(preprint_latest_date(body, v), as_of=as_of)}
         after = {v['id']: body for _, body, v in items(updated[name], item_class)}
         if before != after:
-            raise ValueError(f'{name}: citation content changed; refusing to write')
+            raise ValueError(f'{name}: retained citation content or identities changed; refusing to write')
     for name, content in updated.items():
         if content != original[name]:
             (ROOT / name).write_text(content, encoding='utf-8')
